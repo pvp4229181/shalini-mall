@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-cart",
+      "settings": {
+        "show_note": true
+      }
+    },
+    "recent": {
+      "type": "recently-viewed",
+      "settings": {
+        "eyebrow": "Your trail",
+        "heading": "Recently viewed",
+        "limit": 4
+      }
+    }
+  },
+  "order": [
+    "main",
+    "recent"
+  ]
+}

@@ -1,0 +1,212 @@
+{{ 'shop.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'collection.js' | asset_url }}" defer></script>
+{%- comment -%}
+  Collection page: artwork banner, native Shopify filters (configure them in the Search & Discovery app),
+  sort, product count, grid and load more. "Tabs" layout shows the product-type filter as tabs
+  (used by series collections such as Earth Song).
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign is_tabs = false
+  if s.layout == 'tabs'
+    assign is_tabs = true
+  endif
+  assign fallback_src = s.fallback_image | append: '.webp' | asset_url
+  assign focus = collection.metafields.custom.image_focus.value | default: s.fallback_focus
+  assign grid_class = 'product-grid'
+  if s.columns == '4'
+    assign grid_class = 'product-grid product-grid--4'
+  endif
+  assign type_filter = nil
+  for filter in collection.filters
+    if filter.param_name == 'filter.p.product_type'
+      assign type_filter = filter
+    endif
+  endfor
+  assign show_sidebar = false
+  if is_tabs == false and collection.filters.size > 0
+    assign show_sidebar = true
+  endif
+-%}
+
+{%- paginate collection.products by s.per_page -%}
+  <header class="page-banner{% if is_tabs %} page-banner--tall{% endif %}">
+    {%- if collection.image -%}
+      {%- render 'art-image', image: collection.image, focus: focus, alt: '', sizes: '100vw', priority: true -%}
+    {%- else -%}
+      {%- render 'art-image', src: fallback_src, focus: focus, alt: '', priority: true -%}
+    {%- endif -%}
+    <div class="page-banner__copy">
+      {%- if is_tabs -%}
+        {%- render 'breadcrumbs', parent_url: routes.collections_url, parent_title: 'Collections', current: collection.title -%}
+      {%- else -%}
+        {%- render 'breadcrumbs', current: collection.title -%}
+      {%- endif -%}
+      {%- if collection.metafields.custom.eyebrow.value != blank -%}<p class="eyebrow">{{ collection.metafields.custom.eyebrow.value | escape }}</p>{%- endif -%}
+      <h1>{{ collection.title | escape }}</h1>
+      {%- if collection.description != blank -%}<p>{{ collection.description | strip_html | truncatewords: 40 }}</p>{%- endif -%}
+      {%- if is_tabs -%}
+        <p class="banner-facts"><span>{{ collection.all_products_count }} works</span></p>
+        <a class="button light" href="#works">Explore the collection {% render 'icon', icon: 'arrow' %}</a>
+      {%- elsif s.category_menu != blank -%}
+        <nav class="category-nav category-nav--light" aria-label="Browse by type">
+          {%- for link in linklists[s.category_menu].links -%}
+            <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+          {%- endfor -%}
+        </nav>
+      {%- endif -%}
+    </div>
+  </header>
+
+  <div class="page" id="works">
+    {%- if is_tabs -%}
+      <div class="section-head section-head--split"><div><p class="eyebrow">Originals &amp; prints</p><h2>Collection works</h2></div></div>
+    {%- endif -%}
+    <div class="listing{% unless show_sidebar %} listing--no-filters{% endunless %}" data-listing data-section-id="{{ section.id }}">
+      {%- if is_tabs and type_filter -%}
+        <div class="listing-tabs" role="group" aria-label="Show">
+          <a href="{{ collection.url }}" data-filter-link aria-current="{% if type_filter.active_values.size == 0 %}true{% else %}false{% endif %}">All</a>
+          {%- for value in type_filter.values -%}
+            <a href="{{ collection.url }}?{{ value.param_name }}={{ value.value | url_encode }}" data-filter-link aria-current="{% if value.active %}true{% else %}false{% endif %}">{% if value.label == settings.original_product_type %}Originals{% else %}Prints{% endif %}</a>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <div class="listing-body">
+        {%- if show_sidebar -%}
+          <aside class="filter-panel" id="filters-{{ section.id }}" aria-labelledby="filters-title-{{ section.id }}">
+            <div class="filter-panel__head">
+              <h2 id="filters-title-{{ section.id }}">Filter</h2>
+              <button type="button" class="icon-btn" data-close aria-label="Close filters">{% render 'icon', icon: 'close' %}</button>
+            </div>
+            <form class="filter-form" data-filter-form>
+              {%- for filter in collection.filters -%}
+                {%- case filter.type -%}
+                  {%- when 'list', 'boolean' -%}
+                    <details class="facet" open>
+                      <summary>{{ filter.label | escape }}{% render 'icon', icon: 'chevron' %}</summary>
+                      <fieldset class="facet__values">
+                        <legend class="sr-only">{{ filter.label | escape }}</legend>
+                        {%- for value in filter.values -%}
+                          {%- assign is_empty = false -%}
+                          {%- if value.count == 0 and value.active == false -%}{%- assign is_empty = true -%}{%- endif -%}
+                          <label class="check{% if is_empty %} is-empty{% endif %}">
+                            <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if is_empty %} disabled{% endif %}>
+                            <span>{{ value.label | escape }}</span><small>({{ value.count }})</small>
+                          </label>
+                        {%- endfor -%}
+                      </fieldset>
+                    </details>
+                  {%- when 'price_range' -%}
+                    <details class="facet" open>
+                      <summary>{{ filter.label | escape }}{% render 'icon', icon: 'chevron' %}</summary>
+                      <fieldset class="facet__values facet__price">
+                        <legend class="sr-only">{{ filter.label | escape }}</legend>
+                        <label class="field"><span class="label">From</span>
+                          <input class="input" type="number" inputmode="numeric" name="{{ filter.min_value.param_name }}" min="0" max="{{ filter.range_max | money_without_currency | remove: ',' }}"
+                            value="{% if filter.min_value.value %}{{ filter.min_value.value | money_without_currency | remove: ',' }}{% endif %}" placeholder="0">
+                        </label>
+                        <label class="field"><span class="label">To</span>
+                          <input class="input" type="number" inputmode="numeric" name="{{ filter.max_value.param_name }}" min="0" max="{{ filter.range_max | money_without_currency | remove: ',' }}"
+                            value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency | remove: ',' }}{% endif %}" placeholder="{{ filter.range_max | money_without_currency | remove: ',' }}">
+                        </label>
+                      </fieldset>
+                    </details>
+                {%- endcase -%}
+              {%- endfor -%}
+            </form>
+            <div class="filter-panel__foot">
+              <a class="button outline" href="{{ collection.url }}?sort_by={{ collection.sort_by | default: collection.default_sort_by }}" data-filter-link>Clear all</a>
+              <button type="button" class="button dark" data-close>Show {{ collection.products_count }} works</button>
+            </div>
+          </aside>
+        {%- endif -%}
+
+        <div class="listing-results" data-results>
+          <h2 class="sr-only">{{ collection.title | escape }} artworks</h2>
+          <div class="listing-bar">
+            {%- if show_sidebar -%}
+              <button type="button" class="button outline small listing-filter-btn" data-open="filters-{{ section.id }}" aria-controls="filters-{{ section.id }}" aria-expanded="false">{% render 'icon', icon: 'filter' %} Filter</button>
+            {%- endif -%}
+            <p class="listing-count" aria-live="polite">{{ collection.products_count }} {% if collection.products_count == 1 %}work{% else %}works{% endif %}</p>
+            <div class="listing-sort">
+              <label class="label" for="sort-{{ section.id }}">Sort by</label>
+              {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+              <select class="select" id="sort-{{ section.id }}" name="sort_by" data-sort>
+                {%- for option in collection.sort_options -%}
+                  <option value="{{ option.value | escape }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name | escape }}</option>
+                {%- endfor -%}
+              </select>
+            </div>
+          </div>
+
+          {%- if show_sidebar -%}
+            <div class="active-filters">
+              {%- for filter in collection.filters -%}
+                {%- for value in filter.active_values -%}
+                  <a class="chip" href="{{ value.url_to_remove }}" data-filter-link aria-label="Remove filter {{ value.label | escape }}">{{ value.label | escape }} {% render 'icon', icon: 'close' %}</a>
+                {%- endfor -%}
+                {%- if filter.type == 'price_range' -%}
+                  {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+                    <a class="chip" href="{{ filter.url_to_remove }}" data-filter-link aria-label="Remove price filter">
+                      {{ filter.min_value.value | default: 0 | money }} – {{ filter.max_value.value | default: filter.range_max | money }} {% render 'icon', icon: 'close' %}
+                    </a>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          <div class="{{ grid_class }}" data-grid>
+            {%- for p in collection.products -%}
+              {%- if s.numbered -%}
+                {%- assign n = paginate.current_offset | plus: forloop.index -%}
+                {%- render 'product-card', card_product: p, index: n -%}
+              {%- else -%}
+                {%- render 'product-card', card_product: p -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if collection.products_count == 0 -%}
+            <div class="empty-state">
+              <h3>No artwork matches these filters</h3>
+              <p>Try removing a filter to see more of the collection.</p>
+              <a class="button outline" href="{{ collection.url }}" data-filter-link>Clear filters</a>
+            </div>
+          {%- endif -%}
+
+          {%- if paginate.pages > 1 -%}
+            {%- liquid
+              assign shown = paginate.current_offset | plus: collection.products.size
+              assign percent = shown | times: 100 | divided_by: paginate.items
+            -%}
+            <div class="load-more" data-more>
+              <p>Showing {{ shown }} of {{ paginate.items }}</p>
+              <div class="load-more__bar"><span style="width: {{ percent }}%"></span></div>
+              {%- if paginate.next -%}<a class="button outline" href="{{ paginate.next.url }}" data-load-more>Load more</a>{%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "select", "id": "layout", "label": "Layout", "default": "sidebar", "options": [
+      { "value": "sidebar", "label": "Filter sidebar" },
+      { "value": "tabs", "label": "Series (All / Originals / Prints tabs)" }
+    ] },
+    { "type": "link_list", "id": "category_menu", "label": "Category links in banner", "info": "E.g. All works / Originals / Prints / Collections." },
+    { "type": "select", "id": "fallback_image", "label": "Banner image before a collection image is set", "default": "collection-hero", "options": [{"value": "hero-gallery", "label": "Painting in a room"}, {"value": "earth-song", "label": "Earth Song"}, {"value": "wild-grace", "label": "Wild Grace"}, {"value": "quiet-orbit", "label": "Quiet Orbit"}, {"value": "small-hours", "label": "The Small Hours"}, {"value": "between-seasons", "label": "Between Seasons"}, {"value": "monsoon-memory", "label": "Monsoon Memory"}, {"value": "artist-shalini", "label": "Shalini (portrait)"}, {"value": "artist-studio", "label": "Studio table"}, {"value": "collection-hero", "label": "Collection detail"}] },
+    { "type": "text", "id": "fallback_focus", "label": "Banner focus before an image is chosen", "default": "34% center" },
+    { "type": "select", "id": "columns", "label": "Columns", "default": "3", "options": [{ "value": "3", "label": "3" }, { "value": "4", "label": "4" }] },
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 6, "max": 48, "step": 3, "default": 12 },
+    { "type": "checkbox", "id": "numbered", "label": "Number the works (Nº 01…)", "default": false }
+  ]
+}
+{% endschema %}

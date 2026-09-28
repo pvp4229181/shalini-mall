@@ -1,0 +1,80 @@
+{{ 'editorial.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  if s.layout == 'artist'
+    assign wrap = 'about-grid'
+    assign copy = 'about-copy'
+  else
+    assign wrap = 'editorial'
+    assign copy = 'editorial-copy'
+    if s.image_position == 'right'
+      assign wrap = wrap | append: ' editorial--reverse'
+    endif
+    if s.style == 'dark'
+      assign wrap = wrap | append: ' editorial--dark on-dark'
+    elsif s.style == 'paper'
+      assign wrap = wrap | append: ' editorial--paper'
+    endif
+  endif
+  assign fallback_src = s.fallback_image | append: '.webp' | asset_url
+  if s.button_style == 'light'
+    assign button_class = 'button light'
+  elsif s.button_style == 'link'
+    assign button_class = 'text-link'
+  else
+    assign button_class = 'button dark'
+  endif
+-%}
+<section class="{{ wrap }}" aria-labelledby="heading-{{ section.id }}">
+  {%- if s.image != blank -%}
+    {%- if s.heading_level == 'h1' -%}
+      {%- render 'art-image', image: s.image, alt: s.image.alt, sizes: '(min-width: 1024px) 50vw, 100vw', priority: true -%}
+    {%- else -%}
+      {%- render 'art-image', image: s.image, alt: s.image.alt, sizes: '(min-width: 1024px) 50vw, 100vw' -%}
+    {%- endif -%}
+  {%- else -%}
+    {%- render 'art-image', src: fallback_src, focus: s.fallback_focus, alt: s.fallback_alt -%}
+  {%- endif -%}
+  <div class="{{ copy }}" data-reveal>
+    {%- if s.show_breadcrumb and page -%}{%- render 'breadcrumbs', current: page.title -%}{%- endif -%}
+    {%- if s.eyebrow != blank -%}<p class="eyebrow">{{ s.eyebrow | escape }}</p>{%- endif -%}
+    <{{ s.heading_level }} id="heading-{{ section.id }}">{{ s.heading | escape }}</{{ s.heading_level }}>
+    {{ s.text }}
+    {%- if s.button_label != blank -%}<a class="{{ button_class }}" href="{{ s.button_link }}">{{ s.button_label | escape }}</a>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "settings": [
+    { "type": "select", "id": "layout", "label": "Layout", "default": "editorial", "options": [
+      { "value": "editorial", "label": "Editorial (half and half)" },
+      { "value": "artist", "label": "Artist portrait (narrow image)" }
+    ] },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "select", "id": "fallback_image", "label": "Image before one is chosen", "default": "artist-shalini", "options": [{"value": "hero-gallery", "label": "Painting in a room"}, {"value": "earth-song", "label": "Earth Song"}, {"value": "wild-grace", "label": "Wild Grace"}, {"value": "quiet-orbit", "label": "Quiet Orbit"}, {"value": "small-hours", "label": "The Small Hours"}, {"value": "between-seasons", "label": "Between Seasons"}, {"value": "monsoon-memory", "label": "Monsoon Memory"}, {"value": "artist-shalini", "label": "Shalini (portrait)"}, {"value": "artist-studio", "label": "Studio table"}, {"value": "collection-hero", "label": "Collection detail"}] },
+    { "type": "text", "id": "fallback_focus", "label": "Focus before an image is chosen", "default": "center" },
+    { "type": "text", "id": "fallback_alt", "label": "Alt text before an image is chosen" },
+    { "type": "select", "id": "image_position", "label": "Image position", "default": "left", "options": [
+      { "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }
+    ] },
+    { "type": "select", "id": "style", "label": "Background", "default": "surface", "options": [
+      { "value": "surface", "label": "White" }, { "value": "paper", "label": "Paper" }, { "value": "dark", "label": "Dark" }
+    ] },
+    { "type": "checkbox", "id": "show_breadcrumb", "label": "Show breadcrumb (pages)", "default": false },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Meet Shalini" },
+    { "type": "select", "id": "heading_level", "label": "Heading level", "default": "h2", "options": [
+      { "value": "h1", "label": "Page title (H1)" }, { "value": "h2", "label": "Section heading (H2)" }
+    ] },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "I paint the feeling before the words arrive." },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "select", "id": "button_style", "label": "Button style", "default": "link", "options": [
+      { "value": "dark", "label": "Filled" }, { "value": "light", "label": "Outline (dark background)" }, { "value": "link", "label": "Text link" }
+    ] }
+  ],
+  "presets": [{ "name": "Image with text" }]
+}
+{% endschema %}

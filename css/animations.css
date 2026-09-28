@@ -1,1 +1,46 @@
-[data-reveal]{opacity:0;transform:translateY(32px);transition:opacity .8s var(--ease),transform .8s var(--ease)}[data-reveal].is-visible{opacity:1;transform:none}.js .hero .hero-slide{visibility:hidden;transition:visibility 0s .6s}.js .hero .hero-slide.is-selected{visibility:visible;transition:none}.js .hero .hero-media{opacity:0}.js .hero .is-selected .hero-media{animation:heroIn .7s ease both}.js .hero .animate-out .hero-media{animation:heroOut .5s ease-in .05s both}.js .hero .hero-crop>span{opacity:0;transform:translateY(15px)}.js .hero .is-selected .hero-crop>span{animation:riseUp 1s var(--ease) .7s forwards}.js .hero .is-selected .hero-title>span{animation-duration:.8s;animation-delay:.3s}.js .hero .hero-link{opacity:0}.js .hero .is-selected .hero-link{animation:fadeIn .6s ease 1s both}@keyframes heroIn{from{opacity:0;transform:translateX(200px)}to{opacity:1;transform:none}}@keyframes heroOut{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-200px)}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes riseUp{from{opacity:1;transform:translateY(120%)}to{opacity:1;transform:none}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}[data-reveal]{opacity:1;transform:none}}
+/* ==========================================================================
+   Motion. Scroll reveals (IntersectionObserver in js/animations.js) and the
+   hero slideshow choreography from the original site. UI transitions use the
+   --dur tokens (200–500ms). Everything is disabled under reduced motion.
+   ========================================================================== */
+
+.js [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.js [data-reveal].is-visible { opacity: 1; transform: none; }
+.js [data-reveal-stagger] > * { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.js [data-reveal-stagger].is-visible > * { opacity: 1; transform: none; }
+.js [data-reveal-stagger].is-visible > :nth-child(2) { transition-delay: .08s; }
+.js [data-reveal-stagger].is-visible > :nth-child(3) { transition-delay: .16s; }
+.js [data-reveal-stagger].is-visible > :nth-child(4) { transition-delay: .24s; }
+
+/* Image reveal: a paper-coloured veil lifts off artwork as it enters */
+.js [data-reveal-image] { position: relative; }
+.js [data-reveal-image]::before {
+  content: ''; position: absolute; inset: 0; z-index: 2; background: var(--color-background);
+  transform-origin: top; transition: transform 1s var(--ease); pointer-events: none;
+}
+.js [data-reveal-image].is-visible::before { transform: scaleY(0); }
+
+/* Hero slideshow */
+.js .hero .hero-slide { visibility: hidden; transition: visibility 0s .6s; }
+.js .hero .hero-slide.is-selected { visibility: visible; transition: none; }
+.js .hero .hero-media { opacity: 0; }
+.js .hero .is-selected .hero-media { animation: heroIn .7s ease both; }
+.js .hero .animate-out .hero-media { animation: heroOut .5s ease-in .05s both; }
+.js .hero .hero-crop > span { opacity: 0; transform: translateY(15px); }
+.js .hero .is-selected .hero-crop > span { animation: riseUp 1s var(--ease) .7s forwards; }
+.js .hero .is-selected .hero-title > span { animation-duration: .8s; animation-delay: .3s; }
+.js .hero .hero-links { opacity: 0; }
+.js .hero .is-selected .hero-links { animation: fadeIn .6s ease 1s both; }
+
+@keyframes heroIn { from { opacity: 0; transform: translateX(200px); } to { opacity: 1; transform: none; } }
+@keyframes heroOut { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateX(-200px); } }
+@keyframes riseUp { from { opacity: 1; transform: translateY(120%); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important; transition-duration: .01ms !important; transition-delay: 0s !important;
+  }
+  .js [data-reveal], .js [data-reveal-stagger] > * { opacity: 1; transform: none; }
+  .js [data-reveal-image]::before { display: none; }
+}

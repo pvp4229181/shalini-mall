@@ -1,0 +1,23 @@
+{
+  "general": {
+    "skip": "Skip to content",
+    "search": "Search",
+    "close": "Close"
+  },
+  "products": {
+    "add_to_cart": "Add to cart",
+    "buy_original": "Buy original",
+    "sold_out": "Sold",
+    "from": "From {{ price }}"
+  },
+  "cart": {
+    "title": "Your cart",
+    "empty": "Your collection is empty",
+    "checkout": "Checkout",
+    "view_cart": "View cart",
+    "subtotal": "Subtotal"
+  },
+  "newsletter": {
+    "success": "Welcome to the studio. Thank you."
+  }
+}

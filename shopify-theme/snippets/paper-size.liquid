@@ -1,0 +1,36 @@
+{%- comment -%}
+  Metric size for a print option value:
+  - inch sizes such as "24 × 30 in", '24" x 30"' or "24x30in" → "61 × 76.2 cm"
+  - ISO paper names such as "A3" → "29.7 × 42 cm"
+  Other values print nothing. Usage: {% render 'paper-size', size: option_value %}
+{%- endcomment -%}
+{%- liquid
+  assign s = size | strip
+  assign lower = s | downcase
+  assign is_inch = false
+  if lower contains ' in' or lower contains '"'
+    assign is_inch = true
+  endif
+  if lower contains 'x' and lower contains 'in'
+    assign is_inch = true
+  endif
+  if lower contains 'cm'
+    assign is_inch = false
+  endif
+-%}
+{%- if is_inch -%}
+  {%- liquid
+    assign parts = lower | remove: 'inches' | remove: 'inch' | remove: 'in' | remove: '"' | replace: '×', 'x' | split: 'x'
+    assign w = parts[0] | strip | times: 2.54 | round: 1
+    assign h = parts[1] | strip | times: 2.54 | round: 1
+  -%}
+  {%- if parts.size == 2 and w > 0 and h > 0 -%}{{ w }} × {{ h }} cm{%- endif -%}
+{%- else -%}
+  {%- case s -%}
+    {%- when 'A4' -%}21 × 29.7 cm
+    {%- when 'A3' -%}29.7 × 42 cm
+    {%- when 'A2' -%}42 × 59.4 cm
+    {%- when 'A1' -%}59.4 × 84.1 cm
+    {%- when 'A0' -%}84.1 × 118.9 cm
+  {%- endcase -%}
+{%- endif -%}

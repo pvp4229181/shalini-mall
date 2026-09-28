@@ -1,0 +1,11 @@
+.git/
+.env
+.env.*
+.theme-header-update/
+*.log
+__pycache__/
+shopify-setup/
+shopify-theme/
+design-system/
+shalini-mall-theme.zip
+mobile-home.png

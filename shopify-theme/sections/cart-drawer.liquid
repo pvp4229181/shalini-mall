@@ -1,0 +1,45 @@
+{%- comment -%}
+  Cart drawer. js/cart.js re-renders [data-cart-inner] through the Section Rendering API
+  after every add/change, so the drawer always reflects Shopify's cart.
+{%- endcomment -%}
+<aside class="panel panel--right" id="cartPanel" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true" inert>
+  <div class="cart-drawer__inner" data-cart-inner data-count="{{ cart.item_count }}">
+    <div class="panel-head">
+      <h2 id="cartTitle">Your cart <span data-cart-count-text>{% if cart.item_count > 0 %}({{ cart.item_count }}){% endif %}</span></h2>
+      <button type="button" class="icon-btn" data-close data-focus="close" aria-label="Close cart">{% render 'icon', icon: 'close' %}</button>
+    </div>
+    <div class="panel-body">
+      <div class="cart-items" id="cartItems">
+        {%- for item in cart.items -%}
+          {%- render 'line-item', item: item -%}
+        {%- else -%}
+          <div class="cart-empty">
+            <h3>Your collection is empty</h3>
+            <p>Originals and prints you add will gather here.</p>
+            <a class="text-link" href="{{ routes.all_products_collection_url }}">Continue exploring {% render 'icon', icon: 'arrow' %}</a>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- if cart.item_count > 0 -%}
+      <div class="panel-foot" id="cartFoot">
+        {%- for discount in cart.cart_level_discount_applications -%}
+          <div class="cart-summary-row cart-summary-row--discount"><span>{{ discount.title | escape }}</span><span>−{{ discount.total_allocated_amount | money }}</span></div>
+        {%- endfor -%}
+        <div class="cart-summary-row"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></div>
+        <div class="cart-note">{{ settings.cart_note }}</div>
+        <form action="{{ routes.cart_url }}" method="post" class="cart-buttons">
+          <a class="button outline full" href="{{ routes.cart_url }}">View cart</a>
+          <button type="submit" name="checkout" class="button dark full">Checkout</button>
+        </form>
+      </div>
+    {%- endif -%}
+  </div>
+</aside>
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": []
+}
+{% endschema %}

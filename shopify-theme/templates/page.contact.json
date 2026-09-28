@@ -1,0 +1,60 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact-form",
+      "settings": {
+        "eyebrow": "Studio enquiries",
+        "heading": "Let’s talk art.",
+        "text": "Questions about a work, commissions, shipping or press — send a note to the studio.",
+        "faq_heading": "Before you collect."
+      },
+      "blocks": {
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "Do originals include authentication?",
+            "answer": "<p>Yes. Every original arrives signed with a studio certificate of authenticity.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "How are works shipped?",
+            "answer": "<p>All artwork is carefully packed. Originals travel insured with tracking; canvas prints are corner-protected and securely boxed.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I see more detail first?",
+            "answer": "<p>Of course. Ask for close-ups, scale images, or a short studio video of any available work.</p>"
+          }
+        },
+        "q4": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between an original and a print?",
+            "answer": "<p>An original is the one-of-one painting itself. A print is a matte stretched-canvas reproduction, signed and numbered by the artist.</p>"
+          }
+        },
+        "q5": {
+          "type": "faq",
+          "settings": {
+            "question": "What size should I choose?",
+            "answer": "<p>Every work can be seen drawn to scale on a wall. Open the size guide on any print page.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

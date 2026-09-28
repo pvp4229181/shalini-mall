@@ -1,1 +1,194 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Shalini Mall — Original Art & Fine Art Prints</title><meta name="description" content="Original contemporary paintings and archival fine art prints from Shalini Mall Studio."><meta property="og:title" content="Shalini Mall Studio"><meta property="og:description" content="Art for slow, considered spaces."><meta property="og:image" content="assets/images/collection-hero.png"><link rel="canonical" href="index.html"><script>document.documentElement.classList.add('js')</script><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/animations.css"><link rel="stylesheet" href="css/responsive.css"><script defer src="js/products.js"></script><script defer src="js/reviews.js"></script><script defer src="js/cart.js"></script><script defer src="js/main.js"></script><script defer src="js/animations.js"></script></head><body><main id="main"><section class="hero" data-slideshow data-speed="7000" aria-roledescription="carousel" aria-label="Featured"><div class="hero-slide is-selected" aria-roledescription="slide" aria-label="1 of 3"><div class="hero-media"><div class="hero-parallax" data-parallax><img src="assets/images/collection-hero.png" alt="Layered abstract botanical painting in earth tones"></div></div><div class="hero-copy"><p class="eyebrow hero-crop"><span>The earth remembers · New collection</span></p><h1 class="hero-title hero-crop"><span>Where quiet takes form.</span></h1><p class="hero-sub hero-crop"><span>Original paintings and finely made prints shaped by land, memory, and the beauty of becoming.</span></p><a class="button light hero-link" href="shop.html">Explore collection</a></div></div><div class="hero-slide" aria-roledescription="slide" aria-label="2 of 3"><div class="hero-media"><div class="hero-parallax" data-parallax><img src="assets/images/collection-hero.png" alt="Detail of an original painting: rust and rose leaves over deep indigo" style="--zoom:1.55;--focus:78% 70%"></div></div><div class="hero-copy"><p class="eyebrow hero-crop"><span>One of one · Originals</span></p><h2 class="hero-title hero-crop"><span>Original paintings.</span></h2><p class="hero-sub hero-crop"><span>Singular works built slowly by hand. Signed, documented, and ready for their next home.</span></p><a class="button light hero-link" href="originals.html">Explore originals</a></div></div><div class="hero-slide" aria-roledescription="slide" aria-label="3 of 3"><div class="hero-media"><div class="hero-parallax" data-parallax><img src="assets/images/collection-hero.png" alt="Detail of a fine art print: fine dark botanicals over pale pigment" style="--zoom:1.5;--focus:12% 62%"></div></div><div class="hero-copy"><p class="eyebrow hero-crop"><span>Signed editions · Prints</span></p><h2 class="hero-title hero-crop"><span>Fine art prints.</span></h2><p class="hero-sub hero-crop"><span>Archival pigment editions on cotton rag paper, signed by the artist.</span></p><a class="button light hero-link" href="prints.html">Explore prints</a></div></div></section><section class="section"><div class="section-head" data-reveal><div><p class="eyebrow">Collect what moves you</p><h2>Made to live with.</h2></div><a class="text-link" href="shop.html">View all artwork</a></div><div class="collections" data-reveal><a class="collection-card" href="originals.html" style="--crop:72% center"><img src="assets/images/collection-hero.png" alt="Original abstract artwork detail"><div><p class="eyebrow">One of one</p><h3>Originals</h3><span class="text-link">Discover unique works</span></div></a><a class="collection-card" href="prints.html" style="--crop:18% center"><img src="assets/images/collection-hero.png" alt="Fine art print detail"><div><p class="eyebrow">Signed editions</p><h3>Prints</h3><span class="text-link">Find your piece</span></div></a></div></section><section class="section" style="padding-top:0"><div class="section-head" data-reveal><div><p class="eyebrow">From the studio</p><h2>Selected work.</h2></div></div><div class="product-grid" id="featuredGrid"></div></section><section class="editorial" data-reveal><div class="editorial-image"><img src="assets/images/collection-hero.png" alt="Detail from the Earth Song collection" loading="lazy" style="object-position:72% center"></div><div class="editorial-copy"><p class="eyebrow">The Earth Song series</p><h2>Colour as a kind of remembering.</h2><p>Built slowly in layers of mineral pigment, charcoal, and translucent washes, these works hold the trace of weather, wild gardens, and remembered places.</p><a class="button dark" href="originals.html">Enter the series</a></div></section><section class="about-grid" data-reveal><div class="artist-image"><img src="assets/images/artist-studio.png" alt="Artist Shalini in a warm, light-filled studio" loading="lazy"></div><div class="about-copy"><p class="eyebrow">Welcome to the studio</p><h2>I paint the feeling before the words arrive.</h2><p>Shalini’s practice moves between intuition and observation. Every work begins with colour, then finds its own rhythm through mark, texture, erasure, and time.</p><a class="text-link" href="about.html">Meet the artist</a></div></section><section class="section reviews" aria-labelledby="reviewsTitle" data-reveal><div class="section-head"><p class="eyebrow">In collectors’ homes</p><h2 id="reviewsTitle">What collectors are saying</h2></div><div class="review-track" id="reviewTrack" aria-roledescription="carousel" aria-label="Customer reviews" tabindex="0"></div><div class="review-dots" id="reviewDots"></div></section></main><script>document.addEventListener('DOMContentLoaded',()=>document.querySelector('#featuredGrid').innerHTML=ART_PRODUCTS.slice(0,3).map(productCard).join(''))</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Shalini Mall — Original Art &amp; Fine Art Prints</title>
+  <meta name="description" content="Original contemporary paintings and archival fine art prints from Shalini Mall Studio.">
+  <link rel="canonical" href="https://shalini-mall.vercel.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Shalini Mall">
+  <meta property="og:title" content="Shalini Mall Studio">
+  <meta property="og:description" content="Art for slow, considered spaces.">
+  <meta property="og:url" content="https://shalini-mall.vercel.app/">
+  <meta property="og:image" content="https://shalini-mall.vercel.app/assets/images/hero-gallery.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#f7ecec">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%238e3857'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' text-anchor='middle' fill='%23fff'%3ES%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Tenor+Sans&family=WindSong:wght@400;500&display=swap">
+  <link rel="preload" as="image" href="assets/images/hero-gallery.webp" fetchpriority="high">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/editorial.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <script>document.documentElement.classList.add('js')</script>
+  <script defer src="js/core.js"></script>
+  <script defer src="js/products.js"></script>
+  <script defer src="js/cart.js"></script>
+  <script defer src="js/wishlist.js"></script>
+  <script defer src="js/recently-viewed.js"></script>
+  <script defer src="js/cards.js"></script>
+  <script defer src="js/variants.js"></script>
+  <script defer src="js/layout.js"></script>
+  <script defer src="js/app.js"></script>
+  <script defer src="js/search.js"></script>
+  <script defer src="js/quick-view.js"></script>
+  <script defer src="js/wall-preview.js"></script>
+  <script defer src="js/home.js"></script>
+  <script defer src="js/reviews.js"></script>
+  <script defer src="js/animations.js"></script>
+</head>
+<body>
+<main id="main">
+  <section class="hero" data-slideshow data-speed="7000" aria-roledescription="carousel" aria-label="Featured work">
+    <div class="hero-slide is-selected" aria-roledescription="slide" aria-label="1 of 3">
+      <div class="hero-media"><div class="hero-parallax" data-parallax><img src="assets/images/hero-gallery.webp" alt="Large abstract botanical painting in a warm, light-filled interior" fetchpriority="high"></div></div>
+      <div class="hero-copy">
+        <p class="hero-brand hero-crop"><span>Shalini Mall</span></p>
+        <p class="eyebrow hero-crop"><span>The earth remembers · New collection</span></p>
+        <h1 class="hero-title hero-crop"><span>Where quiet takes form.</span></h1>
+        <p class="hero-sub hero-crop"><span>Original paintings and finely made prints shaped by land, memory, and the beauty of becoming.</span></p>
+        <div class="hero-links"><a class="button dark" href="originals.html">Explore originals</a><a class="button light" href="prints.html">Shop prints</a></div>
+      </div>
+    </div>
+    <div class="hero-slide" aria-roledescription="slide" aria-label="2 of 3">
+      <div class="hero-media"><div class="hero-parallax" data-parallax><img src="assets/images/earth-song.webp" alt="Detail of the original Earth Song painting" style="--zoom:1.35;--focus:62% 55%"></div></div>
+      <div class="hero-copy">
+        <p class="hero-brand hero-crop"><span>Shalini Mall</span></p>
+        <p class="eyebrow hero-crop"><span>One of one · Originals</span></p>
+        <h2 class="hero-title hero-crop"><span>Original paintings.</span></h2>
+        <p class="hero-sub hero-crop"><span>Singular works built slowly by hand. Signed, documented, and ready for their next home.</span></p>
+        <div class="hero-links"><a class="button dark" href="originals.html">Explore originals</a></div>
+      </div>
+    </div>
+    <div class="hero-slide" aria-roledescription="slide" aria-label="3 of 3">
+      <div class="hero-media"><div class="hero-parallax" data-parallax><img src="assets/images/wild-grace.webp" alt="Detail of the Wild Grace fine art print" style="--zoom:1.3;--focus:48% 52%"></div></div>
+      <div class="hero-copy">
+        <p class="hero-brand hero-crop"><span>Shalini Mall</span></p>
+        <p class="eyebrow hero-crop"><span>Signed editions · Prints</span></p>
+        <h2 class="hero-title hero-crop"><span>Fine art prints.</span></h2>
+        <p class="hero-sub hero-crop"><span>Gallery-wrapped matte canvas editions, signed by the artist and ready to hang.</span></p>
+        <div class="hero-links"><a class="button dark" href="prints.html">Shop prints</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="artTypesTitle">
+    <div class="section-head section-head--split" data-reveal>
+      <div><p class="eyebrow">Collect what moves you</p><h2 id="artTypesTitle">Shop by art type</h2></div>
+      <a class="text-link" href="shop.html">Shop all artwork</a>
+    </div>
+    <div class="art-types" data-reveal>
+      <a class="art-type" href="originals.html">
+        <div class="art" style="--crop:center"><img src="assets/images/earth-song.webp" alt="" loading="lazy" decoding="async"></div>
+        <div class="art-type__copy"><h3>Original art</h3><p>Unique. One of one. Signed and documented.</p><p class="art-type__meta" data-count-originals></p><span class="text-link">Explore <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div>
+      </a>
+      <a class="art-type" href="prints.html">
+        <div class="art" style="--crop:center"><img src="assets/images/between-seasons.webp" alt="" loading="lazy" decoding="async"></div>
+        <div class="art-type__copy"><h3>Canvas prints</h3><p>Matte stretched-canvas editions, signed by the artist.</p><p class="art-type__meta" data-count-prints></p><span class="text-link">Explore <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div>
+      </a>
+      <a class="art-type" href="collections.html">
+        <div class="art" style="--crop:center"><img src="assets/images/monsoon-memory.webp" alt="" loading="lazy" decoding="async"></div>
+        <div class="art-type__copy"><h3>Collections</h3><p>Series of works shaped by land and memory.</p><p class="art-type__meta" data-count-collections></p><span class="text-link">Explore <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="section section--flush-top" aria-labelledby="originalsTitle">
+    <div class="section-head section-head--split" data-reveal>
+      <div><p class="eyebrow">From the studio · One of one</p><h2 id="originalsTitle">Featured originals</h2></div>
+      <a class="text-link" href="originals.html">View all <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a>
+    </div>
+    <div class="product-grid product-grid--4 product-grid--featured" id="featuredOriginals" data-reveal-stagger></div>
+  </section>
+
+  <section class="section section--surface" aria-labelledby="printsTitle">
+    <div class="section-head section-head--split" data-reveal>
+      <div><p class="eyebrow">Signed editions</p><h2 id="printsTitle">Featured prints</h2></div>
+      <a class="text-link" href="prints.html">View all <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a>
+    </div>
+    <div class="product-grid product-grid--4" id="featuredPrints" data-reveal-stagger></div>
+  </section>
+
+  <section class="exhibition" aria-labelledby="exhibitionTitle">
+    <div class="art" data-reveal-image style="--crop:center"><img src="assets/images/earth-song.webp" alt="Detail from the Earth Song collection" loading="lazy" decoding="async"></div>
+    <div class="exhibition__copy" data-reveal>
+      <p class="eyebrow">The Earth Song series · Collection</p>
+      <h2 id="exhibitionTitle">Colour as a kind of remembering.</h2>
+      <p>Built slowly in layers of mineral pigment, charcoal, and translucent washes, these works hold the trace of weather, wild gardens, and remembered places.</p>
+      <div class="exhibition__works" id="exhibitionWorks"></div>
+      <p class="exhibition__meta" data-exhibition-meta></p>
+      <a class="button light" href="collections.html?id=earth-song">Explore the collection</a>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="compareTitle">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Two ways to collect</p>
+      <h2 id="compareTitle">Original or print?</h2>
+      <p>Both begin in the same studio. Choose the singular painting, or a signed edition made to last.</p>
+    </div>
+    <div class="compare" data-reveal>
+      <article class="compare-col">
+        <div class="art" style="--crop:center"><img src="assets/images/quiet-orbit.webp" alt="" loading="lazy" decoding="async"></div>
+        <p class="eyebrow">The original</p>
+        <h3>One of one</h3>
+        <ul class="compare-list">
+          <li>A unique painting, built slowly by hand</li>
+          <li>Signed by the artist</li>
+          <li>Certificate of authenticity included</li>
+          <li>Ships carefully wrapped and insured, complimentary across India</li>
+        </ul>
+        <p class="compare-price" data-price-originals></p>
+        <a class="button dark" href="originals.html">Shop originals</a>
+      </article>
+      <div class="compare-divider" aria-hidden="true"><span>or</span></div>
+      <article class="compare-col">
+        <div class="art" style="--crop:center"><img src="assets/images/small-hours.webp" alt="" loading="lazy" decoding="async"></div>
+        <p class="eyebrow">The print</p>
+        <h3>Signed editions</h3>
+        <ul class="compare-list">
+          <li>Matte canvas stretched over a pinewood frame</li>
+          <li>Signed and numbered by the artist</li>
+          <li>Four Printify sizes, from 8 × 10 to 30 × 40 inches</li>
+          <li>Corner-protected, securely boxed, and ready to hang</li>
+        </ul>
+        <p class="compare-price" data-price-prints></p>
+        <a class="button dark" href="prints.html">Shop prints</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section--surface" aria-labelledby="interiorsTitle">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Art in interiors</p>
+      <h2 id="interiorsTitle">See it on the wall.</h2>
+      <p>Each work drawn to true scale beside everyday furniture, so you can judge its size and presence before you collect.</p>
+    </div>
+    <div class="interiors" id="interiors" data-reveal-stagger tabindex="0" role="region" aria-label="Scale drawings of three works"></div>
+    <div class="interiors-foot"><a class="text-link" href="about.html#print-sizes">Print size guide</a></div>
+  </section>
+
+  <section class="about-grid" aria-labelledby="artistTitle">
+    <div class="art" data-reveal-image style="--crop:50% 36%"><img src="assets/images/artist-shalini.webp" alt="Artist Shalini in a warm, light-filled studio" loading="lazy" decoding="async"></div>
+    <div class="about-copy" data-reveal>
+      <p class="eyebrow">Meet Shalini</p>
+      <h2 id="artistTitle">I paint the feeling before the words arrive.</h2>
+      <p>Shalini’s practice moves between intuition and observation. Every work begins with colour, then finds its own rhythm through mark, texture, erasure, and time.</p>
+      <a class="text-link" href="artist.html">Meet the artist</a>
+    </div>
+  </section>
+
+  <section class="section reviews" data-testimonials hidden aria-labelledby="reviewsTitle">
+    <div class="section-head"><p class="eyebrow">In collectors’ homes</p><h2 id="reviewsTitle">What collectors are saying</h2></div>
+    <div class="review-track" id="reviewTrack" aria-roledescription="carousel" aria-label="Collector reviews" tabindex="0"></div>
+    <div class="review-dots" id="reviewDots"></div>
+  </section>
+</main>
+</body>
+</html>

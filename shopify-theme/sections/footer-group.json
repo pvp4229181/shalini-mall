@@ -1,0 +1,24 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Notes from the studio",
+        "heading": "Art, process, and new work—occasionally.",
+        "button": "Subscribe"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "shop": { "type": "links", "settings": { "heading": "Shop", "menu": "footer-shop" } },
+        "studio": { "type": "links", "settings": { "heading": "Studio", "menu": "footer-studio" } },
+        "help": { "type": "links", "settings": { "heading": "Help", "menu": "footer-help" } }
+      },
+      "block_order": ["shop", "studio", "help"]
+    }
+  },
+  "order": ["newsletter", "footer"]
+}

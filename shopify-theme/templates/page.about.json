@@ -1,0 +1,137 @@
+{
+  "sections": {
+    "intro": {
+      "type": "info-cards",
+      "settings": {
+        "show_breadcrumb": true,
+        "eyebrow": "About the studio",
+        "heading_level": "h1",
+        "heading": "Art for slow, considered spaces.",
+        "text": "Original contemporary paintings and archival fine art prints by the artist Shalini. Here is how each work is made, sized, documented and sent to you."
+      },
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "eyebrow": "One of one",
+            "title": "Original paintings",
+            "text": "<p>Singular works built slowly by hand. Every original arrives signed with a studio certificate of authenticity.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "eyebrow": "Signed editions",
+            "title": "Canvas prints",
+            "text": "<p>Matte canvas prints stretched over pinewood frames, signed and numbered by the artist.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "eyebrow": "Before you collect",
+            "title": "Ask the studio",
+            "text": "<p>Ask for close-ups, scale images, or a short studio video of any available work.</p>",
+            "link_label": "Contact",
+            "link": "shopify://pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ]
+    },
+    "compare": {
+      "type": "original-vs-print",
+      "settings": {
+        "eyebrow": "Two ways to collect",
+        "heading": "Original or print?",
+        "text": "Both begin in the same studio. Choose the singular painting, or a signed edition made to last.",
+        "surface": true
+      },
+      "blocks": {
+        "original": {
+          "type": "column",
+          "settings": {
+            "collection": "originals",
+            "fallback_image": "collection-hero",
+            "fallback_focus": "78% 70%",
+            "eyebrow": "The original",
+            "heading": "One of one",
+            "points": "A unique painting, built slowly by hand\nSigned by the artist\nCertificate of authenticity included\nShips carefully wrapped and insured, complimentary across India",
+            "button": "Shop originals"
+          }
+        },
+        "print": {
+          "type": "column",
+          "settings": {
+            "collection": "prints",
+            "fallback_image": "collection-hero",
+            "fallback_focus": "12% 62%",
+            "eyebrow": "The print",
+            "heading": "Signed editions",
+            "points": "Matte canvas stretched over a 0.75 in pinewood frame\nSigned and numbered by the artist\nFour Printify sizes, from 8 × 10 to 30 × 40 inches\nCorner-protected, securely boxed, and ready to hang",
+            "button": "Shop prints"
+          }
+        }
+      },
+      "block_order": [
+        "original",
+        "print"
+      ]
+    },
+    "sizes": {
+      "type": "size-explorer",
+      "settings": {
+        "eyebrow": "Size guide",
+        "heading": "Print sizes, to scale.",
+        "text": "Canvas prints come in four sizes. Choose one to see it drawn to true scale on a wall. Each print page lists the sizes that work is offered in.",
+        "sizes": "8 × 10 in, 16 × 20 in, 24 × 30 in, 30 × 40 in",
+        "fallback_image": "wild-grace"
+      }
+    },
+    "shipping": {
+      "type": "image-with-text",
+      "settings": {
+        "layout": "editorial",
+        "fallback_image": "artist-studio",
+        "fallback_focus": "50% 85%",
+        "fallback_alt": "Pigments, brushes and linen on the studio table",
+        "image_position": "right",
+        "style": "dark",
+        "show_breadcrumb": false,
+        "eyebrow": "Shipping & care",
+        "heading_level": "h2",
+        "heading": "Carefully packed, from our studio to your wall.",
+        "text": "<p>Originals ship carefully wrapped and insured, with tracking, and shipping is complimentary across India.</p><p>Canvas prints are corner-protected, securely boxed, and dispatched ready to hang.</p>",
+        "button_label": "Read the FAQ",
+        "button_link": "shopify://pages/contact",
+        "button_style": "light"
+      }
+    },
+    "artist": {
+      "type": "text-block",
+      "settings": {
+        "eyebrow": "The artist",
+        "heading": "Meet Shalini.",
+        "text": "A contemporary painter working from an intuitive language of colour, gesture, and natural form.",
+        "link_label": "Read her story",
+        "link": "shopify://pages/the-artist",
+        "surface": false
+      }
+    }
+  },
+  "order": [
+    "intro",
+    "compare",
+    "sizes",
+    "shipping",
+    "artist"
+  ]
+}

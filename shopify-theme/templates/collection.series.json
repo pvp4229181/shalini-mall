@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "layout": "tabs",
+        "category_menu": "",
+        "fallback_image": "earth-song",
+        "fallback_focus": "center",
+        "columns": "3",
+        "per_page": 24,
+        "numbered": false
+      }
+    },
+    "story": {
+      "type": "collection-story",
+      "settings": {
+        "heading": "About the series"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "story"
+  ]
+}

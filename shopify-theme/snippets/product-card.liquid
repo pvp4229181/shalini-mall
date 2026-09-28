@@ -1,0 +1,117 @@
+{%- comment -%}
+  Product card (Phase 1 card system).
+  Originals: badge, title, medium · dimensions · year, price, quick view.
+  Prints: badge, title, sizes · edition, "From" price, quick add.
+
+  Params: card_product (required), index (number for "Nº 01"), wishlist (bool: wishlist page actions), heading (h2/h3)
+{%- endcomment -%}
+{%- liquid
+  assign p = card_product
+  assign is_original = false
+  if p.type == settings.original_product_type or p.tags contains 'original'
+    assign is_original = true
+  endif
+  assign h = heading | default: 'h3'
+  assign first_variant = p.selected_or_first_available_variant
+  assign focus = p.metafields.custom.image_focus.value
+  if focus == blank and p.featured_image
+    assign focus = p.featured_image.presentation.focal_point
+  endif
+  if is_original
+    assign kind = 'original painting'
+  else
+    assign kind = 'fine art print'
+  endif
+  assign alt_text = p.title | append: ', ' | append: kind | append: ' by ' | append: settings.artist_name
+
+  assign sizes = ''
+  for option in p.options_with_values
+    assign option_name = option.name | downcase
+    if option_name == 'size'
+      assign sizes = option.values | join: ' · '
+    endif
+  endfor
+-%}
+<article class="card card--{% if is_original %}original{% else %}print{% endif %}" data-product="{{ p.handle }}" data-variant-id="{{ first_variant.id }}" data-variant-count="{{ p.variants.size }}">
+  <div class="card__media">
+    <a class="card__image art" href="{{ p.url }}" tabindex="-1" aria-hidden="true" style="--crop:{{ focus | default: 'center' }}">
+      {%- if p.featured_image -%}
+        {{ p.featured_image | image_url: width: 1200 | image_tag: widths: '240, 360, 540, 720, 900, 1200', sizes: '(min-width: 1100px) 25vw, (min-width: 768px) 33vw, 90vw', alt: alt_text, loading: 'lazy' }}
+        {%- if p.images.size > 1 -%}
+          {{ p.images[1] | image_url: width: 1200 | image_tag: widths: '360, 540, 720, 900, 1200', sizes: '(min-width: 1100px) 25vw, (min-width: 768px) 33vw, 90vw', alt: '', class: 'card__alt card__alt--photo', loading: 'lazy' }}
+        {%- else -%}
+          {{ p.featured_image | image_url: width: 1200 | image_tag: widths: '360, 540, 720, 900, 1200', sizes: '(min-width: 1100px) 25vw, (min-width: 768px) 33vw, 90vw', alt: '', class: 'card__alt', loading: 'lazy' }}
+        {%- endif -%}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </a>
+    <span class="badge card__badge">
+      {%- if p.available == false -%}Sold{%- elsif is_original -%}Original{%- else -%}Print{%- endif -%}
+    </span>
+    <button type="button" class="card__wish" data-wishlist-toggle="{{ p.handle }}" aria-pressed="false" aria-label="Save {{ p.title | escape }} ({{ kind }}) to wishlist">
+      {%- render 'icon', icon: 'heart' -%}
+    </button>
+    {%- if is_original -%}
+      <button type="button" class="button small card__quick" data-quick-view="{{ p.handle }}" aria-label="Quick view {{ p.title | escape }}, original">Quick view</button>
+    {%- elsif p.available -%}
+      <button type="button" class="button small card__quick" data-quick-add="{{ p.handle }}" aria-label="Quick add {{ p.title | escape }}, fine art print">Quick add</button>
+    {%- endif -%}
+  </div>
+  <div class="card__body">
+    {%- if index -%}
+      {%- liquid
+        assign number = index | prepend: '0'
+        assign number_length = number | size
+        if number_length > 2
+          assign number = index
+        endif
+      -%}
+      <p class="card__index">Nº {{ number }}</p>
+    {%- endif -%}
+    <{{ h }} class="card__title"><a href="{{ p.url }}">{{ p.title | escape }}</a></{{ h }}>
+    {%- if is_original -%}
+      {%- liquid
+        assign specs = ''
+        assign medium = p.metafields.custom.medium.value
+        assign dims = p.metafields.custom.dimensions.value
+        assign year = p.metafields.custom.year.value
+        if medium != blank
+          assign specs = medium
+        endif
+        if dims != blank
+          if specs != blank
+            assign specs = specs | append: ' · '
+          endif
+          assign specs = specs | append: dims
+        endif
+        if year != blank
+          if specs != blank
+            assign specs = specs | append: ' · '
+          endif
+          assign specs = specs | append: year
+        endif
+      -%}
+      {%- if specs != blank -%}<p class="card__meta">{{ specs | escape }}</p>{%- endif -%}
+      <p class="card__price">{{ p.price | money }}</p>
+    {%- else -%}
+      {%- if sizes != blank -%}
+        <p class="card__meta">
+          {{- sizes | escape -}}
+          {%- if p.metafields.custom.edition_size.value %} · Edition of {{ p.metafields.custom.edition_size.value }}{% endif -%}
+        </p>
+      {%- endif -%}
+      <p class="card__price">
+        {%- if p.variants.size > 1 -%}From {{ p.price_min | money }}{%- else -%}{{ p.price | money }}{%- endif -%}
+      </p>
+    {%- endif -%}
+    {%- if wishlist -%}
+      <div class="card__actions">
+        <button type="button" class="button small dark" data-move-to-cart="{{ p.handle }}">Move to cart</button>
+        <button type="button" class="text-link" data-wishlist-remove="{{ p.handle }}">Remove</button>
+      </div>
+    {%- elsif is_original == false and p.available -%}
+      <button type="button" class="text-link card__touch-add" data-quick-add="{{ p.handle }}" aria-label="Quick add {{ p.title | escape }}, fine art print">Quick add</button>
+    {%- endif -%}
+  </div>
+</article>

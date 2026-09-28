@@ -1,0 +1,21 @@
+{{ 'shop.css' | asset_url | stylesheet_tag }}
+{%- comment -%} Wishlist: product handles live in localStorage; js/wishlist.js fetches each card. {%- endcomment -%}
+<div class="page">
+  <header class="shop-head">
+    {%- render 'breadcrumbs', current: page.title -%}
+    <p class="eyebrow">Saved for later</p>
+    <h1>{{ page.title | escape }}</h1>
+    <p data-wishlist-summary aria-live="polite"></p>
+  </header>
+  <h2 class="sr-only">Saved artworks</h2>
+  <div class="product-grid product-grid--4" data-wishlist-grid></div>
+  <div class="empty-state" data-wishlist-empty hidden>
+    <h2>Nothing saved yet</h2>
+    <p>Tap the heart on any artwork to keep it here. Your wishlist is saved in this browser.</p>
+    <a class="button dark" href="{{ routes.all_products_collection_url }}">Explore all works</a>
+  </div>
+</div>
+
+{% schema %}
+{ "name": "Wishlist", "settings": [] }
+{% endschema %}

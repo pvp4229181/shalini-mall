@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "layout": "sidebar",
+        "category_menu": "shop-categories",
+        "fallback_image": "collection-hero",
+        "fallback_focus": "78% 70%",
+        "columns": "3",
+        "per_page": 12,
+        "numbered": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

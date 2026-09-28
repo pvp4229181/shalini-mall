@@ -1,0 +1,54 @@
+{{ 'shop.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  if section.settings.collections.count > 0
+    assign list = section.settings.collections
+  else
+    assign list = collections
+  endif
+  assign fallback_src = section.settings.fallback_image | append: '.webp' | asset_url
+-%}
+<div class="page">
+  <header class="shop-head">
+    {%- render 'breadcrumbs', current: section.settings.heading -%}
+    <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    <h1>{{ section.settings.heading | escape }}</h1>
+    {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+  </header>
+  <div class="collection-list">
+    {%- for c in list -%}
+      {%- if c.handle == 'all' or c.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
+      <article class="collection-feature">
+        {%- if c.image -%}
+          {%- render 'art-image', image: c.image, focus: c.metafields.custom.image_focus.value, alt: c.title, sizes: '(min-width: 1024px) 58vw, 100vw' -%}
+        {%- else -%}
+          {%- render 'art-image', src: fallback_src, focus: 'center', alt: c.title -%}
+        {%- endif -%}
+        <div class="collection-feature__copy">
+          {%- if c.metafields.custom.eyebrow.value != blank -%}<p class="eyebrow">{{ c.metafields.custom.eyebrow.value | escape }}</p>{%- endif -%}
+          <h2><a href="{{ c.url }}">{{ c.title | escape }}</a></h2>
+          {%- if c.description != blank -%}<p>{{ c.description | strip_html | truncatewords: 40 }}</p>{%- endif -%}
+          <div class="collection-feature__strip" aria-hidden="true">
+            {%- for p in c.products limit: 4 -%}
+              {%- render 'art-image', image: p.featured_image, focus: p.metafields.custom.image_focus.value, alt: '', sizes: '90px' -%}
+            {%- endfor -%}
+          </div>
+          <p class="collection-feature__meta">{{ c.all_products_count }} works</p>
+          <a class="button dark" href="{{ c.url }}">Explore the collection</a>
+        </div>
+      </article>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collections list",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Series from the studio" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Collections" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Bodies of work made together, each with its own palette, story and mood — shown here as originals and signed editions." },
+    { "type": "select", "id": "fallback_image", "label": "Image for collections without one", "default": "earth-song", "options": [{"value": "hero-gallery", "label": "Painting in a room"}, {"value": "earth-song", "label": "Earth Song"}, {"value": "wild-grace", "label": "Wild Grace"}, {"value": "quiet-orbit", "label": "Quiet Orbit"}, {"value": "small-hours", "label": "The Small Hours"}, {"value": "between-seasons", "label": "Between Seasons"}, {"value": "monsoon-memory", "label": "Monsoon Memory"}, {"value": "artist-shalini", "label": "Shalini (portrait)"}, {"value": "artist-studio", "label": "Studio table"}, {"value": "collection-hero", "label": "Collection detail"}] },
+    { "type": "collection_list", "id": "collections", "label": "Collections to show", "info": "Leave empty to list every collection." }
+  ]
+}
+{% endschema %}

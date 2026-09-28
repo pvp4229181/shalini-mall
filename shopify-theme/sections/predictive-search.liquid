@@ -1,0 +1,28 @@
+{%- comment -%}
+  Predictive search results, fetched by js/search.js from
+  /search/suggest?q=…&section_id=predictive-search.
+{%- endcomment -%}
+{%- if predictive_search.performed -%}
+  {%- assign results = predictive_search.resources.products -%}
+  <div data-predictive-results data-count="{{ results.size }}" data-terms="{{ predictive_search.terms | escape }}">
+    <ul>
+      {%- for p in results -%}
+        <li class="search-result" role="option" id="sr-{{ forloop.index0 }}" aria-selected="false">
+          <a href="{{ p.url }}" tabindex="-1">
+            {%- render 'art-image', image: p.featured_image, focus: p.metafields.custom.image_focus.value, alt: '', sizes: '56px' -%}
+            <span><strong>{{ p.title | escape }}</strong><small>{{ p.type | escape }} · {% if p.variants.size > 1 %}From {{ p.price_min | money }}{% else %}{{ p.price | money }}{% endif %}</small></span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+    {%- for c in predictive_search.resources.collections limit: 3 -%}
+      {%- if forloop.first -%}<p class="search-collections">Collections: {% endif -%}
+      <a href="{{ c.url }}">{{ c.title | escape }}</a>{% unless forloop.last %}, {% endunless %}
+      {%- if forloop.last -%}</p>{%- endif -%}
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{ "name": "Predictive search", "settings": [] }
+{% endschema %}

@@ -1,0 +1,52 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "blocks": {
+        "shipping": {
+          "type": "message",
+          "settings": {
+            "text": "Every original signed, with a certificate of authenticity",
+            "link": "shopify://collections/originals"
+          }
+        },
+        "prints": {
+          "type": "message",
+          "settings": {
+            "text": "Signed fine art prints from $29",
+            "link": "shopify://collections/prints"
+          }
+        },
+        "newsletter": {
+          "type": "message",
+          "settings": {
+            "text": "Join our newsletter",
+            "link": "#newsletter"
+          }
+        }
+      },
+      "block_order": [
+        "shipping",
+        "prints",
+        "newsletter"
+      ]
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "main-menu",
+        "mega_trigger": "Shop",
+        "mega_all_label": "Shop all artwork",
+        "featured_label": "Featured original",
+        "wishlist_page": "wishlist",
+        "featured_product": "earth-song"
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "header"
+  ]
+}

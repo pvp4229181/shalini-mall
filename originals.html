@@ -1,1 +1,66 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Original Paintings — Shalini Mall</title><meta name="description" content="Discover one-of-one contemporary original paintings from Shalini Mall Studio."><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/animations.css"><link rel="stylesheet" href="css/responsive.css"><script defer src="js/products.js"></script><script defer src="js/cart.js"></script><script defer src="js/main.js"></script><script defer src="js/animations.js"></script></head><body class="inner-page"><main id="main" class="shop-page"><div class="shop-head"><div><p class="eyebrow">One of one</p><h1>Originals</h1><p>Singular works built slowly by hand. Signed, documented, and ready for their next home.</p></div></div><div class="product-grid" id="grid"></div></main><script>document.addEventListener('DOMContentLoaded',()=>grid.innerHTML=ART_PRODUCTS.filter(p=>p.category==='Original').map(productCard).join(''))</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Original Paintings — Shalini Mall</title>
+  <meta name="description" content="Discover one-of-one contemporary original paintings from Shalini Mall Studio, signed and documented with a certificate of authenticity.">
+  <link rel="canonical" href="https://shalini-mall.vercel.app/originals.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Shalini Mall">
+  <meta property="og:title" content="Original Paintings — Shalini Mall">
+  <meta property="og:description" content="Singular works built slowly by hand. Signed, documented, and ready for their next home.">
+  <meta property="og:url" content="https://shalini-mall.vercel.app/originals.html">
+  <meta property="og:image" content="https://shalini-mall.vercel.app/assets/images/collection-hero.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#f7ecec">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%238e3857'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' text-anchor='middle' fill='%23fff'%3ES%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Tenor+Sans&family=WindSong:wght@400;500&display=swap">
+  <link rel="preload" as="image" href="assets/images/collection-hero.webp" fetchpriority="high">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/shop.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <script>document.documentElement.classList.add('js')</script>
+  <script defer src="js/core.js"></script>
+  <script defer src="js/products.js"></script>
+  <script defer src="js/cart.js"></script>
+  <script defer src="js/wishlist.js"></script>
+  <script defer src="js/recently-viewed.js"></script>
+  <script defer src="js/cards.js"></script>
+  <script defer src="js/variants.js"></script>
+  <script defer src="js/layout.js"></script>
+  <script defer src="js/app.js"></script>
+  <script defer src="js/search.js"></script>
+  <script defer src="js/quick-view.js"></script>
+  <script defer src="js/filters.js"></script>
+  <script defer src="js/listing-pages.js"></script>
+  <script defer src="js/animations.js"></script>
+</head>
+<body>
+<main id="main">
+  <header class="page-banner">
+    <div class="art" style="--crop:78% 70%"><img src="assets/images/collection-hero.webp" alt="" fetchpriority="high"></div>
+    <div class="page-banner__copy">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li><a href="shop.html">Shop</a></li><li aria-current="page">Originals</li></ol></nav>
+      <h1>Original paintings</h1>
+      <p>Singular works built slowly by hand. Signed, documented, and ready for their next home.</p>
+      <p class="banner-facts"><span><span data-fact-count></span> works</span><span data-fact-sizes></span><span data-fact-price></span></p>
+      <nav class="category-nav category-nav--light" aria-label="Browse by type">
+        <a href="shop.html">All works</a>
+        <a href="originals.html" aria-current="page">Originals</a>
+        <a href="prints.html">Prints</a>
+        <a href="collections.html">Collections</a>
+      </nav>
+    </div>
+  </header>
+  <div class="page">
+    <div data-listing="originals"></div>
+  </div>
+</main>
+</body>
+</html>

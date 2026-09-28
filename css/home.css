@@ -1,0 +1,101 @@
+/* ==========================================================================
+   Homepage: hero, shop by art type, collection exhibition, interiors
+   ========================================================================== */
+
+/* Hero slideshow (existing design, now sitting under the sticky header) */
+.hero {
+  position: relative; min-height: calc(100svh - var(--announce-h) - var(--header-h));
+  color: var(--color-on-dark); background: var(--color-text); overflow: hidden;
+}
+.hero-slide { position: absolute; inset: 0; display: flex; align-items: center; }
+.hero-slide:not(:first-child) { visibility: hidden; }
+.hero-media, .hero-media::after { position: absolute; inset: 0; }
+.hero-media { overflow: hidden; }
+.hero-media::after {
+  content: '';
+  background: linear-gradient(90deg, rgba(19, 5, 5, .5), transparent 68%), linear-gradient(0deg, rgba(19, 5, 5, .4), transparent 55%);
+}
+.hero-parallax { position: absolute; left: 0; right: 0; top: 0; height: 115%; will-change: transform; }
+.hero-parallax img { height: 100%; object-fit: cover; transform: scale(var(--zoom, 1)); transform-origin: var(--focus, center); }
+.hero-copy { position: relative; z-index: 1; margin-inline: calc(var(--gutter) + 40px); max-width: 760px; }
+.hero-copy .hero-title { margin: .3em 0; font-size: clamp(2.4rem, 5.4vw, 5rem); }
+.hero-sub { font-size: clamp(1.05rem, 1.5vw, 1.3rem); max-width: 42ch; }
+.hero-brand { font-family: var(--font-logo); font-weight: 500; font-size: clamp(2.8rem, 5.6vw, 5.2rem); line-height: 1.25; margin: 0 0 .15em; }
+.hero-crop { overflow: hidden; padding-bottom: .08em; }
+.hero-crop > span { display: block; }
+.hero-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-controls {
+  position: absolute; z-index: 2; left: 50%; bottom: 20px; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 2px; color: var(--color-on-dark);
+}
+.hero-dot { width: 32px; height: 44px; border: 0; padding: 0; background: none; display: grid; place-items: center; }
+.hero-dot::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: .45; transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.hero-dot[aria-current='true']::before { opacity: 1; transform: scale(1.15); }
+.hero-dot:hover::before { opacity: .85; }
+.hero-pause { color: var(--color-on-dark); margin-left: 6px; }
+.hero-pause svg { width: 16px; height: 16px; }
+.hero-arrow {
+  position: absolute; z-index: 2; top: 50%; transform: translateY(-50%); width: 52px; height: 52px;
+  color: var(--color-on-dark); border-radius: 50%; transition: background var(--dur-fast) var(--ease);
+}
+.hero-arrow:hover { color: var(--color-on-dark); background: rgba(255, 255, 255, .14); }
+.hero-arrow svg { width: 28px; height: 28px; stroke-width: 1.2; }
+.hero-arrow--prev { left: max(8px, calc(var(--gutter) - 36px)); }
+.hero-arrow--next { right: max(8px, calc(var(--gutter) - 36px)); }
+
+/* Shop by art type: three equal artwork tiles */
+.art-types { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); }
+.art-type {
+  position: relative; overflow: hidden; color: var(--color-on-dark); display: flex; align-items: flex-end;
+  aspect-ratio: 4 / 4.4; padding: clamp(22px, 2.4vw, 36px);
+}
+.art-type > .art { position: absolute; inset: 0; }
+.art-type > .art img { transition: transform 1.1s var(--ease); }
+.art-type:hover > .art img { transform: scale(1.04); }
+.art-type::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(19, 5, 5, .66), rgba(19, 5, 5, .08) 62%); }
+.art-type__copy { position: relative; z-index: 1; }
+.art-type h3 { font-size: clamp(1.4rem, 2.2vw, 2rem); letter-spacing: .06em; margin: 0 0 8px; }
+.art-type p { margin: 0 0 4px; opacity: .92; font-size: 16px; max-width: 32ch; }
+.art-type .art-type__meta { font-size: 14px; opacity: .8; margin-bottom: 14px; }
+
+/* Collection exhibition block */
+.exhibition { display: grid; grid-template-columns: 1.15fr .85fr; background: var(--color-text); color: var(--color-on-dark); }
+.exhibition > .art { min-height: 88vh; }
+.exhibition__copy { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: clamp(48px, 7vw, 120px); }
+.exhibition__copy h2 { margin: .4em 0 .5em; }
+.exhibition__copy p:not(.eyebrow) { color: var(--color-on-dark-muted); max-width: 44ch; }
+.exhibition__works { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; max-width: 420px; margin: 18px 0 30px; }
+.exhibition__works a { display: block; }
+.exhibition__works .art { aspect-ratio: 4 / 5; }
+.exhibition__works .art img { transition: transform .8s var(--ease); }
+.exhibition__works a:hover .art img { transform: scale(1.06); }
+.exhibition__meta { font: 400 12px var(--font-heading); text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--color-on-dark-muted); }
+
+/* Art in interiors */
+.interiors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 30px); }
+.interiors figure a { display: block; }
+.interiors .wall { transition: box-shadow var(--dur) var(--ease); }
+.interiors a:hover .wall { box-shadow: var(--shadow-soft); }
+.interiors-foot { display: flex; justify-content: center; margin-top: clamp(36px, 4vw, 56px); }
+
+@media (max-width: 1024px) {
+  .art-type { aspect-ratio: 3 / 4; }
+  .exhibition { grid-template-columns: 1fr; }
+  .exhibition > .art { min-height: 60vh; }
+  .interiors { grid-template-columns: repeat(3, 72vw); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scrollbar-width: thin; }
+  .interiors figure { scroll-snap-align: center; }
+}
+@media (max-width: 768px) {
+  .art-types { grid-template-columns: 1fr; }
+  .art-type { aspect-ratio: 16 / 9; min-height: 190px; }
+  .art-type p:not(.art-type__meta) { display: none; }
+  .hero-copy .hero-title { max-width: 12ch; }
+  .hero-arrow { display: none; }
+}
+@media (max-width: 480px) {
+  .hero-copy { margin-inline: var(--gutter); }
+  .hero-sub { max-width: 29ch; }
+  .hero-links { flex-direction: column; align-items: stretch; max-width: 280px; }
+  .product-grid--featured { grid-template-columns: 1fr; gap: 44px; }
+  .interiors { grid-template-columns: repeat(3, 84vw); }
+}

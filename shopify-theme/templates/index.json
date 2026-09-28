@@ -1,0 +1,279 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-slideshow",
+      "settings": {
+        "brand_name": "Shalini Mall",
+        "speed": 7,
+        "first_heading_h1": true
+      },
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "zoom": 100,
+            "fallback_focus": "center",
+            "eyebrow": "The earth remembers · New collection",
+            "heading": "Where quiet takes form.",
+            "text": "Original paintings and finely made prints shaped by land, memory, and the beauty of becoming.",
+            "button_label": "Explore originals",
+            "button_link": "shopify://collections/originals",
+            "button2_label": "Shop prints",
+            "button2_link": "shopify://collections/prints",
+            "fallback_image": "hero-gallery"
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "zoom": 135,
+            "fallback_focus": "62% 55%",
+            "eyebrow": "One of one · Originals",
+            "heading": "Original paintings.",
+            "text": "Singular works built slowly by hand. Signed, documented, and ready for their next home.",
+            "button_label": "Explore originals",
+            "button_link": "shopify://collections/originals",
+            "button2_label": "",
+            "button2_link": "",
+            "fallback_image": "earth-song"
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "zoom": 130,
+            "fallback_focus": "48% 52%",
+            "eyebrow": "Signed editions · Prints",
+            "heading": "Fine art prints.",
+            "text": "Gallery-wrapped matte canvas editions, signed by the artist and ready to hang.",
+            "button_label": "Shop prints",
+            "button_link": "shopify://collections/prints",
+            "button2_label": "",
+            "button2_link": "",
+            "fallback_image": "wild-grace"
+          }
+        }
+      },
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3"
+      ]
+    },
+    "art-types": {
+      "type": "art-type-grid",
+      "settings": {
+        "eyebrow": "Collect what moves you",
+        "heading": "Shop by art type",
+        "link_label": "Shop all artwork",
+        "link": "shopify://collections/all"
+      },
+      "blocks": {
+        "originals": {
+          "type": "tile",
+          "settings": {
+            "collection": "originals",
+            "fallback_focus": "center",
+            "title": "Original art",
+            "text": "Unique. One of one. Signed and documented.",
+            "meta": "",
+            "cta": "Explore",
+            "link": "",
+            "fallback_image": "earth-song"
+          }
+        },
+        "prints": {
+          "type": "tile",
+          "settings": {
+            "collection": "prints",
+            "fallback_focus": "center",
+            "title": "Canvas prints",
+            "text": "Matte stretched-canvas editions, signed by the artist.",
+            "meta": "",
+            "cta": "Explore",
+            "link": "",
+            "fallback_image": "between-seasons"
+          }
+        },
+        "collections": {
+          "type": "tile",
+          "settings": {
+            "collection": "earth-song",
+            "fallback_focus": "center",
+            "title": "Collections",
+            "text": "Series of works shaped by land and memory.",
+            "meta": "Earth Song",
+            "cta": "Explore",
+            "link": "shopify://collections",
+            "fallback_image": "monsoon-memory"
+          }
+        }
+      },
+      "block_order": [
+        "originals",
+        "prints",
+        "collections"
+      ]
+    },
+    "featured-originals": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "originals",
+        "eyebrow": "From the studio · One of one",
+        "heading": "Featured originals",
+        "link_label": "View all",
+        "limit": 4,
+        "columns": "4",
+        "numbered": false,
+        "surface": false,
+        "flush_top": true
+      }
+    },
+    "featured-prints": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "prints",
+        "eyebrow": "Signed editions",
+        "heading": "Featured prints",
+        "link_label": "View all",
+        "limit": 4,
+        "columns": "4",
+        "numbered": false,
+        "surface": true
+      }
+    },
+    "collection-story": {
+      "type": "collection-exhibition",
+      "settings": {
+        "collection": "earth-song",
+        "eyebrow": "The Earth Song series · Collection",
+        "heading": "Colour as a kind of remembering.",
+        "text": "<p>Built slowly in layers of mineral pigment, charcoal, and translucent washes, these works hold the trace of weather, wild gardens, and remembered places.</p>",
+        "button": "Explore the collection",
+        "fallback_image": "earth-song"
+      }
+    },
+    "original-or-print": {
+      "type": "original-vs-print",
+      "settings": {
+        "eyebrow": "Two ways to collect",
+        "heading": "Original or print?",
+        "text": "Both begin in the same studio. Choose the singular painting, or a signed edition made to last.",
+        "surface": false
+      },
+      "blocks": {
+        "original": {
+          "type": "column",
+          "settings": {
+            "collection": "originals",
+            "fallback_focus": "center",
+            "eyebrow": "The original",
+            "heading": "One of one",
+            "points": "A unique painting, built slowly by hand\nSigned by the artist\nCertificate of authenticity included\nShips carefully wrapped and insured, complimentary across India",
+            "button": "Shop originals",
+            "fallback_image": "quiet-orbit"
+          }
+        },
+        "print": {
+          "type": "column",
+          "settings": {
+            "collection": "prints",
+            "fallback_focus": "center",
+            "eyebrow": "The print",
+            "heading": "Signed editions",
+            "points": "Matte canvas stretched over a pinewood frame\nSigned and numbered by the artist\nFour Printify sizes, from 8 × 10 to 30 × 40 inches\nCorner-protected, securely boxed, and ready to hang",
+            "button": "Shop prints",
+            "fallback_image": "small-hours"
+          }
+        }
+      },
+      "block_order": [
+        "original",
+        "print"
+      ]
+    },
+    "interiors": {
+      "type": "art-in-interiors",
+      "settings": {
+        "eyebrow": "Art in interiors",
+        "heading": "See it on the wall.",
+        "text": "Each work drawn to true scale beside everyday furniture, so you can judge its size and presence before you collect.",
+        "link_label": "Print size guide",
+        "link": "shopify://pages/about"
+      },
+      "blocks": {
+        "earth-song": {
+          "type": "scale",
+          "settings": {
+            "product": "earth-song",
+            "size": "",
+            "scene": "sofa",
+            "fallback_art": "earth-song"
+          }
+        },
+        "monsoon": {
+          "type": "scale",
+          "settings": {
+            "product": "monsoon-memory-print",
+            "size": "24 × 30 in",
+            "scene": "console",
+            "fallback_art": "monsoon-memory"
+          }
+        },
+        "small-hours": {
+          "type": "scale",
+          "settings": {
+            "product": "small-hours",
+            "size": "16 × 20 in",
+            "scene": "chair",
+            "fallback_art": "small-hours"
+          }
+        }
+      },
+      "block_order": [
+        "earth-song",
+        "monsoon",
+        "small-hours"
+      ]
+    },
+    "meet-shalini": {
+      "type": "image-with-text",
+      "settings": {
+        "layout": "artist",
+        "fallback_image": "artist-shalini",
+        "fallback_focus": "50% 36%",
+        "fallback_alt": "Artist Shalini in a warm, light-filled studio",
+        "image_position": "left",
+        "style": "surface",
+        "show_breadcrumb": false,
+        "eyebrow": "Meet Shalini",
+        "heading_level": "h2",
+        "heading": "I paint the feeling before the words arrive.",
+        "text": "<p>Shalini’s practice moves between intuition and observation. Every work begins with colour, then finds its own rhythm through mark, texture, erasure, and time.</p>",
+        "button_label": "Meet the artist",
+        "button_link": "shopify://pages/the-artist",
+        "button_style": "link"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "eyebrow": "In collectors’ homes",
+        "heading": "What collectors are saying"
+      },
+      "blocks": {},
+      "block_order": []
+    }
+  },
+  "order": [
+    "hero",
+    "art-types",
+    "featured-originals",
+    "featured-prints",
+    "collection-story",
+    "original-or-print",
+    "interiors",
+    "meet-shalini",
+    "testimonials"
+  ]
+}

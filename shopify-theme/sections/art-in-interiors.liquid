@@ -1,0 +1,131 @@
+{{ 'home.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  Art in interiors. "Scale drawing" blocks draw a product at true size against furniture
+  (js/wall-preview.js, from custom.width_cm / custom.height_cm or the chosen print size).
+  "Room photo" blocks show real interior photography once the studio has it.
+{%- endcomment -%}
+<section class="section section--surface" aria-labelledby="heading-{{ section.id }}">
+  <div class="section-head" data-reveal>
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    <h2 id="heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+    {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+  </div>
+  <div class="interiors" data-reveal-stagger tabindex="0" role="region" aria-label="Scale drawings of {{ section.blocks.size }} works">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'scale' -%}
+          {%- liquid
+            assign p = block.settings.product
+            assign focus = p.metafields.custom.image_focus.value | default: p.featured_image.presentation.focal_point
+            assign variant_title = ''
+            for v in p.variants
+              if v.title == block.settings.size
+                assign variant_title = v.title
+              endif
+            endfor
+          -%}
+          {%- if p != blank -%}
+            <a href="{{ p.url }}" aria-label="{{ p.title | escape }}" {{ block.shopify_attributes }}>
+              <div data-wall
+                data-title="{{ p.title | escape }}"
+                data-src="{{ p.featured_image | image_url: width: 900 }}"
+                data-crop="{{ focus }}"
+                data-w="{{ p.metafields.custom.width_cm.value }}"
+                data-h="{{ p.metafields.custom.height_cm.value }}"
+                data-size="{{ variant_title | escape }}"
+                data-scene="{{ block.settings.scene }}"></div>
+            </a>
+          {%- elsif block.settings.fallback_art != 'none' and block.settings.fallback_art != blank -%}
+            {%- liquid
+              assign fallback_art = block.settings.fallback_art
+              assign fallback_src = fallback_art | append: '.webp' | asset_url
+              case fallback_art
+                when 'earth-song'
+                  assign fallback_title = 'Earth Song'
+                  assign fallback_width = 102
+                  assign fallback_height = 137
+                  assign fallback_crop = '69% bottom'
+                  assign fallback_size = ''
+                when 'monsoon-memory'
+                  assign fallback_title = 'Monsoon Memory'
+                  assign fallback_width = 60.96
+                  assign fallback_height = 76.2
+                  assign fallback_crop = '78% center'
+                  assign fallback_size = '24 × 30 in'
+                when 'small-hours'
+                  assign fallback_title = 'The Small Hours'
+                  assign fallback_width = 40.64
+                  assign fallback_height = 50.8
+                  assign fallback_crop = '12% bottom'
+                  assign fallback_size = '16 × 20 in'
+              endcase
+            -%}
+            <div {{ block.shopify_attributes }}>
+              <div data-wall
+                data-title="{{ fallback_title | escape }}"
+                data-src="{{ fallback_src }}"
+                data-crop="{{ fallback_crop }}"
+                data-w="{{ fallback_width }}"
+                data-h="{{ fallback_height }}"
+                data-size="{{ fallback_size | escape }}"
+                data-scene="{{ block.settings.scene }}"></div>
+            </div>
+          {%- endif -%}
+        {%- when 'photo' -%}
+          <figure class="wall-figure" {{ block.shopify_attributes }}>
+            {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{%- endif -%}
+            <div class="interior-photo">{%- render 'art-image', image: block.settings.image, alt: block.settings.image.alt, sizes: '(min-width: 1024px) 33vw, 80vw' -%}</div>
+            {%- if block.settings.link != blank -%}</a>{%- endif -%}
+            {%- if block.settings.caption != blank -%}<figcaption class="wall-caption"><strong>{{ block.settings.caption | escape }}</strong></figcaption>{%- endif -%}
+          </figure>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+  {%- if section.settings.link_label != blank -%}
+    <div class="interiors-foot"><a class="text-link" href="{{ section.settings.link }}">{{ section.settings.link_label | escape }}</a></div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Art in interiors",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Art in interiors" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "See it on the wall." },
+    { "type": "text", "id": "text", "label": "Text", "default": "Each work drawn to true scale beside everyday furniture, so you can judge its size and presence before you collect." },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Print size guide" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "blocks": [
+    {
+      "type": "scale",
+      "name": "Scale drawing",
+      "limit": 6,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Artwork" },
+        { "type": "select", "id": "fallback_art", "label": "Preview before a product is available", "default": "none", "options": [
+          { "value": "none", "label": "None" },
+          { "value": "earth-song", "label": "Earth Song · 102 × 137 cm" },
+          { "value": "monsoon-memory", "label": "Monsoon Memory · 24 × 30 in" },
+          { "value": "small-hours", "label": "The Small Hours · 16 × 20 in" }
+        ] },
+        { "type": "text", "id": "size", "label": "Print size", "info": "For prints: the size option to draw, e.g. A2. Originals use their width/height metafields." },
+        { "type": "select", "id": "scene", "label": "Furniture", "default": "sofa", "options": [
+          { "value": "sofa", "label": "Sofa" }, { "value": "console", "label": "Sideboard" }, { "value": "chair", "label": "Armchair" }
+        ] }
+      ]
+    },
+    {
+      "type": "photo",
+      "name": "Room photo",
+      "limit": 6,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "caption", "label": "Caption" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Art in interiors" }]
+}
+{% endschema %}

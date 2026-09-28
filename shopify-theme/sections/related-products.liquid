@@ -1,0 +1,29 @@
+{%- comment -%}
+  Related works from Shopify's product recommendations. Loaded after the page by
+  js/product.js (Section Rendering). The artwork's own original/print counterpart is removed client-side.
+{%- endcomment -%}
+<section class="section" data-related-products data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.limit | plus: 1 }}&intent=related" aria-labelledby="heading-{{ section.id }}">
+  {%- if recommendations.performed? and recommendations.products_count > 0 -%}
+    <div class="section-head section-head--split">
+      <div><p class="eyebrow">{{ section.settings.eyebrow | escape }}</p><h2 id="heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2></div>
+    </div>
+    <div class="product-grid product-grid--4" data-related-grid>
+      {%- for p in recommendations.products -%}
+        {%- render 'product-card', card_product: p -%}
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    <h2 class="sr-only" id="heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Related works",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "From the same studio" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Related works" },
+    { "type": "range", "id": "limit", "label": "Products", "min": 2, "max": 8, "step": 1, "default": 4 }
+  ]
+}
+{% endschema %}

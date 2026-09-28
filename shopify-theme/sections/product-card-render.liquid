@@ -1,0 +1,9 @@
+{%- comment -%}
+  Renders one product card for the current product. Fetched with the Section Rendering API
+  (/products/{handle}?section_id=product-card-render) by the wishlist and recently viewed.
+{%- endcomment -%}
+{%- if product -%}{%- render 'product-card', card_product: product -%}{%- endif -%}
+
+{% schema %}
+{ "name": "Product card (rendering)", "settings": [] }
+{% endschema %}

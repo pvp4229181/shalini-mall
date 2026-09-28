@@ -1,0 +1,236 @@
+{{ 'product.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product.js' | asset_url }}" defer></script>
+{%- liquid
+  assign p = product
+  assign is_original = false
+  if p.type == settings.original_product_type or p.tags contains 'original'
+    assign is_original = true
+  endif
+  assign current = p.selected_or_first_available_variant
+  assign focus = p.metafields.custom.image_focus.value
+  if focus == blank and p.featured_media
+    assign focus = p.featured_media.preview_image.presentation.focal_point
+  endif
+  if is_original
+    assign counterpart = p.metafields.custom.related_print.value
+    assign parent = section.settings.originals_collection
+  else
+    assign counterpart = p.metafields.custom.related_original.value
+    assign parent = section.settings.prints_collection
+  endif
+  assign parent_url = parent.url | default: routes.all_products_collection_url
+  assign parent_title = parent.title | default: 'Shop'
+
+  assign series = nil
+  for c in p.collections
+    unless c.handle == 'all' or c.handle == 'frontpage' or c.handle == section.settings.originals_collection.handle or c.handle == section.settings.prints_collection.handle
+      assign series = c
+      break
+    endunless
+  endfor
+
+  assign dims = p.metafields.custom.dimensions.value
+  assign image_media = p.media | where: 'media_type', 'image'
+  assign form_id = 'product-form-' | append: section.id
+-%}
+
+<div class="page product-page" data-product-page data-handle="{{ p.handle }}" data-counterpart="{{ counterpart.handle }}" data-section-id="{{ section.id }}">
+  {%- render 'product-json', product: p, is_original: is_original, focus: focus -%}
+  <div class="product" id="product">
+
+    {%- comment -%} Gallery: every product image, plus a detail crop when there is only one, plus the scale view. {%- endcomment -%}
+    <div class="gallery">
+      <div class="gallery__thumbs" role="tablist" aria-label="Artwork views" aria-orientation="vertical">
+        {%- for media in image_media -%}
+          <button type="button" role="tab" class="gallery__thumb" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="view-{{ media.id }}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" data-media-id="{{ media.id }}" aria-label="View {{ forloop.index }}">
+            <span class="gallery__thumb-img">{% render 'art-image', image: media.preview_image, focus: focus, alt: '', sizes: '80px' %}</span>
+          </button>
+        {%- endfor -%}
+        {%- if image_media.size == 1 -%}
+          <button type="button" role="tab" class="gallery__thumb" aria-selected="false" aria-controls="view-detail" tabindex="-1" aria-label="Detail">
+            <span class="gallery__thumb-img">{% render 'art-image', image: p.featured_image, focus: focus, alt: '', sizes: '80px', class: 'art--zoom', zoom: 2.2 %}</span>
+          </button>
+        {%- endif -%}
+        <button type="button" role="tab" class="gallery__thumb" aria-selected="false" aria-controls="view-wall" tabindex="-1" aria-label="On the wall" data-wall-tab hidden>
+          <span class="gallery__thumb-img"><span class="gallery__thumb-wall">{% render 'art-image', image: p.featured_image, focus: focus, alt: '', sizes: '40px' %}</span></span>
+        </button>
+      </div>
+      <div class="gallery__stage">
+        {%- for media in image_media -%}
+          {%- assign media_alt = media.alt | default: p.title -%}
+          <div class="gallery__slide gallery__slide--art{% if forloop.first %} is-active{% endif %}" id="view-{{ media.id }}" role="tabpanel" aria-label="View {{ forloop.index }}" data-media-id="{{ media.id }}"{% unless forloop.first %} hidden{% endunless %}>
+            {%- if forloop.first -%}
+              {%- render 'art-image', image: media.preview_image, focus: focus, alt: media_alt, sizes: '(min-width: 1024px) 55vw, 100vw', priority: true -%}
+            {%- else -%}
+              {%- render 'art-image', image: media.preview_image, alt: media_alt, sizes: '(min-width: 1024px) 55vw, 100vw' -%}
+            {%- endif -%}
+          </div>
+        {%- else -%}
+          <div class="gallery__slide is-active" role="tabpanel">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+        {%- endfor -%}
+        {%- if image_media.size == 1 -%}
+          <div class="gallery__slide gallery__slide--detail" id="view-detail" role="tabpanel" aria-label="Detail" hidden>
+            {%- render 'art-image', image: p.featured_image, focus: focus, alt: 'Close detail', sizes: '(min-width: 1024px) 55vw, 100vw', class: 'art--zoom', zoom: 2.2 -%}
+          </div>
+        {%- endif -%}
+        <div class="gallery__slide gallery__slide--wall" id="view-wall" role="tabpanel" aria-label="On the wall" data-wall-view hidden></div>
+        {%- if image_media.size > 0 -%}
+          <button type="button" class="icon-btn gallery__zoom" data-lightbox aria-label="View artwork full screen">{% render 'icon', icon: 'search' %}</button>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="product-info">
+      {%- render 'breadcrumbs', parent_url: parent_url, parent_title: parent_title, current: p.title -%}
+      <p class="eyebrow">
+        {%- if is_original -%}Original artwork · One of one
+        {%- else -%}Fine art print{% if p.metafields.custom.edition_size.value %} · Edition of {{ p.metafields.custom.edition_size.value }}{% endif %}
+        {%- endif -%}
+      </p>
+      <h1>{{ p.title | escape }}</h1>
+      <p class="product-artist">{{ settings.artist_name | escape }}</p>
+      <p class="price" data-price aria-live="polite">{{ current.price | money }}</p>
+      <p class="availability">Availability: <span class="status{% unless current.available %} status--sold{% endunless %}" data-availability>
+        {%- if current.available -%}{% if is_original %}Available{% else %}In stock{% endif %}{%- else -%}Sold{%- endif -%}
+      </span></p>
+
+      {%- if is_original -%}
+        <dl class="specs">
+          {%- if p.metafields.custom.medium.value -%}<div><dt>Medium</dt><dd>{{ p.metafields.custom.medium.value | escape }}</dd></div>{%- endif -%}
+          {%- if dims -%}<div><dt>Dimensions</dt><dd>{{ dims | escape }}</dd></div>{%- endif -%}
+          {%- if p.metafields.custom.year.value -%}<div><dt>Year</dt><dd>{{ p.metafields.custom.year.value }}</dd></div>{%- endif -%}
+          {%- if series -%}<div><dt>Collection</dt><dd><a href="{{ series.url }}">{{ series.title | escape }}</a></dd></div>{%- endif -%}
+          <div><dt>Edition</dt><dd>One of one, signed</dd></div>
+        </dl>
+      {%- endif -%}
+
+      {%- form 'product', p, id: form_id, class: 'product-form', novalidate: 'novalidate', data-product-form: '' -%}
+        <input type="hidden" name="id" value="{{ current.id }}" data-variant-input>
+        {%- unless is_original -%}
+          <div data-options>{%- render 'variant-picker', product: p, prefix: 'pdp' -%}</div>
+        {%- endunless -%}
+        <div class="product-buy">
+          {%- unless is_original -%}
+            <p class="label">Quantity</p>
+            {%- render 'qty', id: 'pdpQty' -%}
+          {%- endunless -%}
+          <button type="submit" name="add" class="button dark full" data-add{% unless current.available %} disabled{% endunless %}>
+            {%- if current.available == false -%}Sold{%- elsif is_original -%}Buy original{%- else -%}Add to cart{%- endif -%}
+          </button>
+          <div class="product-buy__row">
+            <button type="button" class="button outline" data-wishlist-toggle="{{ p.handle }}" aria-pressed="false">{% render 'icon', icon: 'heart' %} <span data-wish-label>Add to wishlist</span></button>
+            <button type="button" class="icon-btn product-share" data-share aria-label="Share this artwork">{% render 'icon', icon: 'share' %}</button>
+          </div>
+        </div>
+      {%- endform -%}
+
+      <button type="button" class="text-link product-size-guide" data-size-guide hidden>{% render 'icon', icon: 'ruler' %} View size guide</button>
+
+      {%- if counterpart != blank -%}
+        <a class="counterpart" href="{{ counterpart.url }}">
+          {%- render 'art-image', image: counterpart.featured_image, focus: counterpart.metafields.custom.image_focus.value, alt: '', sizes: '90px', class: 'counterpart__art' -%}
+          <span class="counterpart__text">
+            {%- if is_original -%}
+              <strong>Available as fine art print</strong>
+              <span>
+                {%- for option in counterpart.options_with_values -%}{%- assign oname = option.name | downcase -%}{%- if oname == 'size' -%}{{ option.values | join: ' · ' }} · {% endif -%}{%- endfor -%}
+                {%- if counterpart.variants.size > 1 -%}From {{ counterpart.price_min | money }}{%- else -%}{{ counterpart.price | money }}{%- endif -%}
+              </span>
+              <span class="text-link">View print options {% render 'icon', icon: 'arrow' %}</span>
+            {%- else -%}
+              <strong>The original painting</strong>
+              <span>One of one{% if counterpart.metafields.custom.dimensions.value %} · {{ counterpart.metafields.custom.dimensions.value }}{% endif %} · {% if counterpart.available %}{{ counterpart.price | money }}{% else %}Sold{% endif %}</span>
+              <span class="text-link">View original artwork {% render 'icon', icon: 'arrow' %}</span>
+            {%- endif -%}
+          </span>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} Details as full-width accordions. {%- endcomment -%}
+  <div class="product-more">
+    <div class="accordion">
+      <details open>
+        <summary>Artwork story {% render 'icon', icon: 'chevron' %}</summary>
+        <div>
+          {%- if p.metafields.custom.story.value != blank -%}<p>{{ p.metafields.custom.story.value | escape | newline_to_br }}</p>{%- else -%}{{ p.description }}{%- endif -%}
+          {%- if series and series.description != blank -%}<p>{{ series.description | strip_html | escape }} <a class="text-link" href="{{ series.url }}">The {{ series.title | escape }} series</a></p>{%- endif -%}
+        </div>
+      </details>
+      <details>
+        <summary>{% if is_original %}Details &amp; materials{% else %}Product details{% endif %} {% render 'icon', icon: 'chevron' %}</summary>
+        <div>
+          {%- if is_original -%}
+            <p>{{ section.settings.original_details | escape }}</p>
+            {%- if p.metafields.custom.medium.value -%}<p>{{ p.metafields.custom.medium.value | escape }}</p>{%- endif -%}
+          {%- else -%}
+            <p>{{ p.metafields.custom.materials.value | default: section.settings.print_details | escape }}</p>
+            {%- if p.metafields.custom.edition_size.value -%}<p>Edition of {{ p.metafields.custom.edition_size.value }}, signed and numbered by the artist.</p>{%- endif -%}
+          {%- endif -%}
+        </div>
+      </details>
+      <details>
+        <summary>Dimensions {% render 'icon', icon: 'chevron' %}</summary>
+        <div>
+          {%- if is_original -%}
+            <p>{{ dims | default: 'Ask the studio for exact dimensions.' | escape }}</p>
+          {%- else -%}
+            <ul class="dims-list">
+              {%- for v in p.variants -%}
+                {%- capture paper %}{% render 'paper-size', size: v.option1 %}{% endcapture -%}
+                <li><strong>{{ v.title | escape }}</strong> {{ paper }}</li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          <button type="button" class="text-link" data-size-guide hidden>See it to scale {% render 'icon', icon: 'arrow' %}</button>
+        </div>
+      </details>
+      <details>
+        <summary>Shipping {% render 'icon', icon: 'chevron' %}</summary>
+        <div><p>{% if is_original %}{{ section.settings.original_shipping | escape }}{% else %}{{ section.settings.print_shipping | escape }}{% endif %}</p></div>
+      </details>
+      {%- if is_original -%}
+        <details>
+          <summary>Authenticity {% render 'icon', icon: 'chevron' %}</summary>
+          <div><p>{{ p.metafields.custom.certificate.value | default: section.settings.authenticity | escape }}</p></div>
+        </details>
+      {%- endif -%}
+      <details>
+        <summary>Questions before collecting? {% render 'icon', icon: 'chevron' %}</summary>
+        <div><p>{{ section.settings.questions | escape }} {% if section.settings.contact_page != blank %}<a class="text-link" href="{{ section.settings.contact_page.url }}">Contact the studio</a>{% endif %}</p></div>
+      </details>
+    </div>
+  </div>
+
+  {%- unless is_original -%}
+    <div class="sticky-buy" data-sticky-buy aria-label="Quick purchase" inert>
+      <div class="sticky-buy__text"><strong>{{ p.title | escape }}</strong><span data-sticky-variant>{{ current.title | escape }} · {{ current.price | money }}</span></div>
+      <button type="button" class="button dark small" data-sticky-add>Add to cart</button>
+    </div>
+  {%- endunless -%}
+
+  <dialog class="dialog lightbox" id="lightbox-{{ section.id }}" aria-label="Artwork full screen" data-lightbox-dialog>
+    <button type="button" class="icon-btn dialog-close" data-dialog-close aria-label="Close full screen view">{% render 'icon', icon: 'close' %}</button>
+    <div data-lightbox-art>{%- render 'art-image', image: p.featured_image, focus: focus, alt: p.title, sizes: '90vw' -%}</div>
+  </dialog>
+</div>
+
+<script type="application/ld+json">{{ p | structured_data }}</script>
+
+{% schema %}
+{
+  "name": "Product information",
+  "settings": [
+    { "type": "collection", "id": "originals_collection", "label": "Originals collection", "info": "Used for the breadcrumb and to find the artwork's series." },
+    { "type": "collection", "id": "prints_collection", "label": "Prints collection" },
+    { "type": "page", "id": "contact_page", "label": "Contact page" },
+    { "type": "textarea", "id": "original_details", "label": "Original: details text", "default": "Original studio artwork, signed by the artist. A certificate of authenticity is included." },
+    { "type": "textarea", "id": "print_details", "label": "Print: default materials text", "default": "Matte canvas, stretched over a 0.75 in pinewood frame, signed and numbered by the artist.", "info": "Used when a print has no custom.materials metafield." },
+    { "type": "textarea", "id": "original_shipping", "label": "Original: shipping text", "default": "Originals ship carefully wrapped and insured, with tracking. Shipping is complimentary across India." },
+    { "type": "textarea", "id": "print_shipping", "label": "Print: shipping text", "default": "Canvas prints are corner-protected, securely boxed, and shipped ready to hang." },
+    { "type": "textarea", "id": "authenticity", "label": "Original: authenticity text", "default": "Every original arrives signed with a studio certificate of authenticity." },
+    { "type": "textarea", "id": "questions", "label": "Questions text", "default": "We are happy to share additional details, close-ups, scale images or installation guidance." }
+  ]
+}
+{% endschema %}

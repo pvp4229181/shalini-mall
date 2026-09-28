@@ -1,0 +1,59 @@
+{%- comment -%}
+  Cart line item, shared by the cart drawer and the cart page.
+  Buttons carry the target quantity; js/cart.js posts it to /cart/change.js.
+  Params: item
+{%- endcomment -%}
+{%- liquid
+  assign is_original = false
+  if item.product.type == settings.original_product_type or item.product.tags contains 'original'
+    assign is_original = true
+  endif
+  assign focus = item.product.metafields.custom.image_focus.value
+-%}
+<article class="line-item">
+  <a href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+    {%- render 'art-image', image: item.image, focus: focus, alt: '', sizes: '120px' -%}
+  </a>
+  <div class="line-item__body">
+    <div class="line-item__top">
+      <h3 class="line-item__title"><a href="{{ item.url }}">{{ item.product.title | escape }}</a></h3>
+      <button type="button" class="line-item__remove" data-line-key="{{ item.key }}" data-quantity="0" data-focus="remove" aria-label="Remove {{ item.product.title | escape }} from cart">
+        {%- render 'icon', icon: 'close' -%}
+      </button>
+    </div>
+    <span class="line-item__variant">
+      {%- if is_original -%}
+        Original
+        {%- if item.product.metafields.custom.dimensions.value %} · {{ item.product.metafields.custom.dimensions.value }}{% endif -%}
+      {%- else -%}
+        Fine art print
+        {%- unless item.product.has_only_default_variant -%}
+          {%- for option in item.options_with_values %} · {{ option.value }}
+            {%- capture paper %}{% render 'paper-size', size: option.value %}{% endcapture -%}
+            {%- if paper != blank %} ({{ paper }}){% endif -%}
+          {%- endfor -%}
+        {%- endunless -%}
+      {%- endif -%}
+      {%- if item.quantity > 1 %} · {{ item.final_price | money }} each{% endif -%}
+    </span>
+    {%- for discount in item.line_level_discount_allocations -%}
+      <span class="line-item__variant">{{ discount.discount_application.title | escape }} (−{{ discount.amount | money }})</span>
+    {%- endfor -%}
+    <div class="line-item__bottom">
+      {%- if is_original -%}
+        <span class="line-item__unique">One of one</span>
+      {%- else -%}
+        <div class="qty qty--sm" role="group" aria-label="Quantity for {{ item.product.title | escape }}">
+          <button type="button" data-line-key="{{ item.key }}" data-quantity="{{ item.quantity | minus: 1 }}" data-focus="minus" aria-label="Decrease quantity"{% if item.quantity <= 1 %} disabled{% endif %}>
+            {%- render 'icon', icon: 'minus' -%}
+          </button>
+          <output aria-live="polite">{{ item.quantity }}</output>
+          <button type="button" data-line-key="{{ item.key }}" data-quantity="{{ item.quantity | plus: 1 }}" data-focus="plus" aria-label="Increase quantity">
+            {%- render 'icon', icon: 'plus' -%}
+          </button>
+        </div>
+      {%- endif -%}
+      <span class="line-item__price">{{ item.final_line_price | money }}</span>
+    </div>
+  </div>
+</article>

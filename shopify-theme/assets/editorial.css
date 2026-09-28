@@ -1,0 +1,89 @@
+/* ==========================================================================
+   Editorial storytelling layouts: image/text split, artist block, the
+   original-vs-print comparison, long-form prose. Used on home, artist, about.
+   ========================================================================== */
+
+.editorial { display: grid; grid-template-columns: 1fr 1fr; background: var(--color-surface); }
+.editorial > .art, .editorial-image { min-height: 78vh; }
+.editorial-copy { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: clamp(56px, 8vw, 130px); }
+.editorial-copy h2 { margin: .4em 0 .6em; }
+.editorial-copy p:not(.eyebrow) { max-width: 48ch; color: var(--color-muted); margin-bottom: 24px; }
+.editorial-copy .button, .editorial-copy .text-link { margin-top: 8px; }
+.editorial--reverse > :first-child { order: 2; }
+.editorial--dark { background: var(--color-text); color: var(--color-on-dark); }
+.editorial--dark .editorial-copy p:not(.eyebrow) { color: var(--color-on-dark-muted); }
+.editorial--paper { background: var(--color-background); }
+
+.about-grid { display: grid; grid-template-columns: .85fr 1.15fr; }
+.about-grid > .art { min-height: 88vh; }
+.about-copy { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: clamp(56px, 9vw, 140px); }
+.about-copy h1, .about-copy h2 { margin: .4em 0 .6em; }
+.about-copy p:not(.eyebrow) { max-width: 52ch; }
+.pull-quote {
+  font: 400 clamp(1.5rem, 3vw, 2.4rem)/1.3 var(--font-heading); text-transform: uppercase; letter-spacing: .04em;
+  max-width: 26ch; margin: 0 auto; text-align: center;
+}
+.pull-quote cite { display: block; margin-top: 24px; font: 400 12px var(--font-heading); letter-spacing: var(--tracking-wide); color: var(--color-muted); font-style: normal; }
+
+/* Original vs print */
+.compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: clamp(24px, 4vw, 64px); align-items: start; }
+.compare-col { display: flex; flex-direction: column; align-items: flex-start; }
+.compare-col > .art { width: 100%; aspect-ratio: 5 / 4; margin-bottom: 28px; }
+.compare-col h3 { font-size: clamp(1.4rem, 2.4vw, 2rem); letter-spacing: .06em; margin: .3em 0 .5em; }
+.compare-list { list-style: none; margin: 0 0 30px; padding: 0; width: 100%; }
+.compare-list li { padding: 12px 0; border-bottom: 1px solid var(--color-border); font-size: 17px; }
+.compare-list li:first-child { border-top: 1px solid var(--color-border); }
+.compare-price { font-size: 1.15rem; color: var(--color-accent); margin: 0 0 20px; }
+.compare-divider { align-self: stretch; display: flex; flex-direction: column; align-items: center; gap: 16px; padding-top: 12%; }
+.compare-divider::before, .compare-divider::after { content: ''; flex: 1; width: 1px; background: var(--color-border-strong); }
+.compare-divider span { font: 400 1.1rem var(--font-heading); text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--color-muted); }
+
+/* Long-form prose + info blocks (about, contact) */
+.prose { max-width: 68ch; }
+.prose p { line-height: 1.6; }
+.prose h2 { margin: 1.6em 0 .6em; font-size: clamp(1.4rem, 2.4vw, 2rem); }
+.info-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 48px); }
+.info-card { background: var(--color-surface); padding: clamp(28px, 3vw, 44px); }
+.info-card h3, .info-card__title { margin: 10px 0 14px; font-size: 1.05rem; letter-spacing: .18em; }
+.info-card p { color: var(--color-muted); margin-bottom: 0; }
+
+/* Contact */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px); align-items: start; }
+.contact-card { background: var(--color-surface); padding: clamp(28px, 5vw, 64px); }
+.contact-card h2 { font-size: clamp(1.4rem, 2.4vw, 2rem); margin: .3em 0 1em; }
+.faq details { border-top: 1px solid var(--color-border); }
+.faq details:last-child { border-bottom: 1px solid var(--color-border); }
+.faq summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; padding: 12px 0;
+  font: 400 1rem/1.3 var(--font-heading); text-transform: uppercase; letter-spacing: .08em;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; font-size: 1.4rem; transition: transform var(--dur) var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { color: var(--color-muted); padding-bottom: 12px; }
+
+/* Print size explorer (about page) */
+.size-explorer { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px clamp(24px, 4vw, 64px); align-items: start; }
+.size-explorer__controls { grid-column: 1 / -1; display: flex; justify-content: center; }
+.size-explorer .size-table { margin-top: 0; }
+
+@media (max-width: 1024px) {
+  .editorial, .about-grid { grid-template-columns: 1fr; }
+  .contact-grid, .size-explorer { grid-template-columns: 1fr; }
+  .editorial > .art, .editorial-image { min-height: 64vh; }
+  .editorial--reverse > :first-child { order: 0; }
+  .editorial--reverse > .art { order: -1; }
+  .about-grid > .art { min-height: 70vh; }
+  .info-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .compare { grid-template-columns: 1fr; }
+  .compare-divider { flex-direction: row; padding: 0; }
+  .compare-divider::before, .compare-divider::after { height: 1px; width: auto; }
+  .info-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .editorial-copy, .about-copy { padding: 64px var(--gutter); }
+  .editorial > .art, .editorial-image { min-height: 52vh; }
+  .about-grid > .art { min-height: 60vh; }
+}

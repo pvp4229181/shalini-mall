@@ -1,0 +1,24 @@
+{%- comment -%}
+  Option pickers (radio pills) for a product's options, e.g. Size and Frame.
+  Only options that exist on the product are shown. js/variants.js resolves
+  the checked values to a Shopify variant and disables unavailable combinations.
+  Params: product, prefix (unique id prefix)
+{%- endcomment -%}
+{%- unless product.has_only_default_variant -%}
+  {%- for option in product.options_with_values -%}
+    {%- assign option_index = forloop.index0 -%}
+    <fieldset class="option" data-option-index="{{ option_index }}">
+      <legend class="label"><span>{{ option.name | escape }}</span><span data-option-value="{{ option_index }}">{{ option.selected_value | escape }}</span></legend>
+      <div class="pills">
+        {%- for value in option.values -%}
+          {%- assign input_id = prefix | append: '-' | append: option_index | append: '-' | append: forloop.index0 -%}
+          {%- capture paper %}{% render 'paper-size', size: value.name %}{% endcapture -%}
+          <label class="pill" for="{{ input_id }}">
+            <input type="radio" id="{{ input_id }}" name="{{ prefix }}-option{{ option_index }}" value="{{ value.name | escape }}" data-option-index="{{ option_index }}"{% if value.selected %} checked{% endif %}{% unless value.available %} data-unavailable{% endunless %}>
+            <span>{{ value.name | escape }}{% if paper != blank %}<small>{{ paper }}</small>{% endif %}</span>
+          </label>
+        {%- endfor -%}
+      </div>
+    </fieldset>
+  {%- endfor -%}
+{%- endunless -%}

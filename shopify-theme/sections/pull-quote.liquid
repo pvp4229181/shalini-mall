@@ -1,0 +1,19 @@
+{{ 'editorial.css' | asset_url | stylesheet_tag }}
+<section class="section" aria-label="{{ section.settings.label | escape }}">
+  <blockquote class="pull-quote" data-reveal>
+    <p>{{ section.settings.quote | escape }}</p>
+    {%- if section.settings.cite != blank -%}<cite>{{ section.settings.cite | escape }}</cite>{%- endif -%}
+  </blockquote>
+</section>
+
+{% schema %}
+{
+  "name": "Pull quote",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Accessible label", "default": "In the artist’s words" },
+    { "type": "textarea", "id": "quote", "label": "Quote", "default": "I paint the feeling before the words arrive." },
+    { "type": "text", "id": "cite", "label": "Attribution", "default": "Shalini" }
+  ],
+  "presets": [{ "name": "Pull quote" }]
+}
+{% endschema %}

@@ -1,0 +1,95 @@
+{
+  "sections": {
+    "intro": {
+      "type": "image-with-text",
+      "settings": {
+        "layout": "artist",
+        "fallback_image": "artist-shalini",
+        "fallback_focus": "50% 36%",
+        "fallback_alt": "Shalini standing beside a large abstract canvas in her studio",
+        "image_position": "left",
+        "style": "surface",
+        "show_breadcrumb": true,
+        "eyebrow": "The artist",
+        "heading_level": "h1",
+        "heading": "A practice rooted in attention.",
+        "text": "<p>Shalini is a contemporary painter working from an intuitive language of colour, gesture, and natural form. Her paintings ask what remains when a landscape becomes memory.</p><p>Each canvas is built through accumulation and erasure—earth pigments, charcoal, oils, and thin washes finding their way into a quiet, tactile whole.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "link"
+      }
+    },
+    "quote": {
+      "type": "pull-quote",
+      "settings": {
+        "label": "In the artist’s words",
+        "quote": "I paint the feeling before the words arrive.",
+        "cite": "Shalini"
+      }
+    },
+    "process": {
+      "type": "image-with-text",
+      "settings": {
+        "layout": "editorial",
+        "fallback_image": "wild-grace",
+        "fallback_focus": "50% 60%",
+        "fallback_alt": "Close-up of layered paint and botanical marks",
+        "image_position": "right",
+        "style": "dark",
+        "show_breadcrumb": false,
+        "eyebrow": "Inside the process",
+        "heading_level": "h2",
+        "heading": "Nothing begins with a finished picture.",
+        "text": "<p>There are only first marks, a remembered colour, and the willingness to follow. The work arrives slowly, through looking and listening.</p>",
+        "button_label": "Explore the work",
+        "button_link": "shopify://collections/all",
+        "button_style": "light"
+      }
+    },
+    "philosophy": {
+      "type": "image-with-text",
+      "settings": {
+        "layout": "editorial",
+        "fallback_image": "artist-shalini",
+        "fallback_focus": "50% 82%",
+        "fallback_alt": "Pigment bowls and brushes on the studio worktable",
+        "image_position": "left",
+        "style": "surface",
+        "show_breadcrumb": false,
+        "eyebrow": "Philosophy",
+        "heading_level": "h2",
+        "heading": "Between intuition and observation.",
+        "text": "<p>Shalini’s practice moves between intuition and observation. Every work begins with colour, then finds its own rhythm through mark, texture, erasure, and time.</p>",
+        "button_label": "See the original paintings",
+        "button_link": "shopify://collections/originals",
+        "button_style": "link"
+      }
+    },
+    "series": {
+      "type": "image-with-text",
+      "settings": {
+        "layout": "editorial",
+        "fallback_image": "earth-song",
+        "fallback_focus": "center",
+        "fallback_alt": "Detail from the Earth Song collection",
+        "image_position": "left",
+        "style": "paper",
+        "show_breadcrumb": false,
+        "eyebrow": "The Earth Song series",
+        "heading_level": "h2",
+        "heading": "Colour as a kind of remembering.",
+        "text": "<p>Built slowly in layers of mineral pigment, charcoal, and translucent washes, these works hold the trace of weather, wild gardens, and remembered places.</p>",
+        "button_label": "Enter the series",
+        "button_link": "shopify://collections/earth-song",
+        "button_style": "dark"
+      }
+    }
+  },
+  "order": [
+    "intro",
+    "quote",
+    "process",
+    "philosophy",
+    "series"
+  ]
+}

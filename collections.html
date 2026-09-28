@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Collections — Shalini Mall</title>
+  <meta name="description" content="Explore Shalini Mall's collections: series of original paintings and signed fine art prints, beginning with Earth Song.">
+  <link rel="canonical" href="https://shalini-mall.vercel.app/collections.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Shalini Mall">
+  <meta property="og:title" content="Collections — Shalini Mall">
+  <meta property="og:description" content="Series of original paintings and signed fine art prints.">
+  <meta property="og:url" content="https://shalini-mall.vercel.app/collections.html">
+  <meta property="og:image" content="https://shalini-mall.vercel.app/assets/images/collection-hero.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#f7ecec">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%238e3857'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' text-anchor='middle' fill='%23fff'%3ES%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Tenor+Sans&family=WindSong:wght@400;500&display=swap">
+  <link rel="preload" as="image" href="assets/images/collection-hero.webp" fetchpriority="high">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/shop.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <script>document.documentElement.classList.add('js')</script>
+  <script defer src="js/core.js"></script>
+  <script defer src="js/products.js"></script>
+  <script defer src="js/cart.js"></script>
+  <script defer src="js/wishlist.js"></script>
+  <script defer src="js/recently-viewed.js"></script>
+  <script defer src="js/cards.js"></script>
+  <script defer src="js/variants.js"></script>
+  <script defer src="js/layout.js"></script>
+  <script defer src="js/app.js"></script>
+  <script defer src="js/search.js"></script>
+  <script defer src="js/quick-view.js"></script>
+  <script defer src="js/filters.js"></script>
+  <script defer src="js/listing-pages.js"></script>
+  <script defer src="js/animations.js"></script>
+</head>
+<body>
+<main id="main">
+  <!-- Collection index (collections.html) -->
+  <div class="page" id="collectionIndexHead">
+    <header class="shop-head">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li aria-current="page">Collections</li></ol></nav>
+      <p class="eyebrow">Series from the studio</p>
+      <h1>Collections</h1>
+      <p>Bodies of work made together, each with its own palette, story and mood — shown here as originals and signed editions.</p>
+    </header>
+    <div class="collection-list" id="collectionIndex"></div>
+  </div>
+
+  <!-- Single collection (collections.html?id=…) -->
+  <div id="collectionDetail" hidden>
+    <header class="page-banner page-banner--tall" id="collectionHero"></header>
+    <section class="page" id="works" aria-labelledby="worksTitle">
+      <div class="section-head section-head--split"><div><p class="eyebrow">Originals &amp; prints</p><h2 id="worksTitle">Collection works</h2></div></div>
+      <div data-listing="collections"></div>
+    </section>
+    <section class="section section--surface">
+      <div class="collection-story" id="collectionStory" data-reveal></div>
+    </section>
+  </div>
+</main>
+</body>
+</html>

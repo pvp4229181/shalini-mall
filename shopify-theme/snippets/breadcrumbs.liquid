@@ -1,0 +1,10 @@
+{%- comment -%}
+  Breadcrumb trail. Params: parent_url, parent_title (optional middle crumb), current (current page title)
+{%- endcomment -%}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="{{ routes.root_url }}">Home</a></li>
+    {%- if parent_url != blank -%}<li><a href="{{ parent_url }}">{{ parent_title | escape }}</a></li>{%- endif -%}
+    <li aria-current="page">{{ current | escape }}</li>
+  </ol>
+</nav>

@@ -1,0 +1,6 @@
+{%- comment -%} Quantity stepper. Params: id, label {%- endcomment -%}
+<div class="qty" role="group" aria-label="{{ label | default: 'Quantity' }}">
+  <button type="button" data-step="-1" aria-label="Decrease quantity" disabled>{% render 'icon', icon: 'minus' %}</button>
+  <input id="{{ id }}" name="quantity" type="number" inputmode="numeric" min="1" max="10" value="1" aria-label="{{ label | default: 'Quantity' }}">
+  <button type="button" data-step="1" aria-label="Increase quantity">{% render 'icon', icon: 'plus' %}</button>
+</div>

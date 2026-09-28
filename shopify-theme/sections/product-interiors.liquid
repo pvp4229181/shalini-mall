@@ -1,0 +1,23 @@
+{{ 'product.css' | asset_url | stylesheet_tag }}
+{%- comment -%} The current product drawn to scale in three rooms (js/wall-preview.js reads the product JSON). {%- endcomment -%}
+<section class="section section--surface" data-product-interiors hidden aria-labelledby="heading-{{ section.id }}">
+  <div class="section-head section-head--split" data-reveal>
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <h2 id="heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+    </div>
+  </div>
+  <p class="muted interiors-note">{{ section.settings.text | escape }}</p>
+  <div class="interior-scenes" data-interior-scenes tabindex="0" role="region" aria-label="Scale drawings in three rooms"></div>
+</section>
+
+{% schema %}
+{
+  "name": "Artwork in interiors",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Drawn to true scale" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Artwork in interiors" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Hung at the usual 145 cm centre height, so you can judge its presence before it arrives." }
+  ]
+}
+{% endschema %}

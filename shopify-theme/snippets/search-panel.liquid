@@ -1,0 +1,50 @@
+{%- comment -%}
+  Search panel. Results come from Shopify Predictive Search rendered by
+  sections/predictive-search.liquid; the suggestions below show while the field is empty.
+{%- endcomment -%}
+<section class="search-overlay" id="searchPanel" role="dialog" aria-modal="true" aria-label="Search artworks" aria-hidden="true" inert>
+  <div class="search-inner">
+    <div class="search-bar">
+      <form class="search-field" role="search" action="{{ routes.search_url }}" method="get" data-search-form>
+        {%- render 'icon', icon: 'search' -%}
+        <label class="sr-only" for="searchInput">Search artworks and collections</label>
+        <input id="searchInput" name="q" type="search" placeholder="Search artworks, collections…" autocomplete="off" spellcheck="false"
+          role="combobox" aria-expanded="false" aria-controls="searchResults" aria-autocomplete="list" aria-describedby="searchStatus" data-autofocus>
+        <input type="hidden" name="options[prefix]" value="last">
+        <button type="button" class="search-clear" data-search-clear hidden>Clear</button>
+      </form>
+      <button type="button" class="icon-btn" data-close aria-label="Close search">{% render 'icon', icon: 'close' %}</button>
+    </div>
+    <p class="search-status" id="searchStatus" aria-live="polite"></p>
+    <ul class="search-results" id="searchResults" role="listbox" aria-label="Matching artworks"></ul>
+    <div id="searchExtra"></div>
+    <template id="searchSuggestions">
+      <div class="search-suggest">
+        <div>
+          <h2>Explore</h2>
+          <ul>
+            {%- for link in linklists['search-suggestions'].links -%}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {%- else -%}
+              <li><a href="{{ routes.all_products_collection_url }}">All artwork</a></li>
+              <li><a href="{{ routes.collections_url }}">Collections</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+        <div>
+          <h2>From the studio</h2>
+          <ul class="search-results">
+            {%- for p in collections.all.products limit: 4 -%}
+              <li class="search-result">
+                <a href="{{ p.url }}">
+                  {%- render 'art-image', image: p.featured_image, focus: p.metafields.custom.image_focus.value, alt: '', sizes: '56px' -%}
+                  <span><strong>{{ p.title | escape }}</strong><small>{{ p.type | escape }} · {% if p.variants.size > 1 %}From {{ p.price_min | money }}{% else %}{{ p.price | money }}{% endif %}</small></span>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    </template>
+  </div>
+</section>

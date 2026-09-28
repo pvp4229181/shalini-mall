@@ -1,0 +1,54 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Shalini Mall",
+    "theme_version": "1.0.0",
+    "theme_author": "Shalini Mall Studio",
+    "theme_documentation_url": "https://shalini-mall.vercel.app/",
+    "theme_support_url": "https://shalini-mall.vercel.app/contact.html"
+  },
+  {
+    "name": "Studio",
+    "settings": [
+      {
+        "type": "text",
+        "id": "artist_name",
+        "label": "Artist name",
+        "default": "Shalini Mall",
+        "info": "Shown on product cards and pages. Used instead of the product vendor, which print apps may overwrite."
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "32 × 32px PNG"
+      },
+      {
+        "type": "text",
+        "id": "original_product_type",
+        "label": "Product type for originals",
+        "default": "Original",
+        "info": "Products with this type (or tagged \"original\") get the one-of-one original layout. All other products use the print layout."
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      { "type": "url", "id": "social_instagram", "label": "Instagram" },
+      { "type": "url", "id": "social_pinterest", "label": "Pinterest" },
+      { "type": "url", "id": "social_facebook", "label": "Facebook" }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "cart_note",
+        "label": "Shipping note",
+        "default": "<p>Originals ship complimentary across India. Taxes and print shipping are calculated at checkout.</p>"
+      }
+    ]
+  }
+]

@@ -1,0 +1,32 @@
+{%- comment -%}
+  Product data for js/variants.js, js/wall-preview.js and the size guide.
+  Prices are formatted by Shopify so the storefront currency format is respected.
+  Params: product, is_original, focus
+{%- endcomment -%}
+{%- liquid
+  assign w = product.metafields.custom.width_cm.value
+  assign h = product.metafields.custom.height_cm.value
+-%}
+<script type="application/json" data-product-json>
+  {
+    "handle": {{ product.handle | json }},
+    "title": {{ product.title | json }},
+    "isOriginal": {{ is_original | json }},
+    "image": {{ product.featured_image | image_url: width: 1600 | json }},
+    "focus": {{ focus | default: 'center' | json }},
+    "dimensions": {% if w != blank and h != blank %}{ "w": {{ w }}, "h": {{ h }} }{% else %}null{% endif %},
+    "options": {{ product.options | json }},
+    "variants": [
+      {%- for v in product.variants -%}
+        {
+          "id": {{ v.id }},
+          "title": {{ v.title | json }},
+          "options": {{ v.options | json }},
+          "available": {{ v.available | json }},
+          "price": {{ v.price | money | json }},
+          "media": {{ v.featured_media.id | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
+</script>

@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections",
+      "settings": {
+        "collections": [
+          "earth-song"
+        ]
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

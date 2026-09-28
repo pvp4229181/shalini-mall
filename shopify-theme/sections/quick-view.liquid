@@ -1,0 +1,47 @@
+{%- comment -%}
+  Quick view content, fetched with /products/{handle}?section_id=quick-view and placed in the
+  #quickView dialog by js/quick-view.js. A compact form, not the full product page.
+{%- endcomment -%}
+{%- if product -%}
+  {%- liquid
+    assign p = product
+    assign is_original = false
+    if p.type == settings.original_product_type or p.tags contains 'original'
+      assign is_original = true
+    endif
+    assign current = p.selected_or_first_available_variant
+    assign focus = p.metafields.custom.image_focus.value
+    if focus == blank and p.featured_image
+      assign focus = p.featured_image.presentation.focal_point
+    endif
+  -%}
+  <div data-quick-view-content data-handle="{{ p.handle }}">
+    {%- render 'product-json', product: p, is_original: is_original, focus: focus -%}
+    <button type="button" class="icon-btn dialog-close" data-dialog-close aria-label="Close quick view">{% render 'icon', icon: 'close' %}</button>
+    <div class="quick-view">
+      <a href="{{ p.url }}" tabindex="-1" aria-hidden="true">{% render 'art-image', image: p.featured_image, focus: focus, alt: '', sizes: '(min-width: 768px) 480px, 100vw' %}</a>
+      <div class="quick-view__info">
+        <p class="eyebrow">{% if is_original %}Original · One of one{% else %}Fine art print{% endif %}</p>
+        <h2 id="qvTitle">{{ p.title | escape }}</h2>
+        <p class="muted">{{ settings.artist_name | escape }}{% if is_original and p.metafields.custom.dimensions.value %} · {{ p.metafields.custom.dimensions.value }}{% endif %}</p>
+        <p class="quick-view__price" data-price>{{ current.price | money }}</p>
+        {%- assign qv_form_id = 'quick-view-form-' | append: p.id -%}
+        {%- form 'product', p, id: qv_form_id, class: 'product-form', novalidate: 'novalidate' -%}
+          <input type="hidden" name="id" value="{{ current.id }}" data-variant-input>
+          {%- unless is_original -%}<div data-options>{%- render 'variant-picker', product: p, prefix: 'qv' -%}</div>{%- endunless -%}
+          <div class="quick-view__buy{% if is_original %} quick-view__buy--single{% endif %}">
+            {%- unless is_original -%}{%- render 'qty', id: 'qvQty' -%}{%- endunless -%}
+            <button type="submit" name="add" class="button dark" data-add{% unless current.available %} disabled{% endunless %}>
+              {%- if current.available == false -%}Sold{%- elsif is_original -%}Buy original{%- else -%}Add to cart{%- endif -%}
+            </button>
+          </div>
+        {%- endform -%}
+        <a class="text-link quick-view__more" href="{{ p.url }}">View full details {% render 'icon', icon: 'arrow' %}</a>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{ "name": "Quick view (rendering)", "settings": [] }
+{% endschema %}

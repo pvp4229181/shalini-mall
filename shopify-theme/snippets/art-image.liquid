@@ -1,0 +1,38 @@
+{%- comment -%}
+  Artwork image inside an .art frame (object-fit: cover, positioned by --crop).
+
+  Accepts:
+  - image: a Shopify image object (preferred), or
+  - src: an asset URL fallback (e.g. before the merchant has picked an image)
+  - focus: CSS object-position; defaults to the image's focal point set in the Shopify admin
+  - alt, class, sizes, zoom (e.g. 2.2 for a detail view), priority (true for above-the-fold)
+
+  Usage: {% render 'art-image', image: product.featured_image, alt: product.title, sizes: '50vw' %}
+{%- endcomment -%}
+{%- liquid
+  assign crop = focus
+  if crop == blank and image != blank
+    assign crop = image.presentation.focal_point
+  endif
+  if crop == blank
+    assign crop = 'center'
+  endif
+  assign load = 'lazy'
+  if priority
+    assign load = 'eager'
+  endif
+  assign img_sizes = sizes | default: '100vw'
+-%}
+<div class="art{% if class != blank %} {{ class }}{% endif %}" style="--crop:{{ crop }}{% if zoom %};--zoom:{{ zoom }}{% endif %}">
+  {%- if image != blank -%}
+    {%- if priority -%}
+      {{ image | image_url: width: 2400 | image_tag: widths: '480, 720, 960, 1200, 1600, 2000, 2400', sizes: img_sizes, alt: alt, loading: load, fetchpriority: 'high' }}
+    {%- else -%}
+      {{ image | image_url: width: 2400 | image_tag: widths: '240, 360, 480, 720, 960, 1200, 1600, 2000', sizes: img_sizes, alt: alt, loading: load }}
+    {%- endif -%}
+  {%- elsif src != blank -%}
+    <img src="{{ src }}" alt="{{ alt | escape }}" loading="{{ load }}" decoding="async" width="1122" height="1402">
+  {%- else -%}
+    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+  {%- endif -%}
+</div>

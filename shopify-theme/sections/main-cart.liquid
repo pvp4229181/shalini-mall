@@ -1,0 +1,58 @@
+{{ 'shop.css' | asset_url | stylesheet_tag }}
+{{ 'cart.css' | asset_url | stylesheet_tag }}
+{%- comment -%} Cart page. Re-rendered by js/cart.js (Section Rendering) after quantity changes. {%- endcomment -%}
+<div class="page cart-page" data-main-cart data-section-id="{{ section.id }}">
+  <header class="shop-head">
+    {%- render 'breadcrumbs', current: 'Cart' -%}
+    <p class="eyebrow">Your selection</p>
+    <h1>Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</h1>
+  </header>
+
+  {%- if cart.item_count > 0 -%}
+    <form action="{{ routes.cart_url }}" method="post" class="cart-layout" id="cartForm">
+      <section class="cart-lines" aria-labelledby="cartLinesTitle">
+        <h2 class="sr-only" id="cartLinesTitle">Artworks in your cart</h2>
+        <div id="pageCart">
+          {%- for item in cart.items -%}{%- render 'line-item', item: item -%}{%- endfor -%}
+        </div>
+        <a class="text-link cart-continue" href="{{ routes.all_products_collection_url }}">Continue exploring</a>
+      </section>
+      <aside class="order-summary" aria-labelledby="summaryTitle">
+        <h2 id="summaryTitle">Order summary</h2>
+        <dl>
+          <div><dt>Subtotal</dt><dd>{{ cart.items_subtotal_price | money }}</dd></div>
+          {%- for discount in cart.cart_level_discount_applications -%}
+            <div><dt>{{ discount.title | escape }}</dt><dd>−{{ discount.total_allocated_amount | money }}</dd></div>
+          {%- endfor -%}
+          <div><dt>Shipping</dt><dd>Calculated at checkout</dd></div>
+          <div class="order-summary__total"><dt>Estimated total</dt><dd>{{ cart.total_price | money }}</dd></div>
+        </dl>
+        <div class="cart-note">{{ settings.cart_note }}</div>
+        {%- if section.settings.show_note -%}
+          <div class="field">
+            <label for="cartNote">Note for the studio</label>
+            <textarea class="textarea" id="cartNote" name="note">{{ cart.note }}</textarea>
+          </div>
+        {%- endif -%}
+        <button type="submit" name="checkout" class="button dark full">Checkout</button>
+        {%- if additional_checkout_buttons -%}<div class="additional-checkout">{{ content_for_additional_checkout_buttons }}</div>{%- endif -%}
+      </aside>
+    </form>
+  {%- else -%}
+    <div class="empty-state">
+      <p class="eyebrow">Nothing here yet</p>
+      <h2>Your collection is empty</h2>
+      <p>Originals and prints you add to your cart will gather here.</p>
+      <a class="button dark" href="{{ routes.all_products_collection_url }}">Continue exploring</a>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    { "type": "checkbox", "id": "show_note", "label": "Allow a note to the studio", "default": true }
+  ]
+}
+{% endschema %}

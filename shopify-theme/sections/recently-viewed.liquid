@@ -1,0 +1,19 @@
+{%- comment -%} Recently viewed artworks from localStorage (js/recently-viewed.js), current artwork excluded. {%- endcomment -%}
+<section class="section section--flush-top" data-recently-viewed data-limit="{{ section.settings.limit }}" hidden aria-labelledby="heading-{{ section.id }}">
+  <div class="section-head section-head--split">
+    <div><p class="eyebrow">{{ section.settings.eyebrow | escape }}</p><h2 id="heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2></div>
+  </div>
+  <div class="product-grid product-grid--4" data-recent-grid></div>
+</section>
+
+{% schema %}
+{
+  "name": "Recently viewed",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Your trail" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Recently viewed" },
+    { "type": "range", "id": "limit", "label": "Products", "min": 2, "max": 8, "step": 1, "default": 4 }
+  ],
+  "presets": [{ "name": "Recently viewed" }]
+}
+{% endschema %}

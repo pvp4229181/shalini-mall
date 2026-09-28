@@ -1,0 +1,71 @@
+{{ 'home.css' | asset_url | stylesheet_tag }}
+<section class="hero" data-slideshow data-speed="{{ section.settings.speed | times: 1000 }}" aria-roledescription="carousel" aria-label="Featured work">
+  {%- for block in section.blocks -%}
+    <div class="hero-slide{% if forloop.first %} is-selected{% endif %}" aria-roledescription="slide" aria-label="{{ forloop.index }} of {{ forloop.length }}" {{ block.shopify_attributes }}>
+      <div class="hero-media">
+        <div class="hero-parallax" data-parallax>
+          {%- liquid
+            assign zoom = block.settings.zoom | divided_by: 100.0
+            assign alt = block.settings.image.alt | default: block.settings.heading
+            assign img_style = '--zoom:' | append: zoom | append: ';--focus:' | append: block.settings.image.presentation.focal_point
+          -%}
+          {%- if block.settings.image != blank -%}
+            {%- if forloop.first -%}
+              {{ block.settings.image | image_url: width: 2400 | image_tag: widths: '750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: alt, fetchpriority: 'high', loading: 'eager', style: img_style }}
+            {%- else -%}
+              {{ block.settings.image | image_url: width: 2400 | image_tag: widths: '750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: alt, loading: 'lazy', style: img_style }}
+            {%- endif -%}
+          {%- else -%}
+            <img src="{{ block.settings.fallback_image | append: '.webp' | asset_url }}" alt="{{ alt | escape }}" width="1774" height="887" style="--zoom:{{ zoom }};--focus:{{ block.settings.fallback_focus }}"{% if forloop.first %} fetchpriority="high"{% else %} loading="lazy"{% endif %}>
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="hero-copy">
+        {%- if section.settings.brand_name != blank -%}<p class="hero-brand hero-crop"><span>{{ section.settings.brand_name | escape }}</span></p>{%- endif -%}
+        {%- if block.settings.eyebrow != blank -%}<p class="eyebrow hero-crop"><span>{{ block.settings.eyebrow | escape }}</span></p>{%- endif -%}
+        {%- if forloop.first and section.settings.first_heading_h1 -%}
+          <h1 class="hero-title hero-crop"><span>{{ block.settings.heading | escape }}</span></h1>
+        {%- else -%}
+          <h2 class="hero-title hero-crop"><span>{{ block.settings.heading | escape }}</span></h2>
+        {%- endif -%}
+        {%- if block.settings.text != blank -%}<p class="hero-sub hero-crop"><span>{{ block.settings.text | escape }}</span></p>{%- endif -%}
+        <div class="hero-links">
+          {%- if block.settings.button_label != blank -%}<a class="button dark" href="{{ block.settings.button_link }}">{{ block.settings.button_label | escape }}</a>{%- endif -%}
+          {%- if block.settings.button2_label != blank -%}<a class="button light" href="{{ block.settings.button2_link }}">{{ block.settings.button2_label | escape }}</a>{%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endfor -%}
+</section>
+
+{% schema %}
+{
+  "name": "Hero slideshow",
+  "settings": [
+    { "type": "text", "id": "brand_name", "label": "Store name shown on every slide", "default": "Shalini Mall", "info": "Leave empty to hide." },
+    { "type": "range", "id": "speed", "label": "Seconds per slide", "min": 4, "max": 12, "step": 1, "default": 7 },
+    { "type": "checkbox", "id": "first_heading_h1", "label": "Use the first slide heading as the page title (H1)", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "limit": 5,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Set the focal point in the image editor to control the crop." },
+        { "type": "select", "id": "fallback_image", "label": "Image before one is chosen", "default": "hero-gallery", "options": [{"value": "hero-gallery", "label": "Painting in a room"}, {"value": "earth-song", "label": "Earth Song"}, {"value": "wild-grace", "label": "Wild Grace"}, {"value": "quiet-orbit", "label": "Quiet Orbit"}, {"value": "small-hours", "label": "The Small Hours"}, {"value": "between-seasons", "label": "Between Seasons"}, {"value": "monsoon-memory", "label": "Monsoon Memory"}, {"value": "artist-shalini", "label": "Shalini (portrait)"}, {"value": "artist-studio", "label": "Studio table"}, {"value": "collection-hero", "label": "Collection detail"}] },
+        { "type": "range", "id": "zoom", "label": "Zoom (%)", "min": 100, "max": 200, "step": 5, "default": 100 },
+        { "type": "text", "id": "fallback_focus", "label": "Focus before an image is chosen", "default": "center" },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The earth remembers · New collection" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Where quiet takes form." },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "text", "id": "button_label", "label": "Primary button label", "default": "Explore originals" },
+        { "type": "url", "id": "button_link", "label": "Primary button link" },
+        { "type": "text", "id": "button2_label", "label": "Secondary button label" },
+        { "type": "url", "id": "button2_link", "label": "Secondary button link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Hero slideshow", "blocks": [{ "type": "slide" }] }]
+}
+{% endschema %}

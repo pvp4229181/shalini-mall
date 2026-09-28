@@ -1,0 +1,38 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "originals_collection": "originals",
+        "prints_collection": "prints",
+        "contact_page": "contact"
+      }
+    },
+    "interiors": {
+      "type": "product-interiors",
+      "settings": {}
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "eyebrow": "From the same studio",
+        "heading": "Related works",
+        "limit": 4
+      }
+    },
+    "recent": {
+      "type": "recently-viewed",
+      "settings": {
+        "eyebrow": "Your trail",
+        "heading": "Recently viewed",
+        "limit": 4
+      }
+    }
+  },
+  "order": [
+    "main",
+    "interiors",
+    "related",
+    "recent"
+  ]
+}

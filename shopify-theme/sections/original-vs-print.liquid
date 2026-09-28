@@ -1,0 +1,66 @@
+{{ 'editorial.css' | asset_url | stylesheet_tag }}
+<section class="section{% if section.settings.surface %} section--surface{% endif %}" id="original-or-print" aria-labelledby="heading-{{ section.id }}">
+  <div class="section-head" data-reveal>
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    <h2 id="heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+    {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+  </div>
+  <div class="compare" data-reveal>
+    {%- for block in section.blocks limit: 2 -%}
+      {%- liquid
+        assign c = block.settings.collection
+        assign min_price = c.products | map: 'price' | sort | first
+      -%}
+      <article class="compare-col" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          {%- render 'art-image', image: block.settings.image, alt: '', sizes: '(min-width: 768px) 45vw, 100vw' -%}
+        {%- else -%}
+          {%- assign fallback_src = block.settings.fallback_image | append: '.webp' | asset_url -%}
+          {%- render 'art-image', src: fallback_src, focus: block.settings.fallback_focus, alt: '' -%}
+        {%- endif -%}
+        <p class="eyebrow">{{ block.settings.eyebrow | escape }}</p>
+        <h3>{{ block.settings.heading | escape }}</h3>
+        <ul class="compare-list">
+          {%- assign points = block.settings.points | newline_to_br | split: '<br />' -%}
+          {%- for point in points -%}
+            {%- assign point_text = point | strip -%}
+            {%- if point_text != blank -%}<li>{{ point_text | escape }}</li>{%- endif -%}
+          {%- endfor -%}
+        </ul>
+        {%- if min_price -%}<p class="compare-price">From {{ min_price | money }}</p>{%- endif -%}
+        {%- if c != blank -%}<a class="button dark" href="{{ c.url }}">{{ block.settings.button | escape }}</a>{%- endif -%}
+      </article>
+      {%- if forloop.first -%}<div class="compare-divider" aria-hidden="true"><span>or</span></div>{%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Original or print",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Two ways to collect" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Original or print?" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Both begin in the same studio. Choose the singular painting, or a signed edition made to last." },
+    { "type": "checkbox", "id": "surface", "label": "White background", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "limit": 2,
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection", "info": "Button link and starting price." },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "select", "id": "fallback_image", "label": "Image before one is chosen", "default": "quiet-orbit", "options": [{"value": "hero-gallery", "label": "Painting in a room"}, {"value": "earth-song", "label": "Earth Song"}, {"value": "wild-grace", "label": "Wild Grace"}, {"value": "quiet-orbit", "label": "Quiet Orbit"}, {"value": "small-hours", "label": "The Small Hours"}, {"value": "between-seasons", "label": "Between Seasons"}, {"value": "monsoon-memory", "label": "Monsoon Memory"}, {"value": "artist-shalini", "label": "Shalini (portrait)"}, {"value": "artist-studio", "label": "Studio table"}, {"value": "collection-hero", "label": "Collection detail"}] },
+        { "type": "text", "id": "fallback_focus", "label": "Focus before an image is chosen", "default": "center" },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The original" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "One of one" },
+        { "type": "textarea", "id": "points", "label": "Points (one per line)" },
+        { "type": "text", "id": "button", "label": "Button label", "default": "Shop originals" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Original or print", "blocks": [{ "type": "column" }, { "type": "column" }] }]
+}
+{% endschema %}
