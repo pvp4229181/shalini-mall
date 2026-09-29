@@ -102,7 +102,7 @@
 }
 .panel-head h2 { font-size: 1.2rem; margin: 0; }
 .panel-head .brand span { font-size: 26px; }
-.panel-body { flex: 1; overflow-y: auto; overscroll-behavior: contain; }
+.panel-body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
 .panel-foot { border-top: 1px solid var(--color-border); padding-top: 20px; }
 
 /* Mobile menu: search, list with an inline Shop accordion, utility links */
@@ -113,7 +113,7 @@
 .menu-search svg { width: 18px; height: 18px; color: var(--color-muted); }
 .menu-search input { flex: 1; min-width: 0; min-height: 46px; border: 0; background: none; outline: 0; font-size: 16px; }
 .menu-search:focus-within { border-color: var(--color-text); }
-.menu-nav { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 8px 0 20px; }
+.menu-nav { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 8px 0 20px; }
 .menu-list { list-style: none; margin: 0; padding: 0; }
 .menu-list > li { border-bottom: 1px solid var(--color-border); }
 .menu-list > li > a, .menu-toggle {
@@ -147,7 +147,7 @@
 .search-inner { max-width: 760px; margin-inline: auto; }
 .search-bar { display: flex; align-items: center; gap: 12px; }
 .search-field {
-  flex: 1; display: flex; align-items: center; gap: 10px; padding: 0 8px 0 16px; min-height: 54px;
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; padding: 0 8px 0 16px; min-height: 54px;
   border: 1px solid var(--color-border-strong); border-radius: var(--radius); background: var(--color-surface);
 }
 .search-field:focus-within { border-color: var(--color-text); }
@@ -203,9 +203,10 @@
 }
 @media (max-width: 480px) {
   .announcement { font-size: 10px; letter-spacing: .14em; }
-  .brand span { font-size: 24px; }
+  .brand span { font-size: clamp(16px, 5vw, 24px); }
   .header-actions { gap: 0; }
-  .header-actions .icon-btn { width: 40px; }
+  .header-inner { gap: 8px; grid-template-columns: 44px minmax(0, 1fr) 88px; }
+  .header-actions .icon-btn { width: 44px; }
   .header-actions [data-hide-xs] { display: none; }
   .panel { width: 100%; padding: 20px; }
   .search-overlay { padding: 14px var(--gutter) 28px; }

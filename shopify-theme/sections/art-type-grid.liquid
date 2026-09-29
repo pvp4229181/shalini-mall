@@ -7,7 +7,8 @@
     </div>
     {%- if section.settings.link_label != blank -%}<a class="text-link" href="{{ section.settings.link }}">{{ section.settings.link_label | escape }}</a>{%- endif -%}
   </div>
-  <div class="art-types" data-reveal>
+  <product-slider data-per-view="1">
+  <div class="art-types product-slider__track" id="slider-{{ section.id }}" tabindex="0" role="region" aria-roledescription="carousel" aria-labelledby="heading-{{ section.id }}">
     {%- for block in section.blocks -%}
       {%- liquid
         assign c = block.settings.collection
@@ -40,6 +41,7 @@
       </a>
     {%- endfor -%}
   </div>
+  </product-slider>
 </section>
 
 {% schema %}

@@ -2,12 +2,12 @@
    Homepage: hero, shop by art type, collection exhibition, interiors
    ========================================================================== */
 
-/* Hero slideshow (existing design, now sitting under the sticky header) */
+/* Overlapping grid slides keep the hero tall enough for its longest content. */
 .hero {
-  position: relative; min-height: calc(100svh - var(--announce-h) - var(--header-h));
+  position: relative; display: grid; min-height: calc(100svh - var(--announce-h) - var(--header-h));
   color: var(--color-on-dark); background: var(--color-text); overflow: hidden;
 }
-.hero-slide { position: absolute; inset: 0; display: flex; align-items: center; }
+.hero-slide { position: relative; grid-area: 1 / 1; min-width: 0; display: flex; align-items: center; padding-block: 64px 88px; }
 .hero-slide:not(:first-child) { visibility: hidden; }
 .hero-media, .hero-media::after { position: absolute; inset: 0; }
 .hero-media { overflow: hidden; }
@@ -20,7 +20,6 @@
 .hero-copy { position: relative; z-index: 1; margin-inline: calc(var(--gutter) + 40px); max-width: 760px; }
 .hero-copy .hero-title { margin: .3em 0; font-size: clamp(2.4rem, 5.4vw, 5rem); }
 .hero-sub { font-size: clamp(1.05rem, 1.5vw, 1.3rem); max-width: 42ch; }
-.hero-brand { font-family: var(--font-logo); font-weight: 500; font-size: clamp(2.8rem, 5.6vw, 5.2rem); line-height: 1.25; margin: 0 0 .15em; }
 .hero-crop { overflow: hidden; padding-bottom: .08em; }
 .hero-crop > span { display: block; }
 .hero-links { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -46,7 +45,7 @@
 /* Shop by art type: three equal artwork tiles */
 .art-types { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); }
 .art-type {
-  position: relative; overflow: hidden; color: var(--color-on-dark); display: flex; align-items: flex-end;
+  position: relative; width: 100%; min-width: 0; overflow: hidden; color: var(--color-on-dark); display: flex; align-items: flex-end;
   aspect-ratio: 4 / 4.4; padding: clamp(22px, 2.4vw, 36px);
 }
 .art-type > .art { position: absolute; inset: 0; }
@@ -59,7 +58,7 @@
 .art-type .art-type__meta { font-size: 14px; opacity: .8; margin-bottom: 14px; }
 
 /* Collection exhibition block */
-.exhibition { display: grid; grid-template-columns: 1.15fr .85fr; background: var(--color-text); color: var(--color-on-dark); }
+.exhibition { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); background: var(--color-text); color: var(--color-on-dark); }
 .exhibition > .art { min-height: 88vh; }
 .exhibition__copy { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: clamp(48px, 7vw, 120px); }
 .exhibition__copy h2 { margin: .4em 0 .5em; }
@@ -83,21 +82,23 @@
   .exhibition { grid-template-columns: 1fr; }
   .exhibition > .art { min-height: 60vh; }
   .interiors { grid-template-columns: repeat(3, 72vw); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scrollbar-width: thin; }
-  .interiors figure { scroll-snap-align: center; }
+  .interiors > * { scroll-snap-align: center; }
 }
 @media (max-width: 768px) {
   .art-types { grid-template-columns: 1fr; }
   .art-type { aspect-ratio: 16 / 9; min-height: 190px; }
   .art-type p:not(.art-type__meta) { display: none; }
-  .hero-copy .hero-title { max-width: 12ch; }
+  .hero-copy { margin-inline: var(--gutter); }
+  .hero-copy .hero-title { max-width: 14ch; font-size: clamp(2rem, 6vw, 3rem); }
   .hero-arrow { display: none; }
 }
 @media (max-width: 480px) {
-  .hero-copy { margin-inline: var(--gutter); }
+  .hero-slide { padding-block: 40px 84px; }
   .hero-sub { max-width: 29ch; }
   .hero-links { flex-direction: column; align-items: stretch; max-width: 280px; }
   .product-grid--featured { grid-template-columns: 1fr; gap: 44px; }
   .interiors { grid-template-columns: repeat(3, 84vw); }
+  .exhibition__copy { padding: 48px var(--gutter); }
 }
 
 /* Shopify: real interior photography in the "Art in interiors" section */

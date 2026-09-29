@@ -2,15 +2,11 @@
   "sections": {
     "hero": {
       "type": "hero-slideshow",
-      "settings": {
-        "brand_name": "Shalini Mall",
-        "speed": 7,
-        "first_heading_h1": true
-      },
       "blocks": {
         "slide-1": {
           "type": "slide",
           "settings": {
+            "fallback_image": "hero-gallery",
             "zoom": 100,
             "fallback_focus": "center",
             "eyebrow": "The earth remembers · New collection",
@@ -19,13 +15,13 @@
             "button_label": "Explore originals",
             "button_link": "shopify://collections/originals",
             "button2_label": "Shop prints",
-            "button2_link": "shopify://collections/prints",
-            "fallback_image": "hero-gallery"
+            "button2_link": "shopify://collections/prints"
           }
         },
         "slide-2": {
           "type": "slide",
           "settings": {
+            "fallback_image": "earth-song",
             "zoom": 135,
             "fallback_focus": "62% 55%",
             "eyebrow": "One of one · Originals",
@@ -34,13 +30,13 @@
             "button_label": "Explore originals",
             "button_link": "shopify://collections/originals",
             "button2_label": "",
-            "button2_link": "",
-            "fallback_image": "earth-song"
+            "button2_link": ""
           }
         },
         "slide-3": {
           "type": "slide",
           "settings": {
+            "fallback_image": "wild-grace",
             "zoom": 130,
             "fallback_focus": "48% 52%",
             "eyebrow": "Signed editions · Prints",
@@ -49,8 +45,7 @@
             "button_label": "Shop prints",
             "button_link": "shopify://collections/prints",
             "button2_label": "",
-            "button2_link": "",
-            "fallback_image": "wild-grace"
+            "button2_link": ""
           }
         }
       },
@@ -58,54 +53,52 @@
         "slide-1",
         "slide-2",
         "slide-3"
-      ]
+      ],
+      "settings": {
+        "speed": 7,
+        "first_heading_h1": true
+      }
     },
     "art-types": {
       "type": "art-type-grid",
-      "settings": {
-        "eyebrow": "Collect what moves you",
-        "heading": "Shop by art type",
-        "link_label": "Shop all artwork",
-        "link": "shopify://collections/all"
-      },
       "blocks": {
         "originals": {
           "type": "tile",
           "settings": {
             "collection": "originals",
+            "fallback_image": "earth-song",
             "fallback_focus": "center",
             "title": "Original art",
             "text": "Unique. One of one. Signed and documented.",
             "meta": "",
             "cta": "Explore",
-            "link": "",
-            "fallback_image": "earth-song"
+            "link": ""
           }
         },
         "prints": {
           "type": "tile",
           "settings": {
             "collection": "prints",
+            "fallback_image": "between-seasons",
             "fallback_focus": "center",
             "title": "Canvas prints",
             "text": "Matte stretched-canvas editions, signed by the artist.",
             "meta": "",
             "cta": "Explore",
-            "link": "",
-            "fallback_image": "between-seasons"
+            "link": ""
           }
         },
         "collections": {
           "type": "tile",
           "settings": {
             "collection": "earth-song",
+            "fallback_image": "monsoon-memory",
             "fallback_focus": "center",
             "title": "Collections",
             "text": "Series of works shaped by land and memory.",
             "meta": "Earth Song",
             "cta": "Explore",
-            "link": "shopify://collections",
-            "fallback_image": "monsoon-memory"
+            "link": "shopify://collections"
           }
         }
       },
@@ -113,7 +106,13 @@
         "originals",
         "prints",
         "collections"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Collect what moves you",
+        "heading": "Shop by art type",
+        "link_label": "Shop all artwork",
+        "link": "shopify://collections/all"
+      }
     },
     "featured-originals": {
       "type": "featured-collection",
@@ -123,7 +122,6 @@
         "heading": "Featured originals",
         "link_label": "View all",
         "limit": 4,
-        "columns": "4",
         "numbered": false,
         "surface": false,
         "flush_top": true
@@ -137,7 +135,6 @@
         "heading": "Featured prints",
         "link_label": "View all",
         "limit": 4,
-        "columns": "4",
         "numbered": false,
         "surface": true
       }
@@ -146,87 +143,80 @@
       "type": "collection-exhibition",
       "settings": {
         "collection": "earth-song",
+        "fallback_image": "earth-song",
         "eyebrow": "The Earth Song series · Collection",
         "heading": "Colour as a kind of remembering.",
         "text": "<p>Built slowly in layers of mineral pigment, charcoal, and translucent washes, these works hold the trace of weather, wild gardens, and remembered places.</p>",
-        "button": "Explore the collection",
-        "fallback_image": "earth-song"
+        "button": "Explore the collection"
       }
     },
     "original-or-print": {
       "type": "original-vs-print",
-      "settings": {
-        "eyebrow": "Two ways to collect",
-        "heading": "Original or print?",
-        "text": "Both begin in the same studio. Choose the singular painting, or a signed edition made to last.",
-        "surface": false
-      },
       "blocks": {
         "original": {
           "type": "column",
           "settings": {
             "collection": "originals",
+            "fallback_image": "quiet-orbit",
             "fallback_focus": "center",
             "eyebrow": "The original",
             "heading": "One of one",
             "points": "A unique painting, built slowly by hand\nSigned by the artist\nCertificate of authenticity included\nShips carefully wrapped and insured, complimentary across India",
-            "button": "Shop originals",
-            "fallback_image": "quiet-orbit"
+            "button": "Shop originals"
           }
         },
         "print": {
           "type": "column",
           "settings": {
             "collection": "prints",
+            "fallback_image": "small-hours",
             "fallback_focus": "center",
             "eyebrow": "The print",
             "heading": "Signed editions",
             "points": "Matte canvas stretched over a pinewood frame\nSigned and numbered by the artist\nFour Printify sizes, from 8 × 10 to 30 × 40 inches\nCorner-protected, securely boxed, and ready to hang",
-            "button": "Shop prints",
-            "fallback_image": "small-hours"
+            "button": "Shop prints"
           }
         }
       },
       "block_order": [
         "original",
         "print"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Two ways to collect",
+        "heading": "Original or print?",
+        "text": "Both begin in the same studio. Choose the singular painting, or a signed edition made to last.",
+        "surface": false
+      }
     },
     "interiors": {
       "type": "art-in-interiors",
-      "settings": {
-        "eyebrow": "Art in interiors",
-        "heading": "See it on the wall.",
-        "text": "Each work drawn to true scale beside everyday furniture, so you can judge its size and presence before you collect.",
-        "link_label": "Print size guide",
-        "link": "shopify://pages/about"
-      },
       "blocks": {
         "earth-song": {
           "type": "scale",
           "settings": {
             "product": "earth-song",
+            "fallback_art": "earth-song",
             "size": "",
-            "scene": "sofa",
-            "fallback_art": "earth-song"
+            "scene": "sofa"
           }
         },
         "monsoon": {
           "type": "scale",
           "settings": {
             "product": "monsoon-memory-print",
+            "fallback_art": "monsoon-memory",
             "size": "24 × 30 in",
-            "scene": "console",
-            "fallback_art": "monsoon-memory"
+            "scene": "console"
           }
         },
         "small-hours": {
           "type": "scale",
           "settings": {
             "product": "small-hours",
+            "fallback_art": "small-hours",
             "size": "16 × 20 in",
-            "scene": "chair",
-            "fallback_art": "small-hours"
+            "scene": "chair"
           }
         }
       },
@@ -234,7 +224,14 @@
         "earth-song",
         "monsoon",
         "small-hours"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Art in interiors",
+        "heading": "See it on the wall.",
+        "text": "Each work drawn to true scale beside everyday furniture, so you can judge its size and presence before you collect.",
+        "link_label": "Print size guide",
+        "link": "shopify://pages/about"
+      }
     },
     "meet-shalini": {
       "type": "image-with-text",
@@ -260,9 +257,57 @@
       "settings": {
         "eyebrow": "In collectors’ homes",
         "heading": "What collectors are saying"
+      }
+    },
+    "faq": {
+      "type": "home-faq",
+      "settings": {
+        "link": "shopify://pages/contact"
       },
-      "blocks": {},
-      "block_order": []
+      "blocks": {
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "What is the difference between an original and a print?",
+            "answer": "<p>An original is the one-of-one painting itself. A print is a matte stretched-canvas reproduction, signed and numbered by the artist.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "Do originals include authentication?",
+            "answer": "<p>Yes. Every original arrives signed with a studio certificate of authenticity.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "What size should I choose?",
+            "answer": "<p>Use the true-scale wall previews on each product page to see how the artwork will look in your space. You can also explore our <a href=\"/pages/about#print-sizes\">print size guide</a>.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "How are works shipped?",
+            "answer": "<p>All artwork is carefully packed. Originals travel insured with tracking, with complimentary shipping across India. Canvas prints are corner-protected and securely boxed.</p>"
+          }
+        },
+        "question-5": {
+          "type": "question",
+          "settings": {
+            "question": "Can I see more detail before I buy?",
+            "answer": "<p>Of course. Contact the studio to request close-ups, scale images, or a short studio video of any available work.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4",
+        "question-5"
+      ]
     }
   },
   "order": [
@@ -274,6 +319,7 @@
     "original-or-print",
     "interiors",
     "meet-shalini",
-    "testimonials"
+    "testimonials",
+    "faq"
   ]
 }

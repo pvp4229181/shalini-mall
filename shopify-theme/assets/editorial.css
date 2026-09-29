@@ -3,7 +3,7 @@
    original-vs-print comparison, long-form prose. Used on home, artist, about.
    ========================================================================== */
 
-.editorial { display: grid; grid-template-columns: 1fr 1fr; background: var(--color-surface); }
+.editorial { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); background: var(--color-surface); }
 .editorial > .art, .editorial-image { min-height: 78vh; }
 .editorial-copy { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: clamp(56px, 8vw, 130px); }
 .editorial-copy h2 { margin: .4em 0 .6em; }
@@ -14,7 +14,7 @@
 .editorial--dark .editorial-copy p:not(.eyebrow) { color: var(--color-on-dark-muted); }
 .editorial--paper { background: var(--color-background); }
 
-.about-grid { display: grid; grid-template-columns: .85fr 1.15fr; }
+.about-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
 .about-grid > .art { min-height: 88vh; }
 .about-copy { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: clamp(56px, 9vw, 140px); }
 .about-copy h1, .about-copy h2 { margin: .4em 0 .6em; }
@@ -48,8 +48,8 @@
 .info-card p { color: var(--color-muted); margin-bottom: 0; }
 
 /* Contact */
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px); align-items: start; }
-.contact-card { background: var(--color-surface); padding: clamp(28px, 5vw, 64px); }
+.contact-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); align-items: start; }
+.contact-card { min-width: 0; overflow-wrap: anywhere; background: var(--color-surface); padding: clamp(28px, 5vw, 64px); }
 .contact-card h2 { font-size: clamp(1.4rem, 2.4vw, 2rem); margin: .3em 0 1em; }
 .faq details { border-top: 1px solid var(--color-border); }
 .faq details:last-child { border-bottom: 1px solid var(--color-border); }
@@ -83,7 +83,23 @@
   .info-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
+  .contact-card, .info-card { padding: 28px 20px; }
   .editorial-copy, .about-copy { padding: 64px var(--gutter); }
   .editorial > .art, .editorial-image { min-height: 52vh; }
   .about-grid > .art { min-height: 60vh; }
+}
+
+/* Homepage questions: editorial introduction beside native disclosure rows. */
+.home-faq__layout { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.home-faq__intro h2 { margin: 16px 0; }
+.home-faq__intro > p:not(.eyebrow) { max-width: 34ch; color: var(--color-muted); }
+.home-faq__intro .text-link { min-height: 44px; margin-top: 8px; }
+.home-faq .faq summary { min-height: 72px; padding-block: 20px; font-size: 14px; line-height: 1.5; letter-spacing: .08em; }
+.home-faq .faq summary::after { flex: none; }
+.home-faq .faq details p { max-width: 64ch; margin: 0; padding: 0 28px 24px 0; line-height: 1.65; }
+.home-faq .faq details p a { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 768px) {
+  .home-faq__layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .home-faq .faq summary { font-size: 13px; letter-spacing: .05em; }
+  .home-faq .faq details p { font-size: 16px; padding-right: 0; }
 }

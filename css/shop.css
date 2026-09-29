@@ -159,4 +159,7 @@
   .listing-sort .select { width: 100%; }
   .listing-filter-btn { justify-content: center; min-height: 44px; }
   .collection-feature .art { aspect-ratio: 1; }
+  .collection-feature__copy { padding: 36px var(--gutter); }
+  .collection-feature__copy h2 { font-size: clamp(1.6rem, 7vw, 2rem); }
+  .search-page-form { flex-direction: column; }
 }

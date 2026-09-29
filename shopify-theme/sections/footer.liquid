@@ -2,7 +2,7 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <a class="brand" href="{{ routes.root_url }}"><span>{{ shop.name | escape }}</span></a>
+        <a class="brand" href="{{ routes.root_url }}"><span>Shalini Mall</span></a>
         {%- if section.settings.tagline != blank -%}<p>{{ section.settings.tagline | escape }}</p>{%- endif -%}
       </div>
       {%- for block in section.blocks -%}
@@ -27,7 +27,7 @@
       {%- endif -%}
     </div>
     <div class="legal">
-      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</span>
+      <span>&copy; {{ 'now' | date: '%Y' }} Shalini Mall</span>
       {%- comment -%} Policy pages come from Shopify admin → Settings → Policies. {%- endcomment -%}
       {%- if shop.policies.size > 0 -%}
         <span class="legal__links">
