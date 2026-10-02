@@ -34,7 +34,7 @@
 -%}
 <article class="card card--{% if is_original %}original{% else %}print{% endif %}" data-product="{{ p.handle }}" data-variant-id="{{ first_variant.id }}" data-variant-count="{{ p.variants.size }}">
   <div class="card__media">
-    <a class="card__image art" href="{{ p.url }}" tabindex="-1" aria-hidden="true" style="--crop:{{ focus | default: 'center' }}">
+    <a class="card__image art" href="{{ p.url }}" tabindex="-1" aria-hidden="true" style="--crop:{{ focus | default: 'center' }}{% if is_original %}{% unless p.tags contains 'earth-song' %};--art-fit:contain{% endunless %}{% endif %}">
       {%- if p.featured_image -%}
         {{ p.featured_image | image_url: width: 1200 | image_tag: widths: '240, 360, 540, 720, 900, 1200', sizes: '(min-width: 1100px) 25vw, (min-width: 768px) 33vw, 90vw', alt: alt_text, loading: 'lazy' }}
         {%- if p.images.size > 1 -%}

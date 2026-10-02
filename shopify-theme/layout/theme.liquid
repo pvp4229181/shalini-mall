@@ -12,7 +12,7 @@
     {%- endif -%}
 
     <title>
-      {{- page_title -}}
+      {{- page_title | replace: shop.name, 'Shalini Mall' -}}
       {%- if current_tags %} — {{ current_tags | join: ', ' }}{% endif -%}
       {%- if current_page != 1 %} — Page {{ current_page }}{% endif -%}
       {%- unless page_title contains shop.name %} — {{ shop.name }}{% endunless -%}

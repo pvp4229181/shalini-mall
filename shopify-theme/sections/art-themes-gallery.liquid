@@ -1,0 +1,93 @@
+{{ 'home.css' | asset_url | stylesheet_tag }}
+  <section class="section inspiration" aria-labelledby="artThemesTitle">
+    <div class="inspiration__intro">
+      <div><p class="eyebrow">Find your inspiration</p><h2 id="artThemesTitle">What speaks<br>to you?</h2></div>
+      <div class="inspiration__description"><p>A colour, a place, a feeling. Discover art that reflects your world, across eight distinct themes.</p><a class="text-link" href="/collections">Explore all collections <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>
+    </div>
+    <div class="inspiration-grid">
+      <article class="inspiration-card">
+        <a class="inspiration-card__art" href="/collections/abstract" aria-label="Explore Abstract">
+          <img src="{{ 'mineral-rhythm-hq.webp' | asset_url }}" alt="Mineral Rhythm" width="1024" height="1536" loading="lazy" decoding="async">
+          <img src="{{ 'blue-reverie-hq.webp' | asset_url }}" alt="Blue Reverie" width="1024" height="1536" loading="lazy" decoding="async">
+          <span class="inspiration-card__number">01</span>
+        </a>
+        <div class="inspiration-card__heading"><h3><a href="/collections/abstract">Abstract</a></h3><a class="inspiration-card__arrow" href="/collections/abstract" aria-label="Explore Abstract"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>
+        <p>Expressive marks. Unrestrained feeling.</p>
+        <div class="inspiration-card__links"><a href="/collections/originals?filter.p.tag=abstract">Originals</a><span aria-hidden="true">/</span><a href="/collections/prints?filter.p.tag=abstract">Prints</a></div>
+      </article>
+      <article class="inspiration-card">
+        <a class="inspiration-card__art" href="/collections/nature-landscapes" aria-label="Explore Nature & landscapes">
+          <img src="{{ 'mountain-stillness-hq.webp' | asset_url }}" alt="Mountain Stillness" width="1024" height="1536" loading="lazy" decoding="async">
+          <img src="{{ 'forest-whisper-hq.webp' | asset_url }}" alt="Forest Whisper" width="1024" height="1536" loading="lazy" decoding="async">
+          <span class="inspiration-card__number">02</span>
+        </a>
+        <div class="inspiration-card__heading"><h3><a href="/collections/nature-landscapes">Nature &amp; landscapes</a></h3><a class="inspiration-card__arrow" href="/collections/nature-landscapes" aria-label="Explore Nature & landscapes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>
+        <p>A little closer to the natural world.</p>
+        <div class="inspiration-card__links"><a href="/collections/originals?filter.p.tag=nature-landscapes">Originals</a><span aria-hidden="true">/</span><a href="/collections/prints?filter.p.tag=nature-landscapes">Prints</a></div>
+      </article>
+      <article class="inspiration-card">
+        <a class="inspiration-card__art" href="/collections/floral-botanical" aria-label="Explore Floral & botanical">
+          <img src="{{ 'ivory-bloom-hq.webp' | asset_url }}" alt="Ivory Bloom" width="1024" height="1536" loading="lazy" decoding="async">
+          <img src="{{ 'jasmine-garden-hq.webp' | asset_url }}" alt="Jasmine Garden" width="1024" height="1536" loading="lazy" decoding="async">
+          <span class="inspiration-card__number">03</span>
+        </a>
+        <div class="inspiration-card__heading"><h3><a href="/collections/floral-botanical">Floral &amp; botanical</a></h3><a class="inspiration-card__arrow" href="/collections/floral-botanical" aria-label="Explore Floral & botanical"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>
+        <p>Beauty in the smallest details.</p>
+        <div class="inspiration-card__links"><a href="/collections/originals?filter.p.tag=floral-botanical">Originals</a><span aria-hidden="true">/</span><a href="/collections/prints?filter.p.tag=floral-botanical">Prints</a></div>
+      </article>
+      <article class="inspiration-card">
+        <a class="inspiration-card__art" href="/collections/figurative" aria-label="Explore Figurative">
+          <img src="{{ 'quiet-reflection-hq.webp' | asset_url }}" alt="Quiet Reflection" width="1024" height="1536" loading="lazy" decoding="async">
+          <img src="{{ 'a-moment-within-hq.webp' | asset_url }}" alt="A Moment Within" width="1024" height="1536" loading="lazy" decoding="async">
+          <span class="inspiration-card__number">04</span>
+        </a>
+        <div class="inspiration-card__heading"><h3><a href="/collections/figurative">Figurative</a></h3><a class="inspiration-card__arrow" href="/collections/figurative" aria-label="Explore Figurative"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>
+        <p>Stories told through human presence.</p>
+        <div class="inspiration-card__links"><a href="/collections/originals?filter.p.tag=figurative">Originals</a><span aria-hidden="true">/</span><a href="/collections/prints?filter.p.tag=figurative">Prints</a></div>
+      </article>
+      <article class="inspiration-card">
+        <a class="inspiration-card__art" href="/collections/modern-minimal" aria-label="Explore Modern minimal">
+          <img src="{{ 'golden-stillness-hq.webp' | asset_url }}" alt="Golden Stillness" width="1024" height="1536" loading="lazy" decoding="async">
+          <img src="{{ 'soft-geometry-hq.webp' | asset_url }}" alt="Soft Geometry" width="1024" height="1536" loading="lazy" decoding="async">
+          <span class="inspiration-card__number">05</span>
+        </a>
+        <div class="inspiration-card__heading"><h3><a href="/collections/modern-minimal">Modern minimal</a></h3><a class="inspiration-card__arrow" href="/collections/modern-minimal" aria-label="Explore Modern minimal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>
+        <p>Room to breathe. Space to reflect.</p>
+        <div class="inspiration-card__links"><a href="/collections/originals?filter.p.tag=modern-minimal">Originals</a><span aria-hidden="true">/</span><a href="/collections/prints?filter.p.tag=modern-minimal">Prints</a></div>
+      </article>
+      <article class="inspiration-card">
+        <a class="inspiration-card__art" href="/collections/cultural-traditional" aria-label="Explore Cultural & traditional">
+          <img src="{{ 'lotus-heritage-hq.webp' | asset_url }}" alt="Lotus Heritage" width="1024" height="1536" loading="lazy" decoding="async">
+          <img src="{{ 'sacred-lotus-hq.webp' | asset_url }}" alt="Sacred Lotus" width="1024" height="1536" loading="lazy" decoding="async">
+          <span class="inspiration-card__number">06</span>
+        </a>
+        <div class="inspiration-card__heading"><h3><a href="/collections/cultural-traditional">Cultural &amp; traditional</a></h3><a class="inspiration-card__arrow" href="/collections/cultural-traditional" aria-label="Explore Cultural & traditional"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>
+        <p>Heritage, reimagined in colour.</p>
+        <div class="inspiration-card__links"><a href="/collections/originals?filter.p.tag=cultural-traditional">Originals</a><span aria-hidden="true">/</span><a href="/collections/prints?filter.p.tag=cultural-traditional">Prints</a></div>
+      </article>
+      <article class="inspiration-card">
+        <a class="inspiration-card__art" href="/collections/wildlife" aria-label="Explore Wildlife">
+          <img src="{{ 'tiger-majesty-hq.webp' | asset_url }}" alt="Tiger Majesty" width="1024" height="1536" loading="lazy" decoding="async">
+          <img src="{{ 'gentle-giant-hq.webp' | asset_url }}" alt="Gentle Giant" width="1024" height="1536" loading="lazy" decoding="async">
+          <span class="inspiration-card__number">07</span>
+        </a>
+        <div class="inspiration-card__heading"><h3><a href="/collections/wildlife">Wildlife</a></h3><a class="inspiration-card__arrow" href="/collections/wildlife" aria-label="Explore Wildlife"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>
+        <p>The quiet power of the wild.</p>
+        <div class="inspiration-card__links"><a href="/collections/originals?filter.p.tag=wildlife">Originals</a><span aria-hidden="true">/</span><a href="/collections/prints?filter.p.tag=wildlife">Prints</a></div>
+      </article>
+      <article class="inspiration-card">
+        <a class="inspiration-card__art" href="/collections/cityscapes-architecture" aria-label="Explore Cityscapes & architecture">
+          <img src="{{ 'paris-in-the-rain-hq.webp' | asset_url }}" alt="Paris In The Rain" width="1024" height="1536" loading="lazy" decoding="async">
+          <img src="{{ 'venetian-light-hq.webp' | asset_url }}" alt="Venetian Light" width="1024" height="1536" loading="lazy" decoding="async">
+          <span class="inspiration-card__number">08</span>
+        </a>
+        <div class="inspiration-card__heading"><h3><a href="/collections/cityscapes-architecture">Cityscapes &amp; architecture</a></h3><a class="inspiration-card__arrow" href="/collections/cityscapes-architecture" aria-label="Explore Cityscapes & architecture"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>
+        <p>Places that stay with you.</p>
+        <div class="inspiration-card__links"><a href="/collections/originals?filter.p.tag=cityscapes-architecture">Originals</a><span aria-hidden="true">/</span><a href="/collections/prints?filter.p.tag=cityscapes-architecture">Prints</a></div>
+      </article>
+    </div>
+    <p class="inspiration__foot">Eight perspectives. Endless ways to make a space your own.</p>
+  </section>
+{% schema %}
+{"name":"Art themes gallery","settings":[],"presets":[{"name":"Art themes gallery"}]}
+{% endschema %}

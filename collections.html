@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Collections — Shalini Mall</title>
-  <meta name="description" content="Explore Shalini Mall's collections: series of original paintings and signed fine art prints, beginning with Earth Song.">
+  <meta name="description" content="Discover abstract, landscape, botanical, figurative, minimal, traditional, wildlife and cityscape art collections from Shalini Mall.">
   <link rel="canonical" href="https://shalini-mall.vercel.app/collections.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Shalini Mall">
@@ -18,11 +18,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Tenor+Sans&family=WindSong:wght@400;500&display=swap">
-  <link rel="preload" as="image" href="assets/images/collection-hero.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/images/ivory-bloom-hq.webp" fetchpriority="high">
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/shop.css">
+  <link rel="stylesheet" href="css/collections.css">
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/animations.css">
   <script>document.documentElement.classList.add('js')</script>
@@ -44,19 +45,23 @@
 <body>
 <main id="main">
   <!-- Collection index (collections.html) -->
-  <div class="page" id="collectionIndexHead">
-    <header class="shop-head">
-      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li aria-current="page">Collections</li></ol></nav>
-      <p class="eyebrow">Series from the studio</p>
-      <h1>Collections</h1>
-      <p>Bodies of work made together, each with its own palette, story and mood — shown here as originals and signed editions.</p>
+  <div class="page collections-page" id="collectionIndexHead">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li aria-current="page">Collections</li></ol></nav>
+    <header class="collections-intro">
+      <div class="collections-intro__copy"><p class="eyebrow">The studio collection</p><h1>Different worlds.<br>One love for art.</h1><p>From quiet landscapes to expressive abstracts, find a collection that feels like you. Every theme brings together originals and fine art prints.</p><a class="button dark" href="#collectionDirectory">Discover the collections <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a><p class="collections-intro__note">Chosen by feeling. Collected with care.</p></div>
+      <div class="collections-intro__art" aria-label="A selection of botanical, abstract and landscape paintings"><img src="assets/images/mineral-rhythm-hq.webp" alt="Mineral Rhythm abstract painting" width="1024" height="1536" decoding="async"><img src="assets/images/ivory-bloom-hq.webp" alt="Ivory Bloom floral painting" width="1024" height="1536" fetchpriority="high" decoding="async"><img src="assets/images/mountain-stillness-hq.webp" alt="Mountain Stillness landscape painting" width="1024" height="1536" decoding="async"><span>Art for the way you see the world.</span></div>
     </header>
-    <div class="collection-list" id="collectionIndex"></div>
+    <section id="collectionDirectory" aria-labelledby="directoryTitle">
+      <div class="collections-directory-head"><div><p class="eyebrow">Explore by theme</p><h2 id="directoryTitle">Find your next favourite.</h2></div><p id="collectionDirectoryCount"></p></div>
+      <nav class="collections-jump" id="collectionJump" aria-label="Jump to a collection"></nav>
+      <div id="collectionIndex"></div>
+    </section>
+    <aside class="collections-help"><div><p class="eyebrow">A little guidance</p><h2>Still finding your favourite?</h2><p>Tell us about your space and the art you love. We?ll help you find a work that belongs.</p></div><a class="button outline" href="contact.html">Ask the studio</a></aside>
   </div>
 
   <!-- Single collection (collections.html?id=…) -->
   <div id="collectionDetail" hidden>
-    <header class="page-banner page-banner--tall" id="collectionHero"></header>
+    <header class="collection-detail-hero" id="collectionHero"></header>
     <section class="page" id="works" aria-labelledby="worksTitle">
       <div class="section-head section-head--split"><div><p class="eyebrow">Originals &amp; prints</p><h2 id="worksTitle">Collection works</h2></div></div>
       <div data-listing="collections"></div>

@@ -20,7 +20,7 @@
     addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    /* Mega menu: hover (with intent delay), click, keyboard. */
+    /* Mega menu: hover (with intent delay) or keyboard; clicking the trigger follows its link. */
     const toggle = $('#shopToggle');
     const mega = $('#megaShop');
     if (toggle && mega) {
@@ -28,7 +28,6 @@
       mega.inert = true;
       const set = open => { clearTimeout(timer); mega.classList.toggle('open', open); mega.inert = !open; toggle.setAttribute('aria-expanded', String(open)); };
       const later = (open, ms) => { clearTimeout(timer); timer = setTimeout(() => set(open), ms); };
-      toggle.addEventListener('click', () => set(!mega.classList.contains('open')));
       toggle.addEventListener('mouseenter', () => later(true, 120));
       mega.addEventListener('mouseenter', () => clearTimeout(timer));
       stick.addEventListener('mouseleave', () => later(false, 200));

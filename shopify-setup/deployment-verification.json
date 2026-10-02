@@ -1,0 +1,359 @@
+{
+  "currency": "USD",
+  "originals": 22,
+  "prints": 22,
+  "products": [
+    {
+      "handle": "quiet-orbit",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "monsoon-memory",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "542.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "between-seasons",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "wild-grace",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "earth-song",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "772.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "small-hours",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "quiet-orbit-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "29.99",
+      "variant_count": 2,
+      "media_count": 8
+    },
+    {
+      "handle": "monsoon-memory-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "between-seasons-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "605.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "wild-grace-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "480.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "earth-song-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "small-hours-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "396.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "mineral-rhythm-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "mineral-rhythm-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "blue-reverie-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "blue-reverie-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "mountain-stillness-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "mountain-stillness-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "forest-whisper-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "forest-whisper-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "ivory-bloom-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "ivory-bloom-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "jasmine-garden-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "jasmine-garden-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "quiet-reflection-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "quiet-reflection-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "a-moment-within-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "a-moment-within-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "golden-stillness-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "golden-stillness-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "soft-geometry-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "soft-geometry-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "lotus-heritage-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "lotus-heritage-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "sacred-lotus-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "sacred-lotus-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "tiger-majesty-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "tiger-majesty-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "gentle-giant-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "gentle-giant-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "paris-in-the-rain-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "paris-in-the-rain-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    },
+    {
+      "handle": "venetian-light-original",
+      "type": "original",
+      "status": "ACTIVE",
+      "price": "709.00",
+      "variant_count": 1,
+      "media_count": 1
+    },
+    {
+      "handle": "venetian-light-print",
+      "type": "print",
+      "status": "ACTIVE",
+      "price": "26.27",
+      "variant_count": 1,
+      "media_count": 4
+    }
+  ]
+}

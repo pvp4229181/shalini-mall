@@ -25,6 +25,7 @@ import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { loadCatalog } from './export-catalog.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const API_VERSION = '2026-07';
@@ -86,9 +87,7 @@ const userErrors = (label, errs) => {
 
 /* Artwork pairs (original ↔ print) from the approved Phase 1 catalogue. */
 function pairs() {
-  const js = readFileSync(path.join(HERE, '..', 'js', 'products.js'), 'utf8');
-  const block = js.split('const RECORDS = [')[1].split('];')[0];
-  const recs = [...block.matchAll(/id:\s*'([\w-]+)'.*?category:\s*'(\w+)'.*?pair:\s*'([\w-]+)'/g)].map(m => ({ id: m[1], category: m[2], pair: m[3] }));
+  const recs = loadCatalog().records;
   // Printify may give prints different handles; map them in print-handles.json: { "quiet-orbit-print": "quiet-orbit-canvas" }
   const mapFile = path.join(HERE, 'print-handles.json');
   const map = existsSync(mapFile) ? JSON.parse(readFileSync(mapFile, 'utf8')) : {};
@@ -139,6 +138,16 @@ const COLLECTIONS = [
       { namespace: 'custom', key: 'story', type: 'multi_line_text_field', value: 'Built slowly in layers of mineral pigment, charcoal, and translucent washes, these works hold the trace of weather, wild gardens, and remembered places.' }
     ] }
 ];
+for (const c of loadCatalog().collections.filter(c => c.id !== 'earth-song')) {
+  COLLECTIONS.push({ handle: c.id, title: c.title, templateSuffix: 'series',
+    rule: { column: 'TAG', relation: 'EQUALS', condition: c.id },
+    descriptionHtml: `<p>${c.intro}</p>`,
+    metafields: [
+      { namespace: 'custom', key: 'eyebrow', type: 'single_line_text_field', value: c.eyebrow },
+      { namespace: 'custom', key: 'heading', type: 'single_line_text_field', value: c.heading },
+      { namespace: 'custom', key: 'story', type: 'multi_line_text_field', value: c.story }
+    ] });
+}
 async function onlineStorePublication() {
   const d = await gql(`{ publications(first: 25) { nodes { id name } } }`);
   return d.publications.nodes.find(p => /online store/i.test(p.name))?.id;
@@ -198,11 +207,14 @@ const MENUS = {
       ]),
       L('Canvas prints', '/collections/prints', [
         L('All prints', '/collections/prints'),
-        L('Smaller canvases · 8×10, 16×20 in', '/collections/prints?filter.v.option.size=8+%C3%97+10+in&filter.v.option.size=16+%C3%97+20+in'),
-        L('Larger canvases · 24×30, 30×40 in', '/collections/prints?filter.v.option.size=24+%C3%97+30+in&filter.v.option.size=30+%C3%97+40+in'),
+        L('Portrait canvas prints · 8×10 in', '/collections/prints'),
+        L('Explore print collections', '/collections'),
         L('Print size guide', '/pages/about#print-sizes')
       ]),
-      L('Collections', '/collections', [L('Earth Song', '/collections/earth-song'), L('All collections', '/collections'), L('The artist', '/pages/the-artist')])
+      L('Collections', '/collections', [
+        ...loadCatalog().collections.map(c => L(c.title, `/collections/${c.id}`)),
+        L('All collections', '/collections')
+      ])
     ]),
     L('Originals', '/collections/originals'), L('Prints', '/collections/prints'), L('Collections', '/collections'),
     L('The Artist', '/pages/the-artist'), L('About', '/pages/about')
@@ -232,20 +244,24 @@ async function menus() {
 }
 
 /* ------------------------------------------------------------------ links */
-async function productId(handle) {
-  const d = await gql(`query($q: String!) { products(first: 1, query: $q) { nodes { id handle } } }`, { q: `handle:${handle}` });
-  return d.products.nodes.find(n => n.handle === handle)?.id;
-}
 async function links() {
+  const data = await gql(`query { products(first:100) { nodes { id handle } pageInfo { hasNextPage } } }`);
+  if (data.products.pageInfo.hasNextPage) throw new Error('Paginate products before linking a catalog over 100 products.');
+  const ids = new Map(data.products.nodes.map(p => [p.handle, p.id]));
+  const fields = [];
   for (const { original, print } of pairs()) {
-    const [o, p] = [await productId(original), await productId(print)];
+    const [o, p] = [ids.get(original), ids.get(print)];
     if (!o || !p) { warn(`cannot link ${original} ↔ ${print}: ${!o ? original : print} not found (map Printify handles in print-handles.json)`); continue; }
     if (DRY) { skip(`[dry] link ${original} ↔ ${print}`); continue; }
-    const d = await gql(`mutation($m: [MetafieldsSetInput!]!) { metafieldsSet(metafields: $m) { metafields { id } userErrors { field message } } }`, { m: [
+    fields.push(
       { ownerId: o, namespace: 'custom', key: 'related_print', type: 'product_reference', value: p },
       { ownerId: p, namespace: 'custom', key: 'related_original', type: 'product_reference', value: o }
-    ] });
-    if (!userErrors(`link ${original}`, d.metafieldsSet.userErrors)) ok(`linked ${original} ↔ ${print}`);
+    );
+  }
+  for (let start = 0; start < fields.length; start += 24) {
+    const batch = fields.slice(start, start + 24);
+    const d = await gql(`mutation($m: [MetafieldsSetInput!]!) { metafieldsSet(metafields: $m) { metafields { id } userErrors { field message } } }`, { m: batch });
+    if (!userErrors('artwork links', d.metafieldsSet.userErrors)) ok(`linked ${batch.length / 2} original/print pairs`);
   }
 }
 

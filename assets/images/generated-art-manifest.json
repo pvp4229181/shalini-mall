@@ -1,0 +1,114 @@
+[
+  {
+    "id": "mineral-rhythm",
+    "master": "assets/images/mineral-rhythm-hq.png",
+    "web": "assets/images/mineral-rhythm-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "blue-reverie",
+    "master": "assets/images/blue-reverie-hq.png",
+    "web": "assets/images/blue-reverie-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "mountain-stillness",
+    "master": "assets/images/mountain-stillness-hq.png",
+    "web": "assets/images/mountain-stillness-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "forest-whisper",
+    "master": "assets/images/forest-whisper-hq.png",
+    "web": "assets/images/forest-whisper-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "ivory-bloom",
+    "master": "assets/images/ivory-bloom-hq.png",
+    "web": "assets/images/ivory-bloom-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "jasmine-garden",
+    "master": "assets/images/jasmine-garden-hq.png",
+    "web": "assets/images/jasmine-garden-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "quiet-reflection",
+    "master": "assets/images/quiet-reflection-hq.png",
+    "web": "assets/images/quiet-reflection-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "a-moment-within",
+    "master": "assets/images/a-moment-within-hq.png",
+    "web": "assets/images/a-moment-within-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "golden-stillness",
+    "master": "assets/images/golden-stillness-hq.png",
+    "web": "assets/images/golden-stillness-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "soft-geometry",
+    "master": "assets/images/soft-geometry-hq.png",
+    "web": "assets/images/soft-geometry-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "lotus-heritage",
+    "master": "assets/images/lotus-heritage-hq.png",
+    "web": "assets/images/lotus-heritage-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "sacred-lotus",
+    "master": "assets/images/sacred-lotus-hq.png",
+    "web": "assets/images/sacred-lotus-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "tiger-majesty",
+    "master": "assets/images/tiger-majesty-hq.png",
+    "web": "assets/images/tiger-majesty-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gentle-giant",
+    "master": "assets/images/gentle-giant-hq.png",
+    "web": "assets/images/gentle-giant-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "paris-in-the-rain",
+    "master": "assets/images/paris-in-the-rain-hq.png",
+    "web": "assets/images/paris-in-the-rain-hq.webp",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "venetian-light",
+    "master": "assets/images/venetian-light-hq.png",
+    "web": "assets/images/venetian-light-hq.webp",
+    "width": 1024,
+    "height": 1536
+  }
+]

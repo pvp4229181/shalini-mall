@@ -1,4 +1,5 @@
 {{ 'shop.css' | asset_url | stylesheet_tag }}
+{{ 'collections.css' | asset_url | stylesheet_tag }}
 {%- liquid
   if section.settings.collections.count > 0
     assign list = section.settings.collections
@@ -7,6 +8,49 @@
   endif
   assign fallback_src = section.settings.fallback_image | append: '.webp' | asset_url
 -%}
+{%- assign theme_handles = 'abstract,nature-landscapes,floral-botanical,figurative,modern-minimal,cultural-traditional,wildlife,cityscapes-architecture' | split: ',' -%}
+<div class="page collections-page">
+  {%- render 'breadcrumbs', current: section.settings.heading -%}
+  <header class="collections-intro">
+    <div class="collections-intro__copy">
+      <p class="eyebrow">The studio collection</p><h1>Different worlds.<br>One love for art.</h1>
+      <p>From quiet landscapes to expressive abstracts, find a collection that feels like you. Every theme brings together originals and fine art prints.</p>
+      <a class="button dark" href="#collectionDirectory">Discover the collections {% render 'icon', icon: 'arrow' %}</a>
+      <p class="collections-intro__note">Chosen by feeling. Collected with care.</p>
+    </div>
+    <div class="collections-intro__art">
+      <img src="{{ 'mineral-rhythm-hq.webp' | asset_url }}" alt="Mineral Rhythm abstract painting" width="1024" height="1536" decoding="async">
+      <img src="{{ 'ivory-bloom-hq.webp' | asset_url }}" alt="Ivory Bloom floral painting" width="1024" height="1536" fetchpriority="high" decoding="async">
+      <img src="{{ 'mountain-stillness-hq.webp' | asset_url }}" alt="Mountain Stillness landscape painting" width="1024" height="1536" decoding="async">
+      <span>Art for the way you see the world.</span>
+    </div>
+  </header>
+  <section id="collectionDirectory" aria-labelledby="directoryTitle">
+    <div class="collections-directory-head"><div><p class="eyebrow">Explore by theme</p><h2 id="directoryTitle">Find your next favourite.</h2></div><p>Eight themes to explore</p></div>
+    <nav class="collections-jump" aria-label="Jump to a collection">
+      {%- for handle in theme_handles -%}{%- assign c = collections[handle] -%}
+        {%- if c != blank -%}<a href="#theme-{{ handle }}">{{ c.title | escape }}</a>{%- endif -%}
+      {%- endfor -%}
+    </nav>
+    <div class="collections-grid">
+      {%- for handle in theme_handles -%}{%- assign c = collections[handle] -%}
+        {%- if c == blank -%}{%- continue -%}{%- endif -%}
+        <article class="collection-tile" id="theme-{{ handle }}">
+          <a class="collection-tile__art" href="{{ c.url }}" aria-label="Explore {{ c.title | escape }}">
+            <span class="collection-tile__number">0{{ forloop.index }}</span>
+            {%- assign originals = c.products | where: 'type', 'Original' -%}
+            {%- for p in originals limit: 2 -%}{%- render 'art-image', image: p.featured_image, alt: p.title, sizes: '(min-width: 1024px) 15vw, 40vw' -%}{%- endfor -%}
+          </a>
+          <div class="collection-tile__heading"><h3><a href="{{ c.url }}">{{ c.title | escape }}</a></h3><a class="collection-tile__arrow" href="{{ c.url }}" aria-label="Explore {{ c.title | escape }}">{% render 'icon', icon: 'arrow' %}</a></div>
+          <p>{{ c.description | strip_html }}</p>
+          <div class="collection-tile__meta"><span>{{ c.all_products_count }} works</span><a href="{{ collections.originals.url }}?filter.p.tag={{ handle }}">Originals</a><span aria-hidden="true">/</span><a href="{{ collections.prints.url }}?filter.p.tag={{ handle }}">Prints</a></div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </section>
+  <aside class="collections-help"><div><p class="eyebrow">A little guidance</p><h2>Still finding your favourite?</h2><p>Tell us about your space and the art you love. We’ll help you find a work that belongs.</p></div><a class="button outline" href="{{ pages.contact.url }}">Ask the studio</a></aside>
+</div>
+{% comment %}Additional merchant-selected collections remain available below the theme directory.{% endcomment %}
 <div class="page">
   <header class="shop-head">
     {%- render 'breadcrumbs', current: section.settings.heading -%}
@@ -16,6 +60,7 @@
   </header>
   <div class="collection-list">
     {%- for c in list -%}
+      {%- if theme_handles contains c.handle or c.handle == 'originals' or c.handle == 'prints' -%}{%- continue -%}{%- endif -%}
       {%- if c.handle == 'all' or c.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
       <article class="collection-feature">
         {%- if c.image -%}

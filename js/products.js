@@ -99,13 +99,13 @@
       typeLabel: type === 'original' ? 'Original' : 'Fine art print',
       title: r.title,
       artist: SM.ARTIST,
-      collection: 'earth-song',
+      collection: r.collection || 'earth-song',
       description: r.description,
       status: r.status,
       available: true,
       medium: facts.medium || null,
       year: facts.year || null,
-      images: [{ src: ARTWORK_IMAGES[r.id] || SM.ART_SRC, crop: 'center' }],
+      images: [{ src: ARTWORK_IMAGES[r.id] || SM.ART_SRC, crop: 'center', fit: r.collection ? 'contain' : 'cover' }],
       position: index
     };
     if (type === 'original') {
@@ -141,6 +141,148 @@
       relatedOriginalId: r.pair || null
     });
   }
+
+  // Recreated high-resolution artwork; prices and sizes use existing samples.
+  const THEME_ARTWORKS = [
+  {
+    "id": "abstract",
+    "title": "Abstract",
+    "description": "Bold emotions and expressive forms.",
+    "works": [
+      {
+        "id": "mineral-rhythm",
+        "title": "Mineral Rhythm"
+      },
+      {
+        "id": "blue-reverie",
+        "title": "Blue Reverie"
+      }
+    ]
+  },
+  {
+    "id": "nature-landscapes",
+    "title": "Nature & Landscapes",
+    "description": "Serene views inspired by the earth.",
+    "works": [
+      {
+        "id": "mountain-stillness",
+        "title": "Mountain Stillness"
+      },
+      {
+        "id": "forest-whisper",
+        "title": "Forest Whisper"
+      }
+    ]
+  },
+  {
+    "id": "floral-botanical",
+    "title": "Floral & Botanical",
+    "description": "Celebrating the beauty of nature.",
+    "works": [
+      {
+        "id": "ivory-bloom",
+        "title": "Ivory Bloom"
+      },
+      {
+        "id": "jasmine-garden",
+        "title": "Jasmine Garden"
+      }
+    ]
+  },
+  {
+    "id": "figurative",
+    "title": "Figurative",
+    "description": "Human expressions, stories and emotions.",
+    "works": [
+      {
+        "id": "quiet-reflection",
+        "title": "Quiet Reflection"
+      },
+      {
+        "id": "a-moment-within",
+        "title": "A Moment Within"
+      }
+    ]
+  },
+  {
+    "id": "modern-minimal",
+    "title": "Modern Minimal",
+    "description": "Clean, subtle and contemporary.",
+    "works": [
+      {
+        "id": "golden-stillness",
+        "title": "Golden Stillness"
+      },
+      {
+        "id": "soft-geometry",
+        "title": "Soft Geometry"
+      }
+    ]
+  },
+  {
+    "id": "cultural-traditional",
+    "title": "Cultural & Traditional",
+    "description": "Heritage, culture and timeless art.",
+    "works": [
+      {
+        "id": "lotus-heritage",
+        "title": "Lotus Heritage"
+      },
+      {
+        "id": "sacred-lotus",
+        "title": "Sacred Lotus"
+      }
+    ]
+  },
+  {
+    "id": "wildlife",
+    "title": "Wildlife",
+    "description": "The strength and beauty of the natural world.",
+    "works": [
+      {
+        "id": "tiger-majesty",
+        "title": "Tiger Majesty"
+      },
+      {
+        "id": "gentle-giant",
+        "title": "Gentle Giant"
+      }
+    ]
+  },
+  {
+    "id": "cityscapes-architecture",
+    "title": "Cityscapes & Architecture",
+    "description": "Urban life, structures and perspectives.",
+    "works": [
+      {
+        "id": "paris-in-the-rain",
+        "title": "Paris in the Rain"
+      },
+      {
+        "id": "venetian-light",
+        "title": "Venetian Light"
+      }
+    ]
+  }
+];
+
+  THEME_ARTWORKS.forEach(theme => {
+    COLLECTIONS.push({
+      id: theme.id, title: theme.title, eyebrow: 'Explore the theme',
+      heading: theme.title, intro: theme.description, story: theme.description,
+      image: { src: `assets/images/${theme.works[0].id}-hq.webp`, crop: 'center' }
+    });
+    theme.works.forEach(work => {
+      const originalId = `${work.id}-original`, printId = `${work.id}-print`;
+      const originalSample = RECORDS.find(r => r.category === 'Original');
+      const printSample = RECORDS.find(r => r.category === 'Print');
+      RECORDS.push(
+        { id: originalId, title: work.title, category: 'Original', price: originalSample.price, size: originalSample.size, status: originalSample.status, pair: printId, collection: theme.id, description: `${theme.description} ${work.title}, from our ${theme.title.toLowerCase()} selection.` },
+        { id: printId, title: work.title, category: 'Print', price: printSample.price, size: printSample.size, status: printSample.status, pair: originalId, collection: theme.id, description: `${work.title} as a canvas print. ${theme.description}` }
+      );
+      ARTWORK_IMAGES[originalId] = ARTWORK_IMAGES[printId] = `assets/images/${work.id}-hq.webp`;
+    });
+  });
 
   const PRODUCTS = RECORDS.map(normalise);
   // A print takes the orientation of its original painting.

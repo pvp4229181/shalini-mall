@@ -25,8 +25,8 @@ function gql(query, variables = {}) {
 }
 try {
   const data = gql(`query { shop { currencyCode } products(first:100) { nodes {
-    id title handle status media(first:10) { nodes { status } }
-    variants(first:10) { nodes { price } }
+    id title handle status tags media(first:20) { nodes { status } }
+    variants(first:20) { nodes { price sku } }
   } } }`);
   if (data.shop.currencyCode !== 'USD') throw new Error('Store currency must be USD.');
   const updates = Object.values(records).map(record => {
@@ -36,7 +36,9 @@ try {
     if (!product.media.nodes.length || product.media.nodes.some(m => m.status !== 'READY')) {
       throw new Error(`${record.title}: images still processing.`);
     }
-    if (product.variants.nodes.some(v => Math.round(Number(v.price) * 100) !== record.price_cents)) {
+    const expected = record.enabled_variants;
+    if (!expected || product.variants.nodes.length !== expected.length || product.variants.nodes.some(v =>
+      !expected.some(e => e.sku === v.sku && e.price === Math.round(Number(v.price) * 100)))) {
       throw new Error(`${record.title}: unexpected Shopify price.`);
     }
     return { record, product };
@@ -47,7 +49,7 @@ try {
   }`).join('\n');
   const variables = Object.fromEntries(updates.map(({ record, product }, i) => [`p${i}`, {
     id: product.id, handle: record.handle, productType: 'Fine Art Print',
-    tags: ['print', 'earth-song', 'shalini-mall'],
+    tags: [...new Set([...product.tags, 'print', record.collection || 'earth-song', 'shalini-mall'])],
     metafields: [
       { namespace: 'custom', key: 'width_cm', type: 'number_decimal', value: '20.32' },
       { namespace: 'custom', key: 'height_cm', type: 'number_decimal', value: '25.4' },

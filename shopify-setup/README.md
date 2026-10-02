@@ -1,12 +1,22 @@
 # Shalini Mall on Shopify — setup guide
 
+## Current deployment — 2 October 2026
+
+The live theme `157589700726` includes the gallery-card redesign, eight artwork themes, the collections directory and desktop/mobile carousels. The catalog contains **22 published originals and 22 published Printify prints**. The 16 new originals use the catalog price and dimensions confirmed by the store owner. Prints use the existing 8 × 10-inch Printify canvas configuration at $26.27; Quiet Orbit also retains its existing 10 × 8-inch variant at $29.99.
+
+`export-catalog.mjs` evaluates the complete catalog, including generated artwork pairs. `build_csv.py`, the Printify importer and collection/link setup now use that complete catalog. Preview print CSVs remain optional and were not imported.
+
+`verify-deployment.py` checks live publication, media, prices, Printify IDs, one-of-one original inventory, manual original fulfillment and all counterpart links. Its latest result is in `deployment-verification.json`. Run `inspect-products.py` before `connect-printify-products.mjs` to refresh the expected Printify variants.
+
+The storefront remains password protected. Visitor browser checks in `tests/shopify-deployment.cjs` require `SHOPIFY_STOREFRONT_PASSWORD` while that setting is enabled. The live theme was backed up under `.theme-header-update/pre-upload-20261002` before upload; current merchant settings were preserved.
+
 This folder turns the approved Phase 1 site into a working Shopify store. The theme itself is in [`../shopify-theme`](../shopify-theme) (Online Store 2.0).
 
 | File | What it does |
 |---|---|
 | `setup-store.mjs` | Creates metafield definitions, collections, pages and menus; links originals ↔ prints; audits the store |
 | `build_csv.py` | Regenerates the two CSVs below from `js/products.js` (run it whenever the catalogue changes) |
-| `products-originals.csv` | The six one-of-one originals: manual fulfilment, inventory 1, overselling denied |
+| `products-originals.csv` | The 22 one-of-one originals: manual fulfilment, inventory 1, overselling denied |
 | `products-prints-preview.csv` | **Optional**, temporary print products for previewing the theme before Printify is connected. Tagged `printify-placeholder`; delete them before launch |
 
 > Everything below was verified with Shopify's theme checker and a local storefront simulator, **not yet on a real store**. Run it on a development store first.

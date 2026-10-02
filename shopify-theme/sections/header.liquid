@@ -60,11 +60,11 @@
     <div class="header-start">
       <button type="button" class="icon-btn menu-btn" data-open="menuPanel" aria-controls="menuPanel" aria-expanded="false" aria-label="Open menu">{% render 'icon', icon: 'menu' %}</button>
     </div>
-    <a class="brand" href="{{ routes.root_url }}" aria-label="shalini mall, home">
+    <a class="brand" href="{{ routes.root_url }}" aria-label="Shalini Mall, home">
       {%- if section.settings.logo != blank -%}
-        {{ section.settings.logo | image_url: width: 480 | image_tag: height: 40, alt: 'shalini mall' }}
+        {{ section.settings.logo | image_url: width: 480 | image_tag: height: 40, alt: 'Shalini Mall' }}
       {%- else -%}
-        <span>shalini mall</span>
+        <span>Shalini Mall</span>
       {%- endif -%}
     </a>
     <nav class="desktop-nav" aria-label="Primary">
@@ -73,7 +73,7 @@
           {%- assign link_title = link.title | downcase | strip -%}
           <li>
             {%- if link_title == trigger and mega_columns != blank -%}
-              <button type="button" class="nav-link" id="shopToggle" aria-expanded="false" aria-controls="megaShop"{% if link.child_active or link.active %} aria-current="page"{% endif %}>{{ link.title | escape }} {% render 'icon', icon: 'chevron' %}</button>
+              <a class="nav-link" id="shopToggle" href="{{ link.url }}" aria-haspopup="true" aria-expanded="false" aria-controls="megaShop"{% if link.child_active or link.active %} aria-current="page"{% endif %}>{{ link.title | escape }} {% render 'icon', icon: 'chevron' %}</a>
               <div class="mega" id="megaShop" role="region" aria-label="{{ link.title | escape }} menu">
                 <div class="mega-inner">{{ mega_columns }}{{ mega_feature }}</div>
                 <div class="mega-foot"><a class="text-link" href="{{ link.url }}">{{ section.settings.mega_all_label | escape }} {% render 'icon', icon: 'arrow' %}</a></div>
@@ -102,7 +102,7 @@
 {%- comment -%} Moved to <body> by header.js so it layers above the sticky header. {%- endcomment -%}
 <aside class="panel panel--left" id="menuPanel" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true" inert>
   <div class="panel-head">
-    <a class="brand" href="{{ routes.root_url }}"><span>{{ shop.name | escape }}</span></a>
+    <a class="brand" href="{{ routes.root_url }}"><span>Shalini Mall</span></a>
     <button type="button" class="icon-btn" data-close aria-label="Close menu">{% render 'icon', icon: 'close' %}</button>
   </div>
   <form class="menu-search" role="search" action="{{ routes.search_url }}" method="get">

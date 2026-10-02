@@ -33,10 +33,13 @@
           {%- render 'art-image', src: fallback_src, focus: block.settings.fallback_focus, alt: '' -%}
         {%- endif -%}
         <div class="art-type__copy">
+          <span class="art-type__label">0{{ forloop.index }} / {{ block.settings.caption | default: block.settings.title | escape }}</span>
           <h3>{{ block.settings.title | escape }}</h3>
           {%- if block.settings.text != blank -%}<p>{{ block.settings.text | escape }}</p>{%- endif -%}
-          {%- if meta != blank -%}<p class="art-type__meta">{{ meta }}</p>{%- endif -%}
-          <span class="text-link">{{ block.settings.cta | escape }} {% render 'icon', icon: 'arrow' %}</span>
+          <div class="art-type__footer">
+            {%- if meta != blank -%}<p class="art-type__meta">{{ meta }}</p>{%- endif -%}
+            <span class="text-link">{{ block.settings.cta | escape }} {% render 'icon', icon: 'arrow' %}</span>
+          </div>
         </div>
       </a>
     {%- endfor -%}
@@ -64,6 +67,7 @@
         { "type": "select", "id": "fallback_image", "label": "Image before one is chosen", "default": "earth-song", "options": [{"value": "hero-gallery", "label": "Painting in a room"}, {"value": "earth-song", "label": "Earth Song"}, {"value": "wild-grace", "label": "Wild Grace"}, {"value": "quiet-orbit", "label": "Quiet Orbit"}, {"value": "small-hours", "label": "The Small Hours"}, {"value": "between-seasons", "label": "Between Seasons"}, {"value": "monsoon-memory", "label": "Monsoon Memory"}, {"value": "artist-shalini", "label": "Shalini (portrait)"}, {"value": "artist-studio", "label": "Studio table"}, {"value": "collection-hero", "label": "Collection detail"}] },
         { "type": "text", "id": "fallback_focus", "label": "Focus before an image is chosen", "default": "center" },
         { "type": "text", "id": "title", "label": "Title", "default": "Original art" },
+        { "type": "text", "id": "caption", "label": "Caption" },
         { "type": "text", "id": "text", "label": "Text" },
         { "type": "text", "id": "meta", "label": "Small text", "info": "Leave empty to show the collection's count and starting price." },
         { "type": "text", "id": "cta", "label": "Link label", "default": "Explore" },

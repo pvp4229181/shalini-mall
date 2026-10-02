@@ -7,11 +7,28 @@
     "cost_cents": 1576,
     "price_cents": 2627,
     "currency": "USD",
-    "size": "8 × 10 in",
+    "size": "8 Ã— 10 in",
     "pricing": "40% margin on production cost",
     "publish_requested": true,
     "shopify_product_id": "gid://shopify/Product/9037186990198",
-    "url": "https://wuw0vt-0q.myshopify.com/products/quiet-orbit-print"
+    "url": "https://wuw0vt-0q.myshopify.com/products/quiet-orbit-print",
+    "collection": "earth-song",
+    "enabled_variants": [
+      {
+        "id": 95209,
+        "title": "10\" x 8\" (Horizontal) / 0.75''",
+        "sku": "69700499177712813480",
+        "price": 2999,
+        "cost": 1576
+      },
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "22070578560594442829",
+        "price": 2627,
+        "cost": 1576
+      }
+    ]
   },
   "monsoon-memory-print": {
     "title": "Monsoon Memory",
@@ -21,11 +38,21 @@
     "cost_cents": 1576,
     "price_cents": 2627,
     "currency": "USD",
-    "size": "8 × 10 in",
+    "size": "8 Ã— 10 in",
     "pricing": "40% margin on production cost",
     "publish_requested": true,
     "shopify_product_id": "gid://shopify/Product/9037190561910",
-    "url": "https://wuw0vt-0q.myshopify.com/products/monsoon-memory-print"
+    "url": "https://wuw0vt-0q.myshopify.com/products/monsoon-memory-print",
+    "collection": "earth-song",
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "31489481421557269647",
+        "price": 2627,
+        "cost": 1576
+      }
+    ]
   },
   "between-seasons": {
     "title": "Between Seasons",
@@ -35,11 +62,21 @@
     "cost_cents": 1576,
     "price_cents": 2627,
     "currency": "USD",
-    "size": "8 × 10 in",
+    "size": "8 Ã— 10 in",
     "pricing": "40% margin on production cost",
     "publish_requested": true,
     "shopify_product_id": "gid://shopify/Product/9037190234230",
-    "url": "https://wuw0vt-0q.myshopify.com/products/between-seasons"
+    "url": "https://wuw0vt-0q.myshopify.com/products/between-seasons",
+    "collection": "earth-song",
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "22222946545773699307",
+        "price": 2627,
+        "cost": 1576
+      }
+    ]
   },
   "wild-grace": {
     "title": "Wild Grace",
@@ -49,11 +86,21 @@
     "cost_cents": 1576,
     "price_cents": 2627,
     "currency": "USD",
-    "size": "8 × 10 in",
+    "size": "8 Ã— 10 in",
     "pricing": "40% margin on production cost",
     "publish_requested": true,
     "shopify_product_id": "gid://shopify/Product/9037190889590",
-    "url": "https://wuw0vt-0q.myshopify.com/products/wild-grace"
+    "url": "https://wuw0vt-0q.myshopify.com/products/wild-grace",
+    "collection": "earth-song",
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "23823687050244074488",
+        "price": 2627,
+        "cost": 1576
+      }
+    ]
   },
   "earth-song-print": {
     "title": "Earth Song",
@@ -63,11 +110,21 @@
     "cost_cents": 1576,
     "price_cents": 2627,
     "currency": "USD",
-    "size": "8 × 10 in",
+    "size": "8 Ã— 10 in",
     "pricing": "40% margin on production cost",
     "publish_requested": true,
     "shopify_product_id": "gid://shopify/Product/9037191086198",
-    "url": "https://wuw0vt-0q.myshopify.com/products/earth-song-print"
+    "url": "https://wuw0vt-0q.myshopify.com/products/earth-song-print",
+    "collection": "earth-song",
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "27656804937518226603",
+        "price": 2627,
+        "cost": 1576
+      }
+    ]
   },
   "small-hours": {
     "title": "The Small Hours",
@@ -77,10 +134,404 @@
     "cost_cents": 1576,
     "price_cents": 2627,
     "currency": "USD",
-    "size": "8 × 10 in",
+    "size": "8 Ã— 10 in",
     "pricing": "40% margin on production cost",
     "publish_requested": true,
     "shopify_product_id": "gid://shopify/Product/9037191348342",
-    "url": "https://wuw0vt-0q.myshopify.com/products/small-hours"
+    "url": "https://wuw0vt-0q.myshopify.com/products/small-hours",
+    "collection": "earth-song",
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "21913661986440959409",
+        "price": 2627,
+        "cost": 1576
+      }
+    ]
+  },
+  "mineral-rhythm-print": {
+    "title": "Mineral Rhythm",
+    "handle": "mineral-rhythm-print",
+    "collection": "abstract",
+    "image_id": "6abf51db935cef9f01fe9dae",
+    "product_id": "6abf51de6ceb43b1b80bb0eb",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "17778096678432481352",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045005533302",
+    "url": "https://wuw0vt-0q.myshopify.com/products/mineral-rhythm-print"
+  },
+  "blue-reverie-print": {
+    "title": "Blue Reverie",
+    "handle": "blue-reverie-print",
+    "collection": "abstract",
+    "image_id": "6abf51e565baee2ac866bada",
+    "product_id": "6abf51e66ceb43b1b80bb0f4",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "12171708875176268310",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045005795446",
+    "url": "https://wuw0vt-0q.myshopify.com/products/blue-reverie-print"
+  },
+  "mountain-stillness-print": {
+    "title": "Mountain Stillness",
+    "handle": "mountain-stillness-print",
+    "collection": "nature-landscapes",
+    "image_id": "6abf51ee25a831a166626cf9",
+    "product_id": "6abf51f072e0e8d8350e900d",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "25885947156332506299",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045005828214",
+    "url": "https://wuw0vt-0q.myshopify.com/products/mountain-stillness-print"
+  },
+  "forest-whisper-print": {
+    "title": "Forest Whisper",
+    "handle": "forest-whisper-print",
+    "collection": "nature-landscapes",
+    "image_id": "6abf51f61a35499c255c83cf",
+    "product_id": "6abf51f8d448c9b5c408cffc",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "32021936402613615407",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045005860982",
+    "url": "https://wuw0vt-0q.myshopify.com/products/forest-whisper-print"
+  },
+  "ivory-bloom-print": {
+    "title": "Ivory Bloom",
+    "handle": "ivory-bloom-print",
+    "collection": "floral-botanical",
+    "image_id": "6abf520025a831a166626d21",
+    "product_id": "6abf52015aad6dcc690710bf",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "26637380202374377466",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045005893750",
+    "url": "https://wuw0vt-0q.myshopify.com/products/ivory-bloom-print"
+  },
+  "jasmine-garden-print": {
+    "title": "Jasmine Garden",
+    "handle": "jasmine-garden-print",
+    "collection": "floral-botanical",
+    "image_id": "6abf5206aacb0f7330ae1b03",
+    "product_id": "6abf52075aad6dcc690710c6",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "29407786343178107978",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045005926518",
+    "url": "https://wuw0vt-0q.myshopify.com/products/jasmine-garden-print"
+  },
+  "quiet-reflection-print": {
+    "title": "Quiet Reflection",
+    "handle": "quiet-reflection-print",
+    "collection": "figurative",
+    "image_id": "6abf520f1a35499c255c83d5",
+    "product_id": "6abf52115aad6dcc690710d5",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "80082671701518721320",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045005959286",
+    "url": "https://wuw0vt-0q.myshopify.com/products/quiet-reflection-print"
+  },
+  "a-moment-within-print": {
+    "title": "A Moment Within",
+    "handle": "a-moment-within-print",
+    "collection": "figurative",
+    "image_id": "6abf521d39e722e5f6ab0cf1",
+    "product_id": "6abf521e4a4dd6d4170cca41",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "28275635685334608868",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045005992054",
+    "url": "https://wuw0vt-0q.myshopify.com/products/a-moment-within-print"
+  },
+  "golden-stillness-print": {
+    "title": "Golden Stillness",
+    "handle": "golden-stillness-print",
+    "collection": "modern-minimal",
+    "image_id": "6abf522d65baee2ac866baea",
+    "product_id": "6abf52304a4dd6d4170cca55",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "78078499234975651564",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045006024822",
+    "url": "https://wuw0vt-0q.myshopify.com/products/golden-stillness-print"
+  },
+  "soft-geometry-print": {
+    "title": "Soft Geometry",
+    "handle": "soft-geometry-print",
+    "collection": "modern-minimal",
+    "image_id": "6abf52444334ce2d3639f804",
+    "product_id": "6abf52465aad6dcc69071169",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "23015040091236777660",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045006057590",
+    "url": "https://wuw0vt-0q.myshopify.com/products/soft-geometry-print"
+  },
+  "lotus-heritage-print": {
+    "title": "Lotus Heritage",
+    "handle": "lotus-heritage-print",
+    "collection": "cultural-traditional",
+    "image_id": "6abf525c39b276e0bc4552f6",
+    "product_id": "6abf525ee1074d7f1a0f75e2",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "23217454055652644319",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045006090358",
+    "url": "https://wuw0vt-0q.myshopify.com/products/lotus-heritage-print"
+  },
+  "sacred-lotus-print": {
+    "title": "Sacred Lotus",
+    "handle": "sacred-lotus-print",
+    "collection": "cultural-traditional",
+    "image_id": "6abf526d935cef9f01fe9e55",
+    "product_id": "6abf52704432291b3d06dc29",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "14907879872977071760",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045006155894",
+    "url": "https://wuw0vt-0q.myshopify.com/products/sacred-lotus-print"
+  },
+  "tiger-majesty-print": {
+    "title": "Tiger Majesty",
+    "handle": "tiger-majesty-print",
+    "collection": "wildlife",
+    "image_id": "6abf527b297f78e01167cc8b",
+    "product_id": "6abf527c9b5374253a0d4749",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "16181285054884757372",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045006188662",
+    "url": "https://wuw0vt-0q.myshopify.com/products/tiger-majesty-print"
+  },
+  "gentle-giant-print": {
+    "title": "Gentle Giant",
+    "handle": "gentle-giant-print",
+    "collection": "wildlife",
+    "image_id": "6abf5282aacb0f7330ae1b19",
+    "product_id": "6abf5284e1074d7f1a0f7609",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "16356247466516260396",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045006221430",
+    "url": "https://wuw0vt-0q.myshopify.com/products/gentle-giant-print"
+  },
+  "paris-in-the-rain-print": {
+    "title": "Paris in the Rain",
+    "handle": "paris-in-the-rain-print",
+    "collection": "cityscapes-architecture",
+    "image_id": "6abf528c760aa19eaf8fdade",
+    "product_id": "6abf528d5aad6dcc69071193",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "32196864454523135098",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045006286966",
+    "url": "https://wuw0vt-0q.myshopify.com/products/paris-in-the-rain-print"
+  },
+  "venetian-light-print": {
+    "title": "Venetian Light",
+    "handle": "venetian-light-print",
+    "collection": "cityscapes-architecture",
+    "image_id": "6abf5292a4893beeae4c58ee",
+    "product_id": "6abf52930c2dfbb3dc05f4f8",
+    "cost_cents": 1576,
+    "price_cents": 2627,
+    "currency": "USD",
+    "size": "8 × 10 in",
+    "pricing": "40% margin on production cost",
+    "publish_requested": true,
+    "enabled_variants": [
+      {
+        "id": 95212,
+        "title": "8″ x 10″ (Vertical) / 0.75''",
+        "sku": "29429044399552548139",
+        "price": 2627,
+        "cost": 1576
+      }
+    ],
+    "shopify_product_id": "gid://shopify/Product/9045006319734",
+    "url": "https://wuw0vt-0q.myshopify.com/products/venetian-light-print"
   }
 }

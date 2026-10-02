@@ -4,10 +4,10 @@
   if request.page_type == 'product'
     assign og_type = 'product'
   endif
-  assign og_title = page_title | default: shop.name
-  assign og_description = page_description | default: shop.description | default: shop.name
+  assign og_title = page_title | default: 'Shalini Mall' | replace: shop.name, 'Shalini Mall'
+  assign og_description = page_description | default: shop.description | default: 'Shalini Mall' | replace: shop.name, 'Shalini Mall'
 -%}
-<meta property="og:site_name" content="{{ shop.name | escape }}">
+<meta property="og:site_name" content="Shalini Mall">
 <meta property="og:url" content="{{ canonical_url }}">
 <meta property="og:title" content="{{ og_title | escape }}">
 <meta property="og:type" content="{{ og_type }}">

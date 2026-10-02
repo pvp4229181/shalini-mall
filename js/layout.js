@@ -70,7 +70,7 @@
       <nav class="desktop-nav" aria-label="Primary">
         <ul>
           <li><a class="nav-link" href="index.html"${current('index')}>Home</a></li>
-          <li><button type="button" class="nav-link" id="shopToggle" aria-expanded="false" aria-controls="megaShop"${['shop'].includes(page) ? ' aria-current="page"' : ''}>Shop ${icon('chevron')}</button>${mega}</li>
+          <li><a class="nav-link" id="shopToggle" href="shop.html" aria-haspopup="true" aria-expanded="false" aria-controls="megaShop"${['shop'].includes(page) ? ' aria-current="page"' : ''}>Shop ${icon('chevron')}</a>${mega}</li>
           <li><a class="nav-link" href="originals.html"${current('originals')}>Originals</a></li>
           <li><a class="nav-link" href="prints.html"${current('prints')}>Prints</a></li>
           <li><a class="nav-link" href="collections.html"${current('collections')}>Collections</a></li>

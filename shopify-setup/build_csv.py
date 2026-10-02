@@ -9,14 +9,15 @@
 Metafield definitions must exist before importing (run setup-store.mjs first).
 Facts the studio has not provided (medium, year, weight) are left blank on purpose.
 """
-import csv, os, re
+import csv, os, re, json, subprocess
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, '..', 'js', 'products.js')
 SITE = 'https://shalini-mall.vercel.app/'  # images are imported from the deployed Phase 1 site
 
 js = open(SRC, encoding='utf8').read()
-images = dict(re.findall(r"'([\w-]+)':\s*'(assets/images/[\w-]+\.webp)'", js.split('const COLLECTIONS')[0]))
+catalog = json.loads(subprocess.check_output(['node', os.path.join(HERE, 'export-catalog.mjs')], text=True, encoding='utf-8'))
+images = {p['id']: p['images'][0]['src'] for p in catalog['products']}
 material = re.search(r"const PRINT_MATERIAL = '([^']+)'", js).group(1)
 
 
@@ -25,11 +26,7 @@ def field(line, name):
     return None if not m else (m.group(1) if m.group(1) is not None else int(m.group(2)))
 
 
-records = []
-for line in js.split('const RECORDS = [')[1].split('];')[0].splitlines():
-    if "id:" not in line:
-        continue
-    records.append({k: field(line, k) for k in ['id', 'title', 'category', 'price', 'size', 'status', 'pair', 'description']})
+records = catalog['records']
 
 BASE = ['Handle', 'Title', 'Body (HTML)', 'Vendor', 'Type', 'Tags', 'Published', 'Option1 Name', 'Option1 Value',
         'Variant SKU', 'Variant Grams', 'Variant Inventory Tracker', 'Variant Inventory Qty', 'Variant Inventory Policy',
@@ -66,7 +63,7 @@ with open(os.path.join(HERE, 'products-originals.csv'), 'w', newline='', encodin
         width, height = map(float, re.findall(r'[\d.]+', r['size'])[:2])
         row = base_row(r, 'Original')
         row.update({
-            'Type': 'Original', 'Tags': 'original, earth-song', 'Option1 Name': 'Title', 'Option1 Value': 'Default Title',
+            'Type': 'Original', 'Tags': 'original, ' + r.get('collection', 'earth-song'), 'Option1 Name': 'Title', 'Option1 Value': 'Default Title',
             'Variant SKU': f"SM-ORIG-{r['id'].upper()}", 'Variant Grams': '',
             'Variant Inventory Tracker': 'shopify', 'Variant Inventory Qty': '1', 'Variant Inventory Policy': 'deny',
             'Variant Fulfillment Service': 'manual', 'Variant Price': f"{r['price']:.2f}",
@@ -91,7 +88,7 @@ with open(os.path.join(HERE, 'products-prints-preview.csv'), 'w', newline='', en
                    'Variant Price': f"{r['price']:.2f}", 'Variant Requires Shipping': 'TRUE', 'Variant Taxable': 'TRUE'}
             if i == 0:
                 row.update(base_row(r, 'Print'))
-                row.update({'Type': 'Fine Art Print', 'Tags': 'print, earth-song, printify-placeholder', 'Option1 Name': 'Size',
+                row.update({'Type': 'Fine Art Print', 'Tags': 'print, ' + r.get('collection', 'earth-song') + ', printify-placeholder', 'Option1 Name': 'Size',
                             MF('Materials', 'materials'): f'{material}, signed and numbered by the artist.',
                             MF('Edition size', 'edition_size'): edition.group(1) if edition else ''})
             w.writerow(row)

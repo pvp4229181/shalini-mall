@@ -8,6 +8,7 @@ import json
 import math
 import pathlib
 import sys
+import subprocess
 import urllib.error
 import urllib.request
 from PIL import Image
@@ -23,14 +24,8 @@ if SHOP != '29119430':
     raise SystemExit('Expected the Shalini Mall Printify shop.')
 RECEIPT = ROOT / 'shopify-setup' / 'printify-products.json'
 records = json.loads(RECEIPT.read_text()) if RECEIPT.exists() else {}
-ART = [
-    ('quiet-orbit', 'Quiet Orbit', 'quiet-orbit-print'),
-    ('monsoon-memory', 'Monsoon Memory', 'monsoon-memory-print'),
-    ('between-seasons', 'Between Seasons', 'between-seasons'),
-    ('wild-grace', 'Wild Grace', 'wild-grace'),
-    ('earth-song', 'Earth Song', 'earth-song-print'),
-    ('small-hours', 'The Small Hours', 'small-hours'),
-]
+catalog = json.loads(subprocess.check_output(['node', str(ROOT / 'shopify-setup/export-catalog.mjs')], text=True, encoding='utf-8'))
+ART = [p for p in catalog['products'] if p['type'] == 'print']
 VARIANT = 95212
 
 def api(path, data=None, method=None):
@@ -54,14 +49,19 @@ shop = next(s for s in api('shops.json') if str(s['id']) == SHOP)
 if shop['title'] != 'Shalini Mall' or shop['sales_channel'] != 'shopify':
     raise SystemExit('The selected shop must be Shalini Mall connected to Shopify.')
 
-for image_name, title, handle in ART:
+for artwork in ART:
+    title, handle = artwork['title'], artwork['id']
+    image_path = ROOT / artwork['images'][0]['src']
+    image_name = image_path.stem
     record = records.setdefault(handle, {'title': title, 'handle': handle})
+    record['collection'] = artwork['collection']
     if '--publish' not in sys.argv:
         if record.get('publish_requested'):
             print('Already submitted for publishing: ' + title, flush=True)
             continue
         if not record.get('image_id'):
-            with Image.open(ROOT / 'assets' / 'images' / (image_name + '.webp')) as image:
+            master = image_path.with_suffix('.png')
+            with Image.open(master if master.exists() else image_path) as image:
                 buffer = io.BytesIO()
                 image.save(buffer, format='PNG')
             uploaded = api('uploads/images.json', {
@@ -72,11 +72,11 @@ for image_name, title, handle in ART:
         if not record.get('product_id'):
             product = api(f'shops/{SHOP}/products.json', {
                 'title': title + ' — Canvas Print',
-                'description': f'<p>{title} from the Shalini Mall Earth Song collection.</p>'
+                'description': f'<p>{artwork["description"]}</p>'
                     '<p>Art reproduction on matte stretched canvas. Portrait format, '
                     '8 × 10 inches, with a 0.75-inch frame depth. Printed on demand.</p>',
                 'blueprint_id': 937, 'print_provider_id': 105,
-                'tags': ['print', 'earth-song', 'shalini-mall'],
+                'tags': ['print', artwork['collection'], 'shalini-mall'],
                 'visible': False,
                 # Temporary draft-only price, replaced from the returned cost below.
                 'variants': [{'id': VARIANT, 'price': 10000, 'is_enabled': True}],

@@ -16,10 +16,9 @@
   // Primary image plus a closer detail crop that fades in on hover.
   const media = (p, lazy) => {
     const img = p.images[0];
-    const loading = lazy ? ' loading="lazy"' : '';
-    return `<a class="card__image art" href="${SM.url.product(p.id)}" tabindex="-1" aria-hidden="true" style="--crop:${img.crop}">
-      <img src="${img.src}" alt="${esc(SM.altText(p))}"${loading} decoding="async">
-      <img class="card__alt" src="${img.src}" alt=""${loading} decoding="async">
+    return `<a class="card__image art" href="${SM.url.product(p.id)}" tabindex="-1" aria-hidden="true" style="--crop:${img.crop};--art-fit:${img.fit || 'cover'}">
+      ${SM.artImage(img, SM.altText(p), { lazy })}
+      ${SM.artImage(img, '', { lazy, cls: 'card__alt' })}
     </a>`;
   };
 

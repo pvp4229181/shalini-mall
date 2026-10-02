@@ -5,9 +5,11 @@ class ProductSlider extends HTMLElement {
     if (!track || this.controls) return;
     const cards = [...track.children].filter(card => !card.classList.contains('compare-divider'));
     const mobile = matchMedia('(max-width: 768px)');
-    const perView = Number(this.dataset.perView) || 2;
-    const itemLabel = perView === 1 ? 'slide' : 'artworks';
-    if (cards.length <= perView) return;
+    const desktopPerView = Number(this.dataset.perView) || 2;
+    const perView = () => mobile.matches ? Math.min(desktopPerView, 2) : desktopPerView;
+    const enabled = () => mobile.matches || desktopPerView === 4;
+    const itemLabel = desktopPerView === 1 ? 'slide' : 'artworks';
+    if (cards.length <= Math.min(desktopPerView, 2)) return;
 
     this.events = new AbortController();
     const options = { signal: this.events.signal };
@@ -20,8 +22,8 @@ class ProductSlider extends HTMLElement {
     const [prev, next] = controls.querySelectorAll('button');
     const status = controls.querySelector('span');
     const update = () => {
-      track.tabIndex = mobile.matches ? 0 : -1;
-      if (!mobile.matches) {
+      track.tabIndex = enabled() ? 0 : -1;
+      if (!enabled()) {
         track.removeAttribute('aria-roledescription');
         track.scrollLeft = 0;
         return;
@@ -31,7 +33,7 @@ class ProductSlider extends HTMLElement {
       const first = Math.round(track.scrollLeft / (cards[0].getBoundingClientRect().width + gap)) + 1;
       prev.disabled = track.scrollLeft <= 1;
       next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 1;
-      status.textContent = perView === 1 ? `${first} / ${cards.length}` : `${first}\u2013${Math.min(first + perView - 1, cards.length)} / ${cards.length}`;
+      status.textContent = perView() === 1 ? `${first} / ${cards.length}` : `${first}\u2013${Math.min(first + perView() - 1, cards.length)} / ${cards.length}`;
     };
     const move = direction => track.scrollBy({
       left: direction * (track.clientWidth + parseFloat(getComputedStyle(track).columnGap)),
@@ -41,7 +43,7 @@ class ProductSlider extends HTMLElement {
     next.addEventListener('click', () => move(1), options);
     track.addEventListener('scroll', update, { ...options, passive: true });
     track.addEventListener('keydown', event => {
-      if (!mobile.matches || event.target !== track || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+      if (!enabled() || event.target !== track || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
       event.preventDefault();
       move(event.key === 'ArrowRight' ? 1 : -1);
     }, options);

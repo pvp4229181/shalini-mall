@@ -10,7 +10,7 @@
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* Mega menu: opens on hover (with intent delay), click, or keyboard. */
+  /* Mega menu: opens on hover (with intent delay) or keyboard; clicking Shop goes to shop.html. */
   const shopToggle = $('#shopToggle');
   const mega = $('#megaShop');
   let megaTimer;
@@ -23,7 +23,6 @@
   if (shopToggle && mega) {
     mega.inert = true;
     new MutationObserver(() => { mega.inert = !mega.classList.contains('open'); }).observe(mega, { attributes: true, attributeFilter: ['class'] });
-    shopToggle.addEventListener('click', () => setMega(!mega.classList.contains('open')));
     shopToggle.addEventListener('mouseenter', () => megaLater(true, 120));
     mega.addEventListener('mouseenter', () => clearTimeout(megaTimer));
     header.addEventListener('mouseleave', () => megaLater(false, 200));

@@ -72,7 +72,8 @@
             "text": "Unique. One of one. Signed and documented.",
             "meta": "",
             "cta": "Explore",
-            "link": ""
+            "link": "",
+            "caption": "The singular work"
           }
         },
         "prints": {
@@ -85,7 +86,8 @@
             "text": "Matte stretched-canvas editions, signed by the artist.",
             "meta": "",
             "cta": "Explore",
-            "link": ""
+            "link": "",
+            "caption": "The signed edition"
           }
         },
         "collections": {
@@ -98,7 +100,8 @@
             "text": "Series of works shaped by land and memory.",
             "meta": "Earth Song",
             "cta": "Explore",
-            "link": "shopify://collections"
+            "link": "shopify://collections",
+            "caption": "A shared story"
           }
         }
       },
@@ -121,10 +124,11 @@
         "eyebrow": "From the studio · One of one",
         "heading": "Featured originals",
         "link_label": "View all",
-        "limit": 4,
+        "limit": 9,
         "numbered": false,
         "surface": false,
-        "flush_top": true
+        "flush_top": true,
+        "show_themes": true
       }
     },
     "featured-prints": {
@@ -134,9 +138,10 @@
         "eyebrow": "Signed editions",
         "heading": "Featured prints",
         "link_label": "View all",
-        "limit": 4,
+        "limit": 9,
         "numbered": false,
-        "surface": true
+        "surface": true,
+        "show_themes": true
       }
     },
     "collection-story": {
@@ -173,7 +178,7 @@
             "fallback_focus": "center",
             "eyebrow": "The print",
             "heading": "Signed editions",
-            "points": "Matte canvas stretched over a pinewood frame\nSigned and numbered by the artist\nFour Printify sizes, from 8 × 10 to 30 × 40 inches\nCorner-protected, securely boxed, and ready to hang",
+            "points": "Matte canvas stretched over a pinewood frame\nPrinted on demand through Printify\n8 × 10-inch portrait canvas\nCorner-protected, securely boxed, and ready to hang",
             "button": "Shop prints"
           }
         }
@@ -308,11 +313,16 @@
         "question-4",
         "question-5"
       ]
+    },
+    "art-themes": {
+      "type": "art-themes-gallery",
+      "settings": {}
     }
   },
   "order": [
     "hero",
     "art-types",
+    "art-themes",
     "featured-originals",
     "featured-prints",
     "collection-story",

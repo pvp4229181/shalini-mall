@@ -33,6 +33,8 @@
   <header class="page-banner{% if is_tabs %} page-banner--tall{% endif %}">
     {%- if collection.image -%}
       {%- render 'art-image', image: collection.image, focus: focus, alt: '', sizes: '100vw', priority: true -%}
+    {%- elsif is_tabs and collection.products.first.featured_image -%}
+      {%- render 'art-image', image: collection.products.first.featured_image, focus: focus, alt: '', sizes: '100vw', priority: true -%}
     {%- else -%}
       {%- render 'art-image', src: fallback_src, focus: focus, alt: '', priority: true -%}
     {%- endif -%}

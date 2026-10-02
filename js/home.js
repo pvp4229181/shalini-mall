@@ -10,13 +10,21 @@
   const set = (sel, text) => { const el = $(sel); if (el) el.textContent = text; };
   set('[data-count-originals]', `${originals.length} paintings · from ${money(minPrice(originals))}`);
   set('[data-count-prints]', `${prints.length} prints · from ${money(minPrice(prints))}`);
-  set('[data-count-collections]', SM.catalog.collections().map(c => c.title).join(' · '));
   set('[data-price-originals]', `From ${money(minPrice(originals))}`);
   set('[data-price-prints]', `From ${money(minPrice(prints))}`);
 
   const grid = (sel, html) => { const el = $(sel); if (el) el.innerHTML = html; };
-  grid('#featuredOriginals', SM.cards.list(originals.slice(0, 4)));
-  grid('#featuredPrints', SM.cards.list(prints.slice(0, 4)));
+  // One painting per collection, with its matching original and print edition.
+  const featuredCollections = SM.catalog.collections();
+  const featured = type => featuredCollections.map(collection =>
+    SM.catalog.inCollection(collection.id).find(product => product.type === type)
+  ).filter(Boolean);
+  const featuredCards = type => featured(type).map(product => {
+    const collection = SM.catalog.collection(product.collection);
+    return `<div class="featured-work"><a class="featured-work__collection" href="${SM.url.collection(collection.id)}">${esc(collection.title)}</a>${SM.cards.render(product)}</div>`;
+  }).join('');
+  grid('#featuredOriginals', featuredCards('original'));
+  grid('#featuredPrints', featuredCards('print'));
 
   // Collection exhibition: a strip of works from Earth Song, one per artwork title.
   const collection = SM.catalog.collection('earth-song');

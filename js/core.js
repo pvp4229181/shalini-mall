@@ -56,12 +56,20 @@
 
   /* Artwork image. Every artwork image on the site is a crop of a painting;
      `image.crop` is the CSS object-position that frames it. */
+  // Render a viewport onto the uploaded reference without duplicating its raster data.
+  SM.artImage = (image, alt, opts = {}) => {
+    if (image.viewBox) {
+      return `<svg class="art-reference ${opts.cls || ''}" viewBox="${image.viewBox}" role="img" aria-label="${SM.esc(alt)}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><image href="${SM.esc(image.src)}" width="1536" height="1024" /></svg>`;
+    }
+    const loading = opts.lazy !== false && !opts.priority ? ' loading="lazy"' : '';
+    const fetch = opts.priority ? ' fetchpriority="high"' : '';
+    return `<img class="${opts.cls || ''}" src="${SM.esc(image.src)}" alt="${SM.esc(alt)}"${loading}${fetch} decoding="async">`;
+  };
+
   SM.art = (image, alt, opts = {}) => {
     const { lazy = true, cls = '', zoom, priority = false } = opts;
-    const style = `--crop:${image.crop || 'center'}${zoom ? `;--zoom:${zoom}` : ''}`;
-    const loading = lazy && !priority ? ' loading="lazy"' : '';
-    const fetch = priority ? ' fetchpriority="high"' : '';
-    return `<div class="art ${cls}" style="${style}"><img src="${image.src}" alt="${SM.esc(alt)}"${loading}${fetch} decoding="async"></div>`;
+    const style = `--crop:${image.crop || 'center'};--art-fit:${image.fit || 'cover'}${zoom ? `;--zoom:${zoom}` : ''}`;
+    return `<div class="art ${cls}" style="${style}">${SM.artImage(image, alt, { lazy, priority })}</div>`;
   };
 
   /* Focusable elements that are actually visible. */

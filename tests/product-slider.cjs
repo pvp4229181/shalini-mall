@@ -16,15 +16,15 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
       await page.goto(process.env.SITE_URL || 'http://127.0.0.1:8765/index.html');
       await page.evaluate(() => document.fonts.ready);
       if (width > 768) {
-        for (const slider of await page.locator('product-slider').all()) {
+        for (const slider of await page.locator('product-slider[data-per-view="1"]').all()) {
           assert.equal(await slider.locator('.product-slider__controls').isVisible(), false);
           assert.equal(await slider.locator('.product-slider__track').evaluate(e => e.scrollWidth <= e.clientWidth + 1), true);
           assert.equal(await slider.locator('.product-slider__track').getAttribute('tabindex'), '-1');
         }
-        continue;
       }
-      assert.equal(await page.locator('product-slider:not([data-per-view])').count(), 2);
-      for (const slider of await page.locator('product-slider:not([data-per-view])').all()) {
+      const perView = width > 768 ? 4 : 2;
+      assert.equal(await page.locator('product-slider[data-per-view="4"]').count(), 2);
+      for (const slider of await page.locator('product-slider[data-per-view="4"]').all()) {
         const track = slider.locator('.product-slider__track');
         const visibleCards = () => track.evaluate(element => {
           const bounds = element.getBoundingClientRect();
@@ -33,23 +33,22 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
             return rect.left >= bounds.left - 1 && rect.right <= bounds.right + 1;
           }).length;
         });
-        assert.equal(await visibleCards(), 2, `Two cards at ${width}px`);
+        assert.equal(await visibleCards(), perView, `${perView} cards at ${width}px`);
         assert.equal(await slider.getByRole('button', { name: 'Previous artworks' }).isDisabled(), true);
         await slider.getByRole('button', { name: 'Next artworks' }).click();
-        await page.waitForFunction(id => document.getElementById(id).parentElement.querySelector('[aria-label="Next artworks"]').disabled, await track.getAttribute('id'));
-        assert.equal(await visibleCards(), 2);
-        assert.equal(await slider.getByRole('button', { name: 'Next artworks' }).isDisabled(), true);
-        assert.equal(await slider.locator('.product-slider__status').textContent(), '3–4 / 4');
+        await page.waitForFunction(id => document.getElementById(id).scrollLeft > 1, await track.getAttribute('id'));
+        assert.equal(await visibleCards(), perView);
         await track.focus();
         await page.keyboard.press('ArrowLeft');
         await page.waitForFunction(id => document.getElementById(id).scrollLeft < 1, await track.getAttribute('id'));
-        assert.equal(await visibleCards(), 2);
+        assert.equal(await visibleCards(), perView);
         // Native scrolling is the same path used by touch swipes.
         await track.evaluate(element => { element.scrollLeft = element.scrollWidth; });
         await page.waitForFunction(id => document.getElementById(id).parentElement.querySelector('[aria-label="Next artworks"]').disabled, await track.getAttribute('id'));
-        assert.equal(await visibleCards(), 2);
+        assert.equal(await visibleCards(), perView);
       }
       for (const slider of await page.locator('product-slider[data-per-view="1"]').all()) {
+        if (width > 768) continue;
         const track = slider.locator('.product-slider__track');
         const count = await track.locator(':scope > :not(.compare-divider)').count();
         assert.equal(await track.evaluate(e => Math.abs(e.firstElementChild.getBoundingClientRect().width - e.clientWidth) < 1), true);
@@ -74,7 +73,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
     await page.setViewportSize({ width: 375, height: 900 });
     assert.equal(await firstSlider.locator('.product-slider__controls').isVisible(), true);
     assert.deepEqual(errors, []);
-    console.log('PASS: mobile sliders, desktop grids, and resize transitions at 320?1440px.');
+    console.log('PASS: four desktop artworks, two mobile artworks, scrolling, keyboard, and resize transitions at 320–1440px.');
   } finally {
     await browser.close();
   }
