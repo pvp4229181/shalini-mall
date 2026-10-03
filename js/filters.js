@@ -190,7 +190,7 @@
     function render({ focusFrom } = {}) {
       const list = base.filter(p => matches(p)).sort(SORTS[state.sort].fn);
       const visible = list.slice(0, state.shown);
-      grid.innerHTML = SM.cards.list(visible, { numbered: cfg.numbered, headingLevel: cfg.headingLevel });
+      grid.innerHTML = SM.cards.list(visible, { numbered: cfg.numbered, headingLevel: cfg.headingLevel, showPrintLink: cfg.showPrintLink });
       $('[data-result-count]', mount).textContent = plural(list.length);
       $('[data-empty]', mount).hidden = list.length > 0;
 

@@ -9,6 +9,8 @@ class ProductSlider extends HTMLElement {
     const perView = () => mobile.matches ? Math.min(desktopPerView, 2) : desktopPerView;
     const enabled = () => mobile.matches || desktopPerView === 4;
     const itemLabel = desktopPerView === 1 ? 'slide' : 'artworks';
+    const autoplayDelay = Number(this.dataset.autoplay);
+    const autoScroll = autoplayDelay && !matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (cards.length <= Math.min(desktopPerView, 2)) return;
 
     this.events = new AbortController();
@@ -17,9 +19,11 @@ class ProductSlider extends HTMLElement {
     controls.className = 'product-slider__controls';
     controls.innerHTML = `<button type="button" class="icon-btn" aria-label="Previous ${itemLabel}" aria-controls="${track.id}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
       <span class="product-slider__status" aria-live="polite" aria-atomic="true"></span>
-      <button type="button" class="icon-btn" aria-label="Next ${itemLabel}" aria-controls="${track.id}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>`;
+      <button type="button" class="icon-btn" aria-label="Next ${itemLabel}" aria-controls="${track.id}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+      ${autoScroll ? '<button type="button" class="icon-btn product-slider__autoplay" aria-label="Pause automatic scrolling"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7v10M15 7v10"/></svg></button>' : ''}`;
     this.append(controls);
-    const [prev, next] = controls.querySelectorAll('button');
+    const prev = controls.querySelector(`[aria-label^="Previous"]`);
+    const next = controls.querySelector(`[aria-label^="Next"]`);
     const status = controls.querySelector('span');
     const update = () => {
       track.tabIndex = enabled() ? 0 : -1;
@@ -48,6 +52,36 @@ class ProductSlider extends HTMLElement {
       move(event.key === 'ArrowRight' ? 1 : -1);
     }, options);
     mobile.addEventListener('change', update, options);
+
+    if (autoScroll) {
+      let timer;
+      let paused = false;
+      const toggle = controls.querySelector('.product-slider__autoplay');
+      const stop = () => clearInterval(timer);
+      const start = () => {
+        stop();
+        if (paused || document.hidden || this.matches(':hover') || this.contains(document.activeElement)) return;
+        timer = setInterval(() => {
+          const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 1;
+          track.scrollTo({ left: atEnd ? 0 : track.scrollLeft + track.clientWidth + parseFloat(getComputedStyle(track).columnGap), behavior: 'smooth' });
+        }, autoplayDelay);
+      };
+      this.addEventListener('mouseenter', stop, options);
+      this.addEventListener('mouseleave', start, options);
+      this.addEventListener('focusin', stop, options);
+      this.addEventListener('focusout', start, options);
+      this.addEventListener('pointerdown', stop, options);
+      document.addEventListener('visibilitychange', start, options);
+      toggle.addEventListener('click', () => {
+        paused = !paused;
+        toggle.setAttribute('aria-label', paused ? 'Resume automatic scrolling' : 'Pause automatic scrolling');
+        toggle.querySelector('path').setAttribute('d', paused ? 'm9 7 8 5-8 5z' : 'M9 7v10M15 7v10');
+        paused ? stop() : start();
+      }, options);
+      start();
+      options.signal.addEventListener('abort', stop, { once: true });
+    }
+
     this.resizeObserver = new ResizeObserver(update);
     this.resizeObserver.observe(track);
     update();

@@ -24,7 +24,8 @@
 
   function original(p, opts = {}) {
     const url = SM.url.product(p.id);
-    const specs = [p.medium, p.dimensionsLabel, p.year].filter(Boolean).join(' · ');
+    const pairedPrint = opts.showPrintLink ? SM.catalog.counterpart(p) : null;
+    const specs = [p.medium, p.year].filter(Boolean).join(' · ');
     const H = opts.headingLevel || 'h3';
     return `<article class="card card--original" data-product="${p.id}">
       <div class="card__media">
@@ -37,7 +38,8 @@
         ${opts.index ? `<p class="card__index">Nº ${String(opts.index).padStart(2, '0')}</p>` : ''}
         <${H} class="card__title"><a href="${url}">${esc(p.title)}</a></${H}>
         ${specs ? `<p class="card__meta">${esc(specs)}</p>` : ''}
-        <p class="card__price">${money(p.price)}</p>
+        <p class="card__price">${pairedPrint ? 'Original · ' : ''}${money(p.price)}</p>
+        ${pairedPrint ? `<a class="text-link card__print-link" href="${SM.url.product(pairedPrint.id)}">Print · ${SM.catalog.priceLabel(pairedPrint)}</a>` : ''}
         ${opts.wishlist ? `<div class="card__actions">${wishlistActions(p)}</div>` : ''}
       </div>
     </article>`;
@@ -45,7 +47,6 @@
 
   function print(p, opts = {}) {
     const url = SM.url.product(p.id);
-    const sizes = p.options.find(o => o.name === 'Size')?.values || [];
     const H = opts.headingLevel || 'h3';
     const quickAdd = `data-quick-add="${p.id}" aria-label="Quick add ${esc(p.title)}, fine art print"`;
     return `<article class="card card--print" data-product="${p.id}">
@@ -57,7 +58,7 @@
       </div>
       <div class="card__body">
         <${H} class="card__title"><a href="${url}">${esc(p.title)}</a></${H}>
-        ${sizes.length ? `<p class="card__meta">${esc(sizes.join(' · '))}${p.edition ? ` · Edition of ${p.edition}` : ''}</p>` : ''}
+        ${p.edition ? `<p class="card__meta">Edition of ${p.edition}</p>` : ''}
         <p class="card__price">${SM.catalog.priceLabel(p)}</p>
         ${opts.wishlist ? `<div class="card__actions">${wishlistActions(p)}</div>` : `<button type="button" class="text-link card__touch-add" ${quickAdd}>Quick add</button>`}
       </div>

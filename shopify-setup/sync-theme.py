@@ -5,7 +5,7 @@ import json
 root = Path(__file__).resolve().parent.parent
 assets = root / 'shopify-theme/assets'
 theme = (assets / 'theme.css').read_text(encoding='utf-8')
-for name in ['global', 'components', 'footer', 'animations']:
+for name in ['global', 'header', 'components', 'footer', 'animations']:
     marker = f'/* ===== {name}.css ===== */'
     start = theme.index(marker)
     end = theme.find('/* ===== ', start + len(marker))
@@ -22,9 +22,10 @@ if end < 0:
     end = len(home)
 home = (root / 'css/home.css').read_text(encoding='utf-8') + '\n' + home[start:end]
 (assets / 'home.css').write_text(home.rstrip() + '\n', encoding='utf-8')
+for name in ['collections.css', 'editorial.css', 'shop.css']:
+    (assets / name).write_bytes((root / 'css' / name).read_bytes())
 for name in ['product-slider.js']:
     (assets / name).write_bytes((root / 'js' / name).read_bytes())
-(assets / 'collections.css').write_bytes((root / 'css/collections.css').read_bytes())
 template = root / 'shopify-theme/templates/index.json'
 data = json.loads(template.read_text(encoding='utf-8'))
 for key, caption in [('originals', 'The singular work'), ('prints', 'The signed edition'), ('collections', 'A shared story')]:

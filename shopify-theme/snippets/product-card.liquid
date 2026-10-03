@@ -1,7 +1,7 @@
 {%- comment -%}
   Product card (Phase 1 card system).
-  Originals: badge, title, medium · dimensions · year, price, quick view.
-  Prints: badge, title, sizes · edition, "From" price, quick add.
+  Originals: badge, title, medium · year, price, quick view.
+  Prints: badge, title, edition, "From" price, quick add.
 
   Params: card_product (required), index (number for "Nº 01"), wishlist (bool: wishlist page actions), heading (h2/h3)
 {%- endcomment -%}
@@ -24,13 +24,6 @@
   endif
   assign alt_text = p.title | append: ', ' | append: kind | append: ' by ' | append: settings.artist_name
 
-  assign sizes = ''
-  for option in p.options_with_values
-    assign option_name = option.name | downcase
-    if option_name == 'size'
-      assign sizes = option.values | join: ' · '
-    endif
-  endfor
 -%}
 <article class="card card--{% if is_original %}original{% else %}print{% endif %}" data-product="{{ p.handle }}" data-variant-id="{{ first_variant.id }}" data-variant-count="{{ p.variants.size }}">
   <div class="card__media">
@@ -74,16 +67,9 @@
       {%- liquid
         assign specs = ''
         assign medium = p.metafields.custom.medium.value
-        assign dims = p.metafields.custom.dimensions.value
         assign year = p.metafields.custom.year.value
         if medium != blank
           assign specs = medium
-        endif
-        if dims != blank
-          if specs != blank
-            assign specs = specs | append: ' · '
-          endif
-          assign specs = specs | append: dims
         endif
         if year != blank
           if specs != blank
@@ -95,10 +81,9 @@
       {%- if specs != blank -%}<p class="card__meta">{{ specs | escape }}</p>{%- endif -%}
       <p class="card__price">{{ p.price | money }}</p>
     {%- else -%}
-      {%- if sizes != blank -%}
+      {%- if p.metafields.custom.edition_size.value -%}
         <p class="card__meta">
-          {{- sizes | escape -}}
-          {%- if p.metafields.custom.edition_size.value %} · Edition of {{ p.metafields.custom.edition_size.value }}{% endif -%}
+          Edition of {{ p.metafields.custom.edition_size.value }}
         </p>
       {%- endif -%}
       <p class="card__price">

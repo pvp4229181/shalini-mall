@@ -16,11 +16,13 @@
    but does not shrink. */
 .site-header {
   position: sticky; top: 0; z-index: 40; height: var(--header-h);
-  background: var(--color-surface); color: var(--color-text);
+  background: var(--color-surface-glass); color: var(--color-text);
+  backdrop-filter: saturate(150%) blur(18px);
+  -webkit-backdrop-filter: saturate(150%) blur(18px);
   border-bottom: 1px solid var(--color-border);
   transition: box-shadow var(--dur) var(--ease);
 }
-.site-header.scrolled { box-shadow: 0 1px 14px rgba(80, 20, 20, .08); }
+.site-header.scrolled { box-shadow: 0 12px 32px rgba(80, 20, 20, .08); }
 .header-inner {
   height: 100%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px;
   padding-inline: var(--gutter); max-width: calc(var(--container-width) + 2 * 60px); margin-inline: auto;
@@ -38,7 +40,7 @@
 }
 .nav-link::after {
   content: ''; height: 1px; background: currentColor; position: absolute;
-  left: 0; right: 100%; bottom: calc(50% - 14px); transition: right var(--dur) var(--ease);
+  left: 0; right: 100%; bottom: calc(50% - 16px); height: 2px; transition: right var(--dur) var(--ease);
 }
 .nav-link:hover::after, .nav-link[aria-current='page']::after, .nav-link[aria-expanded='true']::after { right: 0; }
 .nav-link svg { width: 14px; height: 14px; transition: transform var(--dur) var(--ease); }
@@ -50,7 +52,8 @@
 /* Mega menu ---------------------------------------------------------------- */
 .mega {
   position: absolute; left: 0; right: 0; top: 100%; z-index: 39;
-  background: var(--color-surface); border-bottom: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, .97); border-bottom: 1px solid var(--color-border);
+  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
   box-shadow: 0 24px 40px -24px rgba(80, 20, 20, .18);
   opacity: 0; visibility: hidden; transform: translateY(-8px);
   transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility 0s var(--dur);
@@ -89,7 +92,8 @@
 .overlay-open .scrim { opacity: 1; visibility: visible; transition-delay: 0s; }
 .panel {
   position: fixed; top: 0; bottom: 0; width: min(460px, 92vw); z-index: 60;
-  background: var(--color-surface); color: var(--color-text);
+  background: rgba(255, 255, 255, .97); color: var(--color-text);
+  box-shadow: var(--shadow-lift);
   display: flex; flex-direction: column; padding: 24px 28px;
   visibility: hidden; transition: transform var(--dur-slow) var(--ease), visibility 0s var(--dur-slow);
 }
@@ -138,7 +142,8 @@
 /* Search panel: drops from the header, results as a compact list */
 .search-overlay {
   position: fixed; top: 0; left: 0; right: 0; z-index: 70; max-height: 100dvh; overflow-y: auto; overscroll-behavior: contain;
-  background: var(--color-surface); padding: 20px var(--gutter) 32px;
+  background: rgba(255, 255, 255, .97); padding: 20px var(--gutter) 32px;
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
   transform: translateY(-105%); visibility: hidden;
   transition: transform var(--dur-slow) var(--ease), visibility 0s var(--dur-slow);
   box-shadow: 0 30px 60px -30px rgba(19, 5, 5, .35);

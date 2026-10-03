@@ -11,9 +11,10 @@
 
   const PAGES = {
     shop: () => SM.listing(mount, {
-      products: SM.catalog.all(),
-      facets: ['type', 'collection', 'availability', 'price', 'dimensions', 'size', 'orientation', 'medium'],
-      priceBuckets: SM.priceBuckets([50, 500])
+      products: SM.catalog.originals(),
+      facets: ['collection', 'availability', 'price', 'dimensions', 'orientation', 'medium'],
+      priceBuckets: SM.priceBuckets([500, 700]),
+      showPrintLink: true
     }),
 
     originals: () => {
@@ -50,9 +51,8 @@
       if (!collection) return renderCollectionIndex();
       renderCollection(collection);
       return SM.listing(mount, {
-        products: SM.catalog.inCollection(collection.id),
-        facets: ['type'],
-        tabs: 'type',
+        products: uniqueWorks(collection),
+        facets: [],
         resultsHeading: `${collection.title} artworks`
       });
     }
@@ -68,19 +68,17 @@
     const collections = SM.catalog.collections();
     const featured = collections.find(c => c.id === 'earth-song') || collections[0];
     const themes = collections.filter(c => c.id !== featured.id);
-    $('#collectionDirectoryCount').textContent = `${collections.length} collections ? Originals & prints`;
+    $('#collectionDirectoryCount').textContent = `${collections.length} collections · Originals & prints`;
     $('#collectionJump').innerHTML = collections.map(c => `<a href="#collection-${esc(c.id)}">${esc(c.title)}</a>`).join('');
     const works = uniqueWorks(featured);
     $('#collectionIndex').innerHTML = `<article class="collections-featured" id="collection-${esc(featured.id)}">
       <a class="collections-featured__art" href="${SM.url.collection(featured.id)}" aria-label="Explore ${esc(featured.title)}">${SM.art(featured.image, featured.title)}<span>From the studio</span></a>
-      <div class="collections-featured__copy"><p class="eyebrow">Featured collection / 01</p><h2>${esc(featured.title)}</h2><p class="collections-featured__line">${esc(featured.heading)}</p><p>${esc(featured.story)}</p><p class="collection-tile__meta">${works.length} paintings ? Originals & prints</p><a class="text-link" href="${SM.url.collection(featured.id)}">Explore Earth Song ${icon('arrow')}</a></div>
+      <div class="collections-featured__copy"><p class="eyebrow">Featured collection / 01</p><h2>${esc(featured.title)}</h2><p class="collections-featured__line">${esc(featured.heading)}</p><p>${esc(featured.story)}</p><p class="collection-tile__meta">${works.length} paintings · Originals & prints</p><a class="text-link" href="${SM.url.collection(featured.id)}">Explore Earth Song ${icon('arrow')}</a></div>
     </article><div class="collections-grid">${themes.map((c,i) => {
       const paintings = uniqueWorks(c);
       return `<article class="collection-tile" id="collection-${esc(c.id)}">
         <a class="collection-tile__art" href="${SM.url.collection(c.id)}" aria-label="Explore ${esc(c.title)}"><span class="collection-tile__number">${String(i+2).padStart(2,'0')}</span>${paintings.slice(0,2).map(p => SM.art(p.images[0], p.title)).join('')}</a>
         <div class="collection-tile__heading"><h3><a href="${SM.url.collection(c.id)}">${esc(c.title)}</a></h3><a class="collection-tile__arrow" href="${SM.url.collection(c.id)}" aria-label="Explore ${esc(c.title)}">${icon('arrow')}</a></div>
-        <p>${esc(c.intro)}</p><p class="collection-tile__meta">${paintings.length} paintings ? Originals & prints</p>
-        <div class="collection-tile__links"><a href="originals.html?collection=${encodeURIComponent(c.id)}">Shop originals</a><a href="prints.html?collection=${encodeURIComponent(c.id)}">Shop prints</a></div>
       </article>`;
     }).join('')}</div>`;
   }
@@ -100,7 +98,7 @@
     $('#collectionHero').innerHTML = `<div class="collection-detail-hero__copy">
         <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li><a href="collections.html">Collections</a></li><li aria-current="page">${esc(c.title)}</li></ol></nav>
         <p class="eyebrow">${esc(c.eyebrow)}</p><h1>${esc(c.title)}</h1><p>${esc(c.intro)}</p>
-        <p class="collection-tile__meta">${paintings.length} paintings ? ${works.filter(p => p.type === 'original').length} originals ? ${works.filter(p => p.type === 'print').length} prints</p>
+        <p class="collection-tile__meta">${paintings.length} paintings · ${works.filter(p => p.type === 'original').length} originals · ${works.filter(p => p.type === 'print').length} prints</p>
         <a class="button dark" href="#works">Explore the artwork ${icon('arrow')}</a><a class="text-link" href="collections.html">Back to all collections</a>
       </div><div class="collection-detail-hero__art">${paintings.slice(0,2).map(p => SM.art(p.images[0], p.title, { lazy: false, priority: true })).join('')}</div>`;
     $('#collectionStory').innerHTML = `<div><p class="eyebrow">The story</p><h2>${esc(c.heading)}</h2></div>

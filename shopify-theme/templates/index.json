@@ -69,11 +69,12 @@
             "fallback_image": "earth-song",
             "fallback_focus": "center",
             "title": "Original art",
-            "text": "Unique. One of one. Signed and documented.",
+            "show_details": false,
+            "text": "",
             "meta": "",
             "cta": "Explore",
             "link": "",
-            "caption": "The singular work"
+            "caption": ""
           }
         },
         "prints": {
@@ -111,7 +112,6 @@
         "collections"
       ],
       "settings": {
-        "eyebrow": "Collect what moves you",
         "heading": "Shop by art type",
         "link_label": "Shop all artwork",
         "link": "shopify://collections/all"

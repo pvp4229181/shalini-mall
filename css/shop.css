@@ -38,6 +38,8 @@
   position: relative; display: grid; place-items: center; text-align: center; overflow: hidden;
   min-height: clamp(260px, 26vw, 360px); padding: 48px var(--gutter); background: var(--color-text); color: var(--color-on-dark);
 }
+.page-banner > .art img { transition: transform 1.4s var(--ease); }
+.page-banner:hover > .art img { transform: scale(1.025); }
 .page-banner > .art { position: absolute; inset: 0; background: none; }
 .page-banner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(19, 5, 5, .55), rgba(19, 5, 5, .35)); }
 .page-banner__copy { position: relative; z-index: 1; max-width: 760px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
@@ -94,10 +96,16 @@
 .active-filters:empty { display: none; }
 .chip {
   display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 6px 12px;
-  border: 1px solid var(--color-border-strong); border-radius: 18px; background: var(--color-surface); font-size: 15px;
+  border: 1px solid var(--color-border-strong); border-radius: 999px; background: var(--color-surface); font-size: 15px;
+  box-shadow: var(--shadow-xs); transition: border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
 }
 .chip svg { width: 14px; height: 14px; }
-.chip:hover { border-color: var(--color-text); }
+.chip:hover { border-color: var(--color-text); transform: translateY(-1px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-banner > .art img, .chip { transition: none; }
+  .page-banner:hover > .art img, .chip:hover { transform: none; }
+}
 
 .load-more { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: clamp(48px, 6vw, 80px); }
 .load-more p { margin: 0; font-size: 15px; color: var(--color-muted); }
